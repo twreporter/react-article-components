@@ -5,5 +5,17 @@
   "main": "index.js",
   "repository": "https://github.com/twreporter/react-article-components.git",
   "author": "twreporter <developer@twreporter.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "make build",
+    "publish": "make publish"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-inline-react-svg": "^1.0.1",
+    "rimraf": "^2.6.3"
+  }
 }
