@@ -11,6 +11,12 @@ module.exports = {
     ],
   ],
   plugins: [
+    [
+      'babel-plugin-styled-components',
+      {
+        pure: true,
+      },
+    ],
     '@babel/plugin-proposal-class-properties',
     [
       'inline-react-svg',
