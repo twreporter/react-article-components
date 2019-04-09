@@ -2,11 +2,12 @@ BIN_DIR ?= node_modules/.bin
 P="\\033[32m[+]\\033[0m"
 
 help:
-	@echo "\033[33mmake dev\033[0m - start dev servers"
-	@echo "\033[33mmake build\033[0m - build distribution package files"
+	@echo "\033[33mmake lint\033[0m - Run prettier and eslint"
+	@echo "\033[33mmake prettier\033[0m - Run prettier"
+	@echo "\033[33mmake build\033[0m - Build distribution package files"
+	@echo "\033[33mmake publish\033[0m - Publish the package to npm"
 
-# build webpacks client side needed
-build: clean 
+build: clean lint
 	@echo "Check dependencies of the project"
 	yarn
 	@echo "$(P) Build distribution package files"
@@ -19,4 +20,12 @@ clean:
 publish: build
 	npm publish
 
-.PHONY: help build
+prettier:
+	@echo $(P) Run prettier
+	$(BIN_DIR)/prettier --write "**/*.{js,json,css,md,html,htm}"
+
+lint: prettier
+	@echo $(P) Run eslint
+	$(BIN_DIR)/eslint --fix "**/*.js"
+ 
+.PHONY: build clean lint prettier
