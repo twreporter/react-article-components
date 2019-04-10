@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "make build",
-    "publish": "make publish"
+    "dev": "make dev",
+    "lint": "make lint"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
