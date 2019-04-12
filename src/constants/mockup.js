@@ -16,4 +16,18 @@ export default {
       height: 914,
     },
   },
+  baseContent: {
+    mobile: {
+      width: 0,
+    },
+    tablet: {
+      width: 0,
+    },
+    desktop: {
+      width: 480,
+    },
+    hd: {
+      width: 580,
+    },
+  },
 }
