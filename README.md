@@ -1,38 +1,51 @@
-### What is this?
-[TW Reporter Article Page React Components Package](https://www.npmjs.com/package/twreporter-react-article-components)
+# twreporter-react-components
 
-### Why do we this?
+## What is this
+
+The React components of articles at [The Reporter Taiwan](https://www.twreporter.org).
+
+Published as an [npm package](https://www.npmjs.com/package/@twreporter/react-article-components).
+
+## Why do we this
+
 This is built for [twreporter-react](https://github.com/twreporter/twreporter-react) and [Editorial Tool](https://github.com/twreporter/keystone) (you can build the editorial tool using [Plate](https://github.com/twreporter/plate)).
 These Article React Components will be used on Article Page and Editorial Tool.
 
-### How to build this?
-```
-  // build the js and css
-  // js and css will be built in ./lib/
-  npm run build
-  npm login
-  // upgrade version
-  npm version patch
-  npm publish
-```
-### How to install this?
-```
-  npm i react-article-components --save
+## How to install this
+
+```bash
+yarn add @twreporter/react-article-components
 ```
 
-### How to use this?
-```
-// es5
-var Components = require('react-article-components/lib/main');
+## How to use this
 
+```javascript
 // es6
-import * as Components from 'react-article-components/lib/main'
+import Article from '@twreporter/react-article-components'
 
-// a piece of code in React Component render function
-  return (
-    <Components.Introduction
-      data={introData}
-    />
-  )
+const Page = ({ record }) => <Article post={record} />
+```
 
+## How to develop this
+
+We use `webpack-dev-server` to render a mock article with all elements for development.
+
+```bash
+# Start the webpack-dev-server
+make dev
+```
+
+## How to build this
+
+```bash
+# Build the distribution files
+make build
+```
+
+We use [Prettier](https://prettier.io/) to take care of code format and use [ESlint with JavaScript Standard Style](https://github.com/standard/eslint-config-standard) for code-quality rules. It will run `prettier` and `eslint` on pre-build and pre-commit hooks.
+
+You can also run `prettier` and `eslint` with:
+
+```bash
+make lint
 ```
