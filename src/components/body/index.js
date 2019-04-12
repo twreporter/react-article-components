@@ -1,7 +1,9 @@
 import BlockQuote from './block-quote'
+import Brief from './brief'
 import InfoBox from './info-box'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+// import predefinedPropTypes from '../../constants/prop-types'
 // lodash
 import map from 'lodash/map'
 
@@ -52,10 +54,12 @@ function getElementComponent(type) {
 
 export default class Body extends PureComponent {
   static propTypes = {
+    brief: PropTypes.arrayOf(PropTypes.object),
     content: PropTypes.arrayOf(PropTypes.object),
   }
 
   static defaultProps = {
+    brief: [],
     content: [],
   }
 
@@ -66,10 +70,15 @@ export default class Body extends PureComponent {
   }
 
   render() {
-    const { content } = this.props
+    const { brief, content } = this.props
     const contentJsx = Array.isArray(content)
       ? _.map(content, this._buildContentElement)
       : null
-    return <div>{contentJsx}</div>
+    return (
+      <div>
+        <Brief data={brief} />
+        {contentJsx}
+      </div>
+    )
   }
 }
