@@ -102,8 +102,13 @@
   "categories": [
     {
       "id": "57175d923970a5e46ff854db",
-      "sort_order": 0,
+      "sort_order": 2,
       "name": "文化．藝術"
+    },
+    {
+      "id": "5caeaa1276950d1900d6a4f6",
+      "sort_order": 9,
+      "name": "戲裡戲外"
     }
   ],
   "style": "article:fullscreen:dark",
@@ -195,7 +200,7 @@
       "name": "林珍娜"
     }
   ],
-  "extend_byline": "",
+  "extend_byline": "封面攝影 AP Images／Daniel Reinhardt／達志影像2019.4.7",
   "content": {
     "api_data": [
       {
