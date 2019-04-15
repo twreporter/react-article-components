@@ -19,6 +19,7 @@ ReactDOM.render(
       caption: '#494949',
       infoboxContent: '#494949',
       infoboxTitle: '#494949',
+      infoboxBackground: '#f4f4f4',
       line: '#70f197',
       link: '#55e07f',
       metadataDefault: '#808080',

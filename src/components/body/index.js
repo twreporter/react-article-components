@@ -1,6 +1,6 @@
 import BlockQuote from './block-quote'
 import Brief from './brief'
-import InfoBox from './info-box'
+import Infobox from './infobox'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -36,7 +36,7 @@ function getElementComponent(type) {
     case 'imagediff':
       return null
     case 'infobox':
-      return InfoBox
+      return Infobox
     case 'ordered-list-item':
       return null
     case 'unordered-list-item':
