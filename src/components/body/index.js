@@ -1,9 +1,9 @@
 import BlockQuote from './block-quote'
 import Brief from './brief'
 import InfoBox from './info-box'
+import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-// import predefinedPropTypes from '../../constants/prop-types'
 // lodash
 import map from 'lodash/map'
 
@@ -54,8 +54,8 @@ function getElementComponent(type) {
 
 export default class Body extends PureComponent {
   static propTypes = {
-    brief: PropTypes.arrayOf(PropTypes.object),
-    content: PropTypes.arrayOf(PropTypes.object),
+    brief: PropTypes.arrayOf(predefinedPropTypes.elementData),
+    content: PropTypes.arrayOf(predefinedPropTypes.elementData),
   }
 
   static defaultProps = {

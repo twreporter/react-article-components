@@ -1,8 +1,10 @@
+import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
-// import PropTypes from 'prop-types'
 
 export default class BlockQuote extends PureComponent {
-  static propTypes = {}
+  static propTypes = {
+    data: predefinedPropTypes.elementData.isRequired,
+  }
 
   render() {
     return <div />

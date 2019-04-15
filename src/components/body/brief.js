@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import mq from '../../utils/media-query'
+import predefinedPropTypes from '../../constants/prop-types'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import styled from 'styled-components'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -82,7 +83,7 @@ const curve = (
 
 export default class Brief extends PureComponent {
   static propTypes = {
-    data: PropTypes.arrayOf(Object),
+    data: PropTypes.arrayOf(predefinedPropTypes.elementData),
   }
 
   static defaultProps = {
