@@ -1,4 +1,5 @@
 import Blockquote from './blockquote'
+import Annotation from './annotation'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Infobox from './infobox'
@@ -16,7 +17,7 @@ const _ = {
 function getElementComponent(type) {
   switch (type) {
     case 'annotation':
-      return null
+      return Annotation
     case 'audio':
       return null
     case 'centered-quote':

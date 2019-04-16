@@ -14,6 +14,7 @@ ReactDOM.render(
       topicName: '#7e33f6',
       // body
       annotation: '#55e07f',
+      annotationBackground: '#f4f4f4',
       centeredQuote: '#494949',
       centeredQutoteBy: '#494949',
       caption: '#494949',

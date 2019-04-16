@@ -1,0 +1,204 @@
+import mq from '../../utils/media-query'
+import predefinedPropTypes from '../../constants/prop-types'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import styled, { keyframes } from 'styled-components'
+import styles from '../../constants/css'
+import typography from '../../constants/typography'
+// lodash
+import get from 'lodash/get'
+
+const _ = {
+  get,
+}
+
+const slideDownAndFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-1.2em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+const Container = styled.div`
+  ${styles.paragraphText}
+  ${styles.linkChildren}
+  margin: 2.62em auto 2.62em auto;
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  ${mq.desktopOnly`
+    width: 480px;
+  `}
+  ${mq.hdOnly`
+    width: 580px;
+  `}
+`
+
+const AnnotationContainer = styled.abbr`
+  margin: 0;
+  text-decoration: none;
+  border-bottom: 0;
+`
+
+const AnnotatedText = styled.span`
+  cursor: pointer;
+  color: ${props => props.theme.elementColors.annotation};
+`
+
+const Indicator = styled.span`
+  /* circle */
+  margin-left: 3px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 1px solid ${props => props.theme.elementColors.annotation};
+  position: relative;
+  top: -1px;
+  /* arrow */
+  &::after {
+    content: '';
+    width: 2px;
+    height: 7px;
+    top: 5px;
+    left: 6px;
+    transform: rotate(${props => (props.isExpanded ? '45deg' : '-45deg')});
+    background: ${props => props.theme.elementColors.annotation};
+    display: block;
+    position: absolute;
+    transition: transform 200ms ease;
+  }
+  &::before {
+    content: '';
+    width: 2px;
+    height: 7px;
+    top: 5px;
+    right: 6px;
+    transform: rotate(${props => (props.isExpanded ? '-45deg' : '45deg')});
+    background: ${props => props.theme.elementColors.annotation};
+    display: block;
+    position: absolute;
+    transition: transform 200ms ease;
+  }
+`
+
+const AnnotationContent = styled.div`
+  display: ${props => (props.isExpanded ? 'block' : 'none')};
+  background: ${props => props.theme.elementColors.annotationBackground};
+  font-size: 16px;
+  line-height: 1.43;
+  letter-spacing: 0.5px;
+  font-weight: ${typography.font.weight.light};
+  border-top: 2px solid ${props => props.theme.elementColors.line};
+  padding: 25px 11px;
+  animation: ${slideDownAndFadeIn} 300ms ease;
+`
+
+class Annotation extends PureComponent {
+  static propTypes = {
+    annotation: PropTypes.string,
+    pureAnnotationText: PropTypes.string,
+    text: PropTypes.string,
+  }
+
+  static defaultProps = {
+    annotation: '',
+    pureAnnotationText: '',
+    text: '',
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      isExpanded: false,
+    }
+    this.toggleExpend = this._toggleExpend.bind(this)
+  }
+
+  _toggleExpend(e) {
+    e.preventDefault()
+    this.setState({
+      isExpanded: !this.state.isExpanded,
+    })
+  }
+
+  render() {
+    const { annotation, pureAnnotationText, text } = this.props
+    const { isExpanded } = this.state
+    return (
+      <AnnotationContainer title={pureAnnotationText}>
+        <AnnotatedText onClick={this.toggleExpend}>
+          {text}
+          <Indicator isExpanded={isExpanded} />
+        </AnnotatedText>
+        <AnnotationContent
+          dangerouslySetInnerHTML={{ __html: annotation }}
+          isExpanded={isExpanded}
+        />
+      </AnnotationContainer>
+    )
+  }
+}
+
+class AnnotationParagraph extends PureComponent {
+  static propTypes = {
+    data: predefinedPropTypes.elementData,
+  }
+  render() {
+    const { data } = this.props
+    let html = _.get(data, ['content', 0])
+    if (!html) return null
+    // annotation data will be in the comment with prefix __ANNOTATION__=
+    let re = /<!--__ANNOTATION__=(.+?)-->/
+    const sections = []
+    let result
+    do {
+      result = re.exec(html)
+      if (result) {
+        const fullStringMatched = result[0]
+        const annotationJsonString = result[1]
+        const textBeforeAnnotation = html.substring(0, result.index)
+        try {
+          const annotationObj = JSON.parse(annotationJsonString)
+          const currentIndex = sections.length
+          sections.push(
+            <span
+              key={currentIndex}
+              dangerouslySetInnerHTML={{ __html: textBeforeAnnotation }}
+            />,
+            <Annotation key={'annotation ' + currentIndex} {...annotationObj} />
+          )
+          html = html.substr(result.index + fullStringMatched.length)
+        } catch (e) {
+          console.warn(
+            'An error occured when parsing annotation object from content:',
+            e,
+            '\nThe annotation json string:',
+            annotationJsonString
+          ) // eslint-disable-line no-console
+        }
+      }
+    } while (result)
+
+    if (html) {
+      sections.push(
+        <span
+          key={sections.length}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )
+    }
+
+    return <Container>{sections}</Container>
+  }
+}
+
+export default AnnotationParagraph
