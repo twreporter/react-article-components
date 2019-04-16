@@ -14,8 +14,8 @@ ReactDOM.render(
       topicName: '#7e33f6',
       // body
       annotation: '#55e07f',
-      blockQuote: '#494949',
-      blockQuoteBy: '#494949',
+      centeredQuote: '#494949',
+      centeredQutoteBy: '#494949',
       caption: '#494949',
       infoboxContent: '#494949',
       infoboxTitle: '#494949',
@@ -26,7 +26,7 @@ ReactDOM.render(
       metadataPrimary: '#55e07f',
       metadataSecodary: '#55e07f',
       paragraph: '#494949',
-      quote: '#838383',
+      blockquote: '#838383',
       sectionSubtitle: '#494949',
       sectionTitle: '#494949',
     }}

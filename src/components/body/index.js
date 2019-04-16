@@ -1,5 +1,6 @@
-import BlockQuote from './block-quote'
+import Blockquote from './blockquote'
 import Brief from './brief'
+import CenteredQuote from './centered-quote'
 import Infobox from './infobox'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
@@ -17,8 +18,10 @@ function getElementComponent(type) {
       return null
     case 'audio':
       return null
+    case 'centered-quote':
+      return CenteredQuote
     case 'blockquote':
-      return BlockQuote
+      return Blockquote
     case 'quoteby':
       return null
     case 'header-one':
