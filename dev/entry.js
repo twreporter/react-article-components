@@ -27,6 +27,7 @@ ReactDOM.render(
       metadataSecodary: '#55e07f',
       paragraph: '#494949',
       blockquote: '#838383',
+      blockquoteBorder: '#d8d8d8',
       sectionSubtitle: '#494949',
       sectionTitle: '#494949',
     }}
