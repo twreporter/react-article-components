@@ -2,6 +2,7 @@ import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Infobox from './infobox'
+import Paragraph from './paragraph'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -45,7 +46,7 @@ function getElementComponent(type) {
     case 'unordered-list-item':
       return null
     case 'unstyled':
-      return null
+      return Paragraph
     case 'slideshow':
       return null
     case 'youtube':
