@@ -2,6 +2,7 @@ import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import styles from '../../constants/css'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -46,11 +47,7 @@ const QuoteBy = styled.cite`
   letter-spacing: 0.5px;
   text-align: center;
   color: ${props => props.theme.elementColors.centeredQuoteBy};
-  a:link,
-  a:visited,
-  a:active {
-    color: ${props => props.theme.elementColors.link};
-  }
+  ${styles.linkChildren}
 `
 
 const VerticalLine = styled.div`

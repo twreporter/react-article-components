@@ -3,6 +3,7 @@ import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import styles from '../../constants/css'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -43,11 +44,7 @@ const Content = styled.div`
       margin: 0;
     }
   }
-  a:link,
-  a:visited,
-  a:active {
-    color: ${props => props.theme.elementColors.link};
-  }
+  ${styles.linkChildren}
 `
 
 const Separation = styled.div`
