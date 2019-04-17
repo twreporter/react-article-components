@@ -1,5 +1,10 @@
-import BlockQuote from './block-quote'
-import InfoBox from './info-box'
+import Blockquote from './blockquote'
+import Annotation from './annotation'
+import Brief from './brief'
+import CenteredQuote from './centered-quote'
+import Infobox from './infobox'
+import Paragraph from './paragraph'
+import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 // lodash
@@ -12,11 +17,13 @@ const _ = {
 function getElementComponent(type) {
   switch (type) {
     case 'annotation':
-      return null
+      return Annotation
     case 'audio':
       return null
+    case 'centered-quote':
+      return CenteredQuote
     case 'blockquote':
-      return BlockQuote
+      return Blockquote
     case 'quoteby':
       return null
     case 'header-one':
@@ -34,13 +41,13 @@ function getElementComponent(type) {
     case 'imagediff':
       return null
     case 'infobox':
-      return InfoBox
+      return Infobox
     case 'ordered-list-item':
       return null
     case 'unordered-list-item':
       return null
     case 'unstyled':
-      return null
+      return Paragraph
     case 'slideshow':
       return null
     case 'youtube':
@@ -52,10 +59,12 @@ function getElementComponent(type) {
 
 export default class Body extends PureComponent {
   static propTypes = {
-    content: PropTypes.arrayOf(PropTypes.object),
+    brief: PropTypes.arrayOf(predefinedPropTypes.elementData),
+    content: PropTypes.arrayOf(predefinedPropTypes.elementData),
   }
 
   static defaultProps = {
+    brief: [],
     content: [],
   }
 
@@ -66,10 +75,15 @@ export default class Body extends PureComponent {
   }
 
   render() {
-    const { content } = this.props
+    const { brief, content } = this.props
     const contentJsx = Array.isArray(content)
       ? _.map(content, this._buildContentElement)
       : null
-    return <div>{contentJsx}</div>
+    return (
+      <div>
+        <Brief data={brief} />
+        {contentJsx}
+      </div>
+    )
   }
 }
