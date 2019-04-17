@@ -11,7 +11,7 @@ const _ = {
 }
 
 const Title = styled.div`
-  color: ${props => props.theme.elementColors.infoboxTitle};
+  color: ${props => props.theme.colors.base.text};
   line-height: 1.9;
   letter-spacing: 0.7px;
   font-weight: ${typography.font.weight.bold};
@@ -26,7 +26,7 @@ const Title = styled.div`
 `
 
 const Content = styled.div`
-  color: ${props => props.theme.elementColors.infoboxContent};
+  color: ${props => props.theme.colors.base.text};
   line-height: 1.75;
   letter-spacing: 0.5px;
   font-weight: ${typography.font.weight.light};
@@ -41,7 +41,7 @@ const Content = styled.div`
 `
 
 const Container = styled.div`
-  background: ${props => props.theme.elementColors.infoboxBackground};
+  background: ${props => props.theme.colors.base.shape};
   position: relative;
   margin: 60px auto;
   ${mq.desktopAndAbove`
@@ -65,7 +65,7 @@ const Container = styled.div`
     position: absolute;
     right: -15px;
     top: 28px;
-    background: ${props => props.theme.elementColors.line};
+    background: ${props => props.theme.colors.primary.line};
   }
   &::after {
     /*
@@ -81,7 +81,7 @@ const Container = styled.div`
     position: absolute;
     left: -6px;
     bottom: 22px;
-    background: ${props => props.theme.elementColors.line};
+    background: ${props => props.theme.colors.primary.line};
   }
 `
 

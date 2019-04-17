@@ -33,7 +33,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   p {
-    color: ${props => props.theme.elementColors.paragraph};
+    color: ${props => props.theme.colors.base.text};
     line-height: 1.73;
     letter-spacing: 0.7px;
     font-weight: ${typography.font.weight.light};
@@ -58,7 +58,7 @@ const Separation = styled.div`
     width: 270px;
   `}
   >svg>path {
-    fill: ${props => props.theme.elementColors.line};
+    fill: ${props => props.theme.colors.primary.line};
   }
 `
 

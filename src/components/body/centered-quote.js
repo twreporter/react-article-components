@@ -28,7 +28,7 @@ const QuoteContent = styled.blockquote`
   line-height: 1.56;
   letter-spacing: 1.1px;
   text-align: center;
-  color: ${props => props.theme.elementColors.centeredQuote};
+  color: ${props => props.theme.colors.base.text};
 `
 
 const QuoteBy = styled.cite`
@@ -46,14 +46,14 @@ const QuoteBy = styled.cite`
   line-height: 1.56;
   letter-spacing: 0.5px;
   text-align: center;
-  color: ${props => props.theme.elementColors.centeredQuoteBy};
+  color: ${props => props.theme.colors.base.text};
   ${styles.linkChildren}
 `
 
 const VerticalLine = styled.div`
   width: 2px;
   height: 80px;
-  background: ${props => props.theme.elementColors.line};
+  background: ${props => props.theme.colors.primary.line};
   margin: 0 auto 40px auto;
 `
 

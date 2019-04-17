@@ -6,14 +6,14 @@ const paragraphText = css`
   font-weight: ${typography.font.weight.light};
   line-height: 2.11;
   letter-spacing: 0.6px;
-  color: ${props => props.theme.elementColors.paragraph};
+  color: ${props => props.theme.colors.base.text};
 `
 
 const linkChildren = css`
   a:link,
   a:visited,
   a:active {
-    color: ${props => props.theme.elementColors.link};
+    color: ${props => props.theme.colors.primary.text};
   }
 `
 

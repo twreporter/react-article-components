@@ -13,10 +13,10 @@ const _ = {
 const Quote = styled.blockquote`
   line-height: 2.11;
   letter-spacing: 0.6px;
-  color: ${props => props.theme.elementColors.blockquote};
+  color: ${props => props.theme.colors.base.lightText};
   font-size: 18px;
   font-weight: ${typography.font.weight.light};
-  border-left: 2px solid ${props => props.theme.elementColors.blockquoteBorder};
+  border-left: 2px solid ${props => props.theme.colors.base.line};
   margin: 40px auto;
   padding-left: 20px;
   ${mq.desktopOnly`

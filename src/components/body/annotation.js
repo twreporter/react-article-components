@@ -49,7 +49,7 @@ const AnnotationContainer = styled.abbr`
 
 const AnnotatedText = styled.span`
   cursor: pointer;
-  color: ${props => props.theme.elementColors.annotation};
+  color: ${props => props.theme.colors.annotation};
 `
 
 const Indicator = styled.span`
@@ -60,7 +60,7 @@ const Indicator = styled.span`
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  border: 1px solid ${props => props.theme.elementColors.annotation};
+  border: 1px solid ${props => props.theme.colors.primary.text};
   position: relative;
   top: -1px;
   /* arrow */
@@ -71,7 +71,7 @@ const Indicator = styled.span`
     top: 5px;
     left: 6px;
     transform: rotate(${props => (props.isExpanded ? '45deg' : '-45deg')});
-    background: ${props => props.theme.elementColors.annotation};
+    background: ${props => props.theme.colors.primary.text};
     display: block;
     position: absolute;
     transition: transform 200ms ease;
@@ -83,7 +83,7 @@ const Indicator = styled.span`
     top: 5px;
     right: 6px;
     transform: rotate(${props => (props.isExpanded ? '-45deg' : '45deg')});
-    background: ${props => props.theme.elementColors.annotation};
+    background: ${props => props.theme.colors.primary.text};
     display: block;
     position: absolute;
     transition: transform 200ms ease;
@@ -92,12 +92,12 @@ const Indicator = styled.span`
 
 const AnnotationContent = styled.div`
   display: ${props => (props.isExpanded ? 'block' : 'none')};
-  background: ${props => props.theme.elementColors.annotationBackground};
+  background: ${props => props.theme.colors.base.shape};
   font-size: 16px;
   line-height: 1.43;
   letter-spacing: 0.5px;
   font-weight: ${typography.font.weight.light};
-  border-top: 2px solid ${props => props.theme.elementColors.line};
+  border-top: 2px solid ${props => props.theme.colors.primary.line};
   padding: 25px 11px;
   animation: ${slideDownAndFadeIn} 300ms ease;
 `
