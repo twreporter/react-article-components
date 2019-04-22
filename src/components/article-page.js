@@ -2,6 +2,7 @@ import { ThemeProvider } from 'styled-components'
 import Body from './body'
 import get from 'lodash/get'
 import LeadingBlock from './leading-block'
+import Metadata from './metadata'
 import predefinedPropTypes from '../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -48,6 +49,15 @@ export default class Article extends PureComponent {
           <Body
             brief={_.get(post, 'brief.api_data')}
             content={_.get(post, 'content.api_data')}
+          />
+          <Metadata
+            categories={post.categories}
+            designers={post.designers}
+            photographers={post.photographers}
+            tags={post.tags}
+            writers={post.writters}
+            engineers={post.engineers}
+            rawAutherText={post.extend_byline}
           />
         </div>
       </ThemeProvider>
