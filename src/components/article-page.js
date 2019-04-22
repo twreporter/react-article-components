@@ -37,7 +37,7 @@ const defaultColors = {
     shape: '#73fa9c',
   },
   secondary: {
-    text: '#7e33f6',
+    text: '#2440fb',
   },
   base: {
     text: '#494949',
@@ -60,8 +60,6 @@ const BackgroundBlock = styled(BorderBox)`
   padding-left: 10px;
   padding-right: 10px;
 `
-
-const HeaderBlock = styled.div``
 
 const HorizontalCentered = styled.div`
   margin: 0 auto;
@@ -203,9 +201,12 @@ export default class Article extends PureComponent {
         }}
       >
         <BackgroundBlock>
-          <HeaderBlock>
-            <LeadingBlock />
-          </HeaderBlock>
+          <LeadingBlock
+            title={post.title}
+            subtitle={post.subtitle}
+            topicName={_.get(post, 'topics.topic_name', '')}
+            poster={post.hero_image}
+          />
           <BodyBackground>
             <BodyBlock columns={5}>
               <AsideBlock columns={1}>
