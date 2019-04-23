@@ -61,6 +61,8 @@ export default class Body extends PureComponent {
   static propTypes = {
     brief: PropTypes.arrayOf(predefinedPropTypes.elementData),
     content: PropTypes.arrayOf(predefinedPropTypes.elementData),
+    renderBrief: PropTypes.func.isRequired,
+    renderElement: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -69,9 +71,9 @@ export default class Body extends PureComponent {
   }
 
   _buildContentElement = data => {
-    const Component = getElementComponent(data.type)
-    if (!Component) return null
-    return <Component key={data.id} data={data} />
+    const Ele = getElementComponent(data.type)
+    if (!Ele) return null
+    return this.props.renderElement(Ele, data)
   }
 
   render() {
@@ -81,7 +83,7 @@ export default class Body extends PureComponent {
       : null
     return (
       <div>
-        <Brief data={brief} />
+        {this.props.renderBrief(Brief, brief)}
         {contentJsx}
       </div>
     )
