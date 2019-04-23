@@ -1,15 +1,25 @@
 import Aside from './aside'
 import Body from './body'
-import get from 'lodash/get'
 import LeadingBlock from './leading-block'
 import predefinedPropTypes from '../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import get from 'lodash/get'
 import merge from 'lodash/merge'
+import styled, { ThemeProvider } from 'styled-components'
 
 const _ = {
   get,
   merge,
+}
+
+const mockup = {
+  desktop: {
+    column: {
+      width: 188, // px
+      paddingRight: 4, // px
+    },
+  },
 }
 
 const defaultColors = {
@@ -45,48 +55,43 @@ const BackgroundBlock = styled(BorderBox)`
 
 const HeaderBlock = styled.div``
 
-const BodyBlock = styled.div`
-  width: 100%;
-  background-color: #fff;
-`
-
 const HorizontalCentered = styled.div`
   margin: 0 auto;
 `
 
-const FiveColumnsFB = styled(HorizontalCentered)`
+const BodyBackground = styled.div`
+  width: 100%;
+  background-color: #fff;
+`
+
+const BodyBlock = styled(HorizontalCentered)`
   display: flex;
-  width: ${mockup.desktop.body.width}px;
+  width: ${props => props.columns * mockup.desktop.column.width}px;
 `
 
-const FirstColumnFI = styled.div`
-  flex: 1 1 ${mockup.desktop.column.width}px;
-  margin-right: ${mockup.desktop.body.width / numOfColumns -
-    mockup.desktop.column.width}px;
+const AsideBlock = styled.div`
+  flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+  padding-right: ${mockup.desktop.column.paddingRight}px;
 `
 
-const RestColumnsFI = styled.div`
-  flex: 1 1 ${(mockup.desktop.body.width / numOfColumns) * (numOfColumns - 1)}px;
+const ContentBlock = styled.div`
+  flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
 `
 
-const ThreeColumnsBlock = styled.div`
-  width: ${(mockup.desktop.body.width / numOfColumns) * 3}px;
+const BlockSizing = styled.div`
+  width: ${props => props.columns * mockup.desktop.column.width}px;
 `
 
-const FourColumnsBlock = styled.div`
-  width: ${(mockup.desktop.body.width / numOfColumns) * 4}px;
-`
-
-function getColumnsBlock(type) {
+function getColumns(type) {
   switch (type) {
     case 'image':
     case 'imageDiff':
     case 'imagediff':
     case 'slideshow':
     case 'youtube':
-      return FourColumnsBlock
+      return 4
     default:
-      return ThreeColumnsBlock
+      return 3
   }
 }
 
@@ -102,15 +107,16 @@ export default class Article extends PureComponent {
 
   render() {
     const { colors, post } = this.props
+
     return (
       <ThemeProvider theme={{ colors: _.merge({}, defaultColors, colors) }}>
         <BackgroundBlock>
           <HeaderBlock>
             <LeadingBlock />
           </HeaderBlock>
-          <BodyBlock>
-            <FiveColumnsFB>
-              <FirstColumnFI>
+          <BodyBackground>
+            <BodyBlock columns={5}>
+              <AsideBlock columns={1}>
                 <Aside
                   categories={post.categories}
                   designers={post.designers}
@@ -120,30 +126,30 @@ export default class Article extends PureComponent {
                   engineers={post.engineers}
                   rawAutherText={post.extend_byline}
                 />
-              </FirstColumnFI>
-              <RestColumnsFI>
+              </AsideBlock>
+              <ContentBlock columns={4}>
                 <Body
                   brief={_.get(post, 'brief.api_data')}
                   content={_.get(post, 'content.api_data')}
                   renderBrief={(Brief, data) => {
                     return (
-                      <ThreeColumnsBlock>
+                      <BlockSizing columns={3}>
                         <Brief data={data} />
-                      </ThreeColumnsBlock>
+                      </BlockSizing>
                     )
                   }}
                   renderElement={(Element, data) => {
-                    const ColumnsBlock = getColumnsBlock(_.get(data, 'type'))
+                    const columns = getColumns(_.get(data, 'type'))
                     return (
-                      <ColumnsBlock key={data.id}>
+                      <BlockSizing columns={columns} key={data.id}>
                         <Element data={data} />
-                      </ColumnsBlock>
+                      </BlockSizing>
                     )
                   }}
                 />
-              </RestColumnsFI>
-            </FiveColumnsFB>
-          </BodyBlock>
+              </ContentBlock>
+            </BodyBlock>
+          </BodyBackground>
         </BackgroundBlock>
       </ThemeProvider>
     )
