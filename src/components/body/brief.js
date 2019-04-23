@@ -39,7 +39,6 @@ const Content = styled.div`
     font-weight: ${typography.font.weight.light};
     font-size: 22px;
     margin: 0 0 1em 0;
-    text-align: justify;
     &:last-child {
       margin: 0;
     }
