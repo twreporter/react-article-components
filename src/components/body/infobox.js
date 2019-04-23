@@ -43,7 +43,7 @@ const Content = styled.div`
 const Container = styled.div`
   background: ${props => props.theme.colors.base.shape};
   position: relative;
-  margin: 60px auto;
+  margin: 60px auto 0 auto;
   ${mq.desktopAndAbove`
     padding-top: 40px;
     padding-bottom: 40px;
