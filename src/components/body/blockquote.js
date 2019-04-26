@@ -14,7 +14,7 @@ const Quote = styled.blockquote`
   line-height: 2.11;
   letter-spacing: 0.6px;
   color: ${props => props.theme.colors.base.lightText};
-  font-size: 18px;
+  font-size: ${props => props.theme.fontSizeOffset + 18}px;
   font-weight: ${typography.font.weight.light};
   border-left: 2px solid ${props => props.theme.colors.base.line};
   margin: 40px auto;

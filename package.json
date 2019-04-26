@@ -67,5 +67,8 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "styled-components": "^4.0.0"
+  },
+  "dependencies": {
+    "react-waypoint": "^9.0.2"
   }
 }
