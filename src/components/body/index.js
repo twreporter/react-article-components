@@ -7,6 +7,7 @@ import Paragraph from './paragraph'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import Slideshow from '../slideshow'
 // lodash
 import map from 'lodash/map'
 
@@ -49,7 +50,7 @@ function getElementComponent(type) {
     case 'unstyled':
       return Paragraph
     case 'slideshow':
-      return null
+      return Slideshow
     case 'youtube':
       return null
     default:

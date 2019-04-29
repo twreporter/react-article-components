@@ -24,6 +24,7 @@ module.exports = {
         svgo: {
           plugins: [
             { removeScriptElement: true },
+            { removeViewBox: false },
             /* Remove unused attrs produced by the editing software. `removeAttrs` syntax: https://goo.gl/YLuuEU */
             {
               removeAttrs: {
