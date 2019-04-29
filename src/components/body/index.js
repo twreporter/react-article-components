@@ -1,7 +1,8 @@
-import Blockquote from './blockquote'
 import Annotation from './annotation'
+import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
+import HorizontalImage from '../image/horizontal-image'
 import Infobox from './infobox'
 import Paragraph from './paragraph'
 import predefinedPropTypes from '../../constants/prop-types'
@@ -36,8 +37,10 @@ function getElementComponent(type) {
     case 'embeddedCode':
     case 'embeddedcode':
       return null
+    case 'small-image':
+    case 'image-link':
     case 'image':
-      return null
+      return HorizontalImage
     case 'imageDiff':
     case 'imagediff':
       return null

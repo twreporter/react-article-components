@@ -1,13 +1,14 @@
 import Aside from './aside'
 import Body from './body'
 import LeadingBlock from './leading-block'
+import mq from '../utils/media-query'
 import predefinedPropTypes from '../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+// lodash
 import get from 'lodash/get'
 import merge from 'lodash/merge'
-import mq from '../utils/media-query'
-import styled, { ThemeProvider } from 'styled-components'
 
 const _ = {
   get,
@@ -108,6 +109,8 @@ const BlockSizing = styled.div`
 
 function getColumns(type) {
   switch (type) {
+    case 'small-image':
+    case 'image-link':
     case 'image':
     case 'imageDiff':
     case 'imagediff':
@@ -127,7 +130,7 @@ const _fontLevel = {
 
 export default class Article extends PureComponent {
   static propTypes = {
-    colors: predefinedPropTypes.colors,
+    colors: predefinedPropTypes.elementColors,
     post: PropTypes.object.isRequired,
     defaultFontLevel: PropTypes.oneOf([
       _fontLevel.base,
