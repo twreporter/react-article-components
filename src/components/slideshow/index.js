@@ -444,7 +444,7 @@ export default class Slideshow extends PureComponent {
 
     const slidesJSX = _.map(slides, (slide, index) => {
       return (
-        <SlideFlexItem key={`slide_${slide.id}_${index}`}>
+        <SlideFlexItem key={`slide_${slide.id}`}>
           {/* TODO use ImgWrapper */}
           <img
             src={slide.tablet.url}
