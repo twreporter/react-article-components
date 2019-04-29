@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
+import mq from '../utils/media-query'
 import styled, { ThemeProvider } from 'styled-components'
 
 const _ = {
@@ -18,6 +19,12 @@ const mockup = {
     column: {
       width: 188, // px
       paddingRight: 4, // px
+    },
+  },
+  hd: {
+    column: {
+      width: 267, // px
+      paddingRight: 6, // px
     },
   },
 }
@@ -67,19 +74,36 @@ const BodyBackground = styled.div`
 const BodyBlock = styled(HorizontalCentered)`
   display: flex;
   width: ${props => props.columns * mockup.desktop.column.width}px;
+
+  ${mq.hdOnly`
+    width: ${props => props.columns * mockup.hd.column.width}px;
+  `}
 `
 
 const AsideBlock = styled.div`
   flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
   padding-right: ${mockup.desktop.column.paddingRight}px;
+
+  ${mq.hdOnly`
+    flex: 1 1 ${props => props.columns * mockup.hd.column.width}px;
+    padding-right: ${mockup.hd.column.paddingRight}px;
+  `}
 `
 
 const ContentBlock = styled.div`
   flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+
+  ${mq.hdOnly`
+    flex: 1 1 ${props => props.columns * mockup.hd.column.width}px;
+  `}
 `
 
 const BlockSizing = styled.div`
   width: ${props => props.columns * mockup.desktop.column.width}px;
+
+  ${mq.hdOnly`
+    width: ${props => props.columns * mockup.hd.column.width}px;
+  `}
 `
 
 function getColumns(type) {
