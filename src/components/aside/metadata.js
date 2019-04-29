@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import predefinedProps from './prop-types'
 import React, { PureComponent } from 'react'
 import map from 'lodash/map'
 import sortBy from 'lodash/sortBy'
@@ -10,7 +10,7 @@ const _ = {
   sortBy,
 }
 
-const MetadataContainer = styled.aside`
+const MetadataContainer = styled.div`
   max-width: 180px;
   letter-spacing: 0.4px;
   ${mq.hdOnly`
@@ -121,32 +121,8 @@ const StyledA = styled.a`
   text-decoration: none;
 `
 
-const authorPropType = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-})
-
 class Metadata extends PureComponent {
-  static propTypes = {
-    categories: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        sort_order: PropTypes.number.isRequired,
-      })
-    ),
-    tags: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })
-    ),
-    writers: PropTypes.arrayOf(authorPropType),
-    photographers: PropTypes.arrayOf(authorPropType),
-    designers: PropTypes.arrayOf(authorPropType),
-    engineers: PropTypes.arrayOf(authorPropType),
-    rawAutherText: PropTypes.string,
-  }
+  static propTypes = predefinedProps
 
   static defaultProps = {
     categories: [],
