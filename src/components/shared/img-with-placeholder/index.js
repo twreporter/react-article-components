@@ -1,7 +1,6 @@
-import { getSrcsetString } from '../../utils/image'
+import { getSrcsetString } from '../../../utils/image'
 import get from 'lodash/get'
-import Placeholder from '../../../assets/svg/img-loading-placeholder.svg'
-import predefinedPropTypes from '../../constants/prop-types'
+import PlaceholderIcon from './img-loading-placeholder.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -17,13 +16,20 @@ const ImgContainer = styled.div`
   padding-bottom: ${props => `${props.heightWidthRatio * 100}%`};
 `
 
-const StyledPlaceholder = styled(Placeholder)`
-  display: block;
-  position: absolute;
+const Placeholder = styled.div`
+  width: 100%;
+  height: 100%;
+  position absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: ${props => (props.toShow ? 'block' : 'none')};
+  svg {
+    position absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `
 
 const ImgBox = styled.div`
@@ -46,12 +52,18 @@ const ImgBox = styled.div`
  * @class Image
  * @extends {React.PureComponent}
  */
-class Image extends React.PureComponent {
+export default class Img extends React.PureComponent {
   static propTypes = {
     alt: PropTypes.string,
     imgProps: PropTypes.object,
     // The properties of `imgProps` will all be passed to `<img />` element.
-    imageSet: PropTypes.arrayOf(predefinedPropTypes.image),
+    imageSet: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+      })
+    ),
     // The component will take the first item in `imageSet` as the default image.
     // The usage of default image:
     //   1. `img.src = defaultImage.url` for the browser not supporting `srcset`.
@@ -120,7 +132,9 @@ class Image extends React.PureComponent {
     }
     return (
       <ImgContainer heightWidthRatio={heightWidthRatio}>
-        <StyledPlaceholder toShow={toShowPlaceholder} />
+        <Placeholder toShow={toShowPlaceholder}>
+          <PlaceholderIcon />
+        </Placeholder>
         <ImgBox toShow={!toShowPlaceholder}>
           <img
             alt={alt}
@@ -136,5 +150,3 @@ class Image extends React.PureComponent {
     )
   }
 }
-
-export default Image

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import mq from '../../utils/media-query'
+import mq from '../../../utils/media-query'
 import styled from 'styled-components'
 
 const _ = {

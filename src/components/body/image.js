@@ -1,4 +1,4 @@
-import Img from './img-with-placeholder'
+import Img from '../shared/img-with-placeholder'
 import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
@@ -67,7 +67,7 @@ const Caption = styled.figcaption`
   `}
 `
 
-export default class HorizontalImage extends PureComponent {
+export default class Image extends PureComponent {
   static propTypes = {
     data: predefinedPropTypes.elementData.isRequired,
   }

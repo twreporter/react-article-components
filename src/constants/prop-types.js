@@ -35,6 +35,8 @@ const elementData = PropTypes.shape({
     'header-one',
     'header-two',
     'image',
+    'small-image',
+    // 'image-link',
     'imageDiff',
     'imagediff',
     'infobox',
