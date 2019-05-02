@@ -19,7 +19,8 @@ const BackgroundBlock = styled.div`
 
   width: 100%;
   height: 100vh;
-  padding: ${props => props.paddingTop || mockup.desktop.container.paddingTop}px
+  padding: ${props =>
+      props.paddingTop || `${mockup.desktop.container.paddingTop}px`}
     10px 18px 10px;
 `
 
@@ -133,7 +134,7 @@ export default class LeadingBlock extends PureComponent {
     const { paddingTop, poster, subtitle, title, topicName } = this.props
 
     return (
-      <BackgroundBlock>
+      <BackgroundBlock paddingTop={paddingTop}>
         <ContentBlock>
           <TextBlock>
             {topicName ? <TopicTextBlock>{topicName}</TopicTextBlock> : null}
