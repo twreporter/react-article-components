@@ -1,18 +1,24 @@
 import Aside from './aside'
 import Body from './body'
+import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import LeadingBlock from './leading-block'
-import mq from '../utils/media-query'
-import predefinedPropTypes from '../constants/prop-types'
+import Link from './shared/link'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
-// lodash
+import Related from './related'
 import get from 'lodash/get'
+import map from 'lodash/map'
 import merge from 'lodash/merge'
+import mq from '../utils/media-query'
+import predefinedPropTypes from '../constants/prop-types'
+import sortBy from 'lodash/sortBy'
+import styled, { ThemeProvider } from 'styled-components'
 
 const _ = {
   get,
+  map,
   merge,
+  sortBy,
 }
 
 const mockup = {
@@ -70,7 +76,7 @@ const BodyBackground = styled.div`
   background-color: #fff;
 `
 
-const BodyBlock = styled(HorizontalCentered)`
+const ArticleBlock = styled(HorizontalCentered)`
   display: flex;
   width: ${props => props.columns * mockup.desktop.column.width}px;
 
@@ -80,20 +86,20 @@ const BodyBlock = styled(HorizontalCentered)`
 `
 
 const AsideBlock = styled.div`
-  flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+  flex: 0 1 ${props => props.columns * mockup.desktop.column.width}px;
   padding-right: ${mockup.desktop.column.paddingRight}px;
 
   ${mq.hdOnly`
-    flex: 1 1 ${props => props.columns * mockup.hd.column.width}px;
+    flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
     padding-right: ${mockup.hd.column.paddingRight}px;
   `}
 `
 
 const ContentBlock = styled.div`
-  flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+  flex: 0 1 ${props => props.columns * mockup.desktop.column.width}px;
 
   ${mq.hdOnly`
-    flex: 1 1 ${props => props.columns * mockup.hd.column.width}px;
+    flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
   `}
 `
 
@@ -103,6 +109,10 @@ const BlockSizing = styled.div`
   ${mq.hdOnly`
     width: ${props => props.columns * mockup.hd.column.width}px;
   `}
+`
+
+const RelatedBlock = styled(BlockSizing)`
+  margin: 80px auto 0 auto;
 `
 
 function getColumns(type) {
@@ -126,6 +136,10 @@ const _fontLevel = {
   xLarge: 'xLarge',
 }
 
+const _articleStyles = {
+  interactive: 'interactive',
+}
+
 export default class Article extends PureComponent {
   static propTypes = {
     colors: predefinedPropTypes.elementColors,
@@ -135,11 +149,13 @@ export default class Article extends PureComponent {
       _fontLevel.large,
       _fontLevel.xLarge,
     ]),
+    LinkComponent: PropTypes.func,
   }
 
   static defaultProps = {
     colors: {},
     defaultFontLevel: _fontLevel.base,
+    LinkComponent: Link,
   }
 
   constructor(props) {
@@ -190,8 +206,30 @@ export default class Article extends PureComponent {
   }
 
   render() {
-    const { colors, post } = this.props
+    const { LinkComponent, colors, post } = this.props
     const { fontLevel } = this.state
+    const relateds = _.map(_.get(post, 'relateds', []), related => {
+      const style = _.get(related, 'style')
+      const prefixPath = style === _articleStyles.interactive ? '/i/' : '/a/'
+      const categories = related.categories
+      // sort categories in ascending order
+      _.sortBy(categories, ['sort_order'])
+
+      const imageSet = _.get(related, 'og_image.resized_targets', {})
+
+      return {
+        category: _.get(categories, '0.name', ''),
+        date: related.published_date,
+        desc: related.og_description,
+        href: prefixPath + related.slug,
+        id: related.id,
+        isTargetBlank: style === _articleStyles.interactive,
+        thumbnail: _.get(imageSet, 'w400.url')
+          ? imageSet.w400
+          : imageSet.mobile,
+        title: related.title,
+      }
+    })
 
     return (
       <ThemeProvider
@@ -200,55 +238,60 @@ export default class Article extends PureComponent {
           fontSizeOffset: this.getFontSizeOffet(fontLevel),
         }}
       >
-        <BackgroundBlock>
-          <LeadingBlock
-            title={post.title}
-            subtitle={post.subtitle}
-            topicName={_.get(post, 'topics.topic_name', '')}
-            poster={{
-              mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
-              tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
-              desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
-            }}
-          />
-          <BodyBackground>
-            <BodyBlock columns={5}>
-              <AsideBlock columns={1}>
-                <Aside
-                  categories={post.categories}
-                  designers={post.designers}
-                  photographers={post.photographers}
-                  tags={post.tags}
-                  writers={post.writters}
-                  engineers={post.engineers}
-                  rawAutherText={post.extend_byline}
-                  onFontLevelChange={this.changeFontLevel}
-                />
-              </AsideBlock>
-              <ContentBlock columns={4}>
-                <Body
-                  brief={_.get(post, 'brief.api_data')}
-                  content={_.get(post, 'content.api_data')}
-                  renderBrief={(Brief, data) => {
-                    return (
-                      <BlockSizing columns={3}>
-                        <Brief data={data} />
-                      </BlockSizing>
-                    )
-                  }}
-                  renderElement={(Element, data) => {
-                    const columns = getColumns(_.get(data, 'type'))
-                    return (
-                      <BlockSizing columns={columns} key={data.id}>
-                        <Element data={data} />
-                      </BlockSizing>
-                    )
-                  }}
-                />
-              </ContentBlock>
-            </BodyBlock>
-          </BodyBackground>
-        </BackgroundBlock>
+        <DynamicComponentsContext.Provider value={{ Link: LinkComponent }}>
+          <BackgroundBlock>
+            <LeadingBlock
+              title={post.title}
+              subtitle={post.subtitle}
+              topicName={_.get(post, 'topics.topic_name', '')}
+              poster={{
+                mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
+                tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
+                desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
+              }}
+            />
+            <BodyBackground>
+              <ArticleBlock columns={5}>
+                <AsideBlock columns={1}>
+                  <Aside
+                    categories={post.categories}
+                    designers={post.designers}
+                    photographers={post.photographers}
+                    tags={post.tags}
+                    writers={post.writters}
+                    engineers={post.engineers}
+                    rawAutherText={post.extend_byline}
+                    onFontLevelChange={this.changeFontLevel}
+                  />
+                </AsideBlock>
+                <ContentBlock columns={4}>
+                  <Body
+                    brief={_.get(post, 'brief.api_data')}
+                    content={_.get(post, 'content.api_data')}
+                    renderBrief={(Brief, data) => {
+                      return (
+                        <BlockSizing columns={3}>
+                          <Brief data={data} />
+                        </BlockSizing>
+                      )
+                    }}
+                    renderElement={(Element, data) => {
+                      const columns = getColumns(_.get(data, 'type'))
+                      return (
+                        <BlockSizing columns={columns} key={data.id}>
+                          <Element data={data} />
+                        </BlockSizing>
+                      )
+                    }}
+                  />
+                </ContentBlock>
+              </ArticleBlock>
+              <RelatedBlock columns={5}>
+                <Related data={relateds} />
+              </RelatedBlock>
+            </BodyBackground>
+          </BackgroundBlock>
+        </DynamicComponentsContext.Provider>
       </ThemeProvider>
     )
   }
