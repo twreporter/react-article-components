@@ -24,7 +24,7 @@ const QuoteContent = styled.blockquote`
     width: 730px;
   `}
   font-weight: ${typography.font.weight.light};
-  font-size: 32px;
+  font-size: ${props => props.theme.fontSizeOffset + 32}px;
   line-height: 1.56;
   letter-spacing: 1.1px;
   text-align: center;
@@ -42,7 +42,7 @@ const QuoteBy = styled.cite`
   display: block;
   font-style: normal;
   font-weight: ${typography.font.weight.light};
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizeOffset + 16}px;
   line-height: 1.56;
   letter-spacing: 0.5px;
   text-align: center;

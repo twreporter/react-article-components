@@ -37,7 +37,7 @@ const Content = styled.div`
     line-height: 1.73;
     letter-spacing: 0.7px;
     font-weight: ${typography.font.weight.light};
-    font-size: 22px;
+    font-size: ${props => props.theme.fontSizeOffset + 22}px;
     margin: 0 0 1em 0;
     &:last-child {
       margin: 0;

@@ -119,21 +119,86 @@ function getColumns(type) {
   }
 }
 
+const _fontLevel = {
+  base: 'base',
+  large: 'large',
+  xLarge: 'xLarge',
+}
+
 export default class Article extends PureComponent {
   static propTypes = {
     colors: predefinedPropTypes.colors,
     post: PropTypes.object.isRequired,
+    defaultFontLevel: PropTypes.oneOf([
+      _fontLevel.base,
+      _fontLevel.large,
+      _fontLevel.xLarge,
+    ]),
   }
 
   static defaultProps = {
     colors: {},
+    defaultFontLevel: _fontLevel.base,
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      fontLevel: props.defaultFontLevel,
+    }
+  }
+
+  changeFontLevel = () => {
+    const { fontLevel } = this.state
+    let nextFontLevel = ''
+    switch (fontLevel) {
+      case _fontLevel.large: {
+        nextFontLevel = _fontLevel.xLarge
+        break
+      }
+      case _fontLevel.xLarge: {
+        nextFontLevel = _fontLevel.base
+        break
+      }
+      case _fontLevel.base:
+      default: {
+        nextFontLevel = _fontLevel.large
+        break
+      }
+    }
+
+    this.setState({
+      fontLevel: nextFontLevel,
+    })
+  }
+
+  getFontSizeOffet(fontLevel) {
+    switch (fontLevel) {
+      case _fontLevel.large: {
+        return 2
+      }
+      case _fontLevel.xLarge: {
+        return 4
+      }
+      case _fontLevel.base:
+      default: {
+        return 0
+      }
+    }
   }
 
   render() {
     const { colors, post } = this.props
+    const { fontLevel } = this.state
 
     return (
-      <ThemeProvider theme={{ colors: _.merge({}, defaultColors, colors) }}>
+      <ThemeProvider
+        theme={{
+          colors: _.merge({}, defaultColors, colors),
+          fontSizeOffset: this.getFontSizeOffet(fontLevel),
+        }}
+      >
         <BackgroundBlock>
           <HeaderBlock>
             <LeadingBlock />
@@ -149,6 +214,7 @@ export default class Article extends PureComponent {
                   writers={post.writters}
                   engineers={post.engineers}
                   rawAutherText={post.extend_byline}
+                  onFontLevelChange={this.changeFontLevel}
                 />
               </AsideBlock>
               <ContentBlock columns={4}>

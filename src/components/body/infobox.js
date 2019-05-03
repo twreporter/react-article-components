@@ -15,7 +15,7 @@ const Title = styled.div`
   line-height: 1.9;
   letter-spacing: 0.7px;
   font-weight: ${typography.font.weight.bold};
-  font-size: 20px;
+  font-size: ${props => props.theme.fontSizeOffset + 20}px;
   ${mq.desktopOnly`
     width: 480px;
   `}
@@ -30,7 +30,7 @@ const Content = styled.div`
   line-height: 1.75;
   letter-spacing: 0.5px;
   font-weight: ${typography.font.weight.light};
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizeOffset + 16}px;
   ${mq.desktopOnly`
     width: 480px;
   `}

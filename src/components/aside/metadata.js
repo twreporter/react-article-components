@@ -34,7 +34,7 @@ const LowerSeparationLine = styled(SeparationLine)`
 `
 
 const StyledText = styled.div`
-  font-size: ${props => props.fontSize}px;
+  font-size: ${props => props.theme.fontSizeOffset + props.fontSize}px;
   font-weight: ${props => props.fontWeight || 'normal'};
 `
 
@@ -48,7 +48,7 @@ const CategoryFlex = styled.div`
 
 const CategoryText = styled(StyledText)`
   color: ${props => props.theme.colors.primary.text};
-  font-size: 16px;
+  font-size: ${props => props.theme.fontSizeOffset + 16}px;
   line-height: 1.5;
   padding-left: 5px;
 `
@@ -100,7 +100,7 @@ const TagButton = styled.div`
   border: solid 1px #808080;
   border-radius: 50px;
   padding: 5px 10px 5px 10px;
-  font-size: 14px;
+  font-size: ${props => props.theme.fontSizeOffset + 14}px;
   font-weight: normal;
   color: #808080;
   margin-bottom: 10px;
@@ -122,7 +122,7 @@ const StyledA = styled.a`
 `
 
 class Metadata extends PureComponent {
-  static propTypes = predefinedProps
+  static propTypes = predefinedProps.metadata
 
   static defaultProps = {
     categories: [],
@@ -182,7 +182,7 @@ class Metadata extends PureComponent {
     const authorNamesJSX = _.map(authors, author => {
       return (
         <StyledA key={`author_${author.id}`} href={`/authors/${author.id}`}>
-          <AuthorName fontSize="16" marginLeft="8">
+          <AuthorName fontSize={16} marginLeft="8">
             {author.name}
           </AuthorName>
         </StyledA>
@@ -192,7 +192,7 @@ class Metadata extends PureComponent {
     return (
       <AuthorFlexBox>
         <NoShrinkFlexItem>
-          <AuthorJobTitle fontSize="14" marginLeft="5">
+          <AuthorJobTitle fontSize={14} marginLeft="5">
             {label}
           </AuthorJobTitle>
         </NoShrinkFlexItem>
@@ -220,7 +220,7 @@ class Metadata extends PureComponent {
         {this.renderAuthorsRow('攝影', photographers)}
         {this.renderAuthorsRow('設計', designers)}
         {this.renderAuthorsRow('工程', engineers)}
-        <RawAuthorText fontSize="14">{rawAutherText}</RawAuthorText>
+        <RawAuthorText fontSize={14}>{rawAutherText}</RawAuthorText>
       </AuthorSection>
     )
   }
