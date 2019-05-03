@@ -1,13 +1,14 @@
-import Blockquote from './blockquote'
 import Annotation from './annotation'
+import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
+import Image from './image'
 import Infobox from './infobox'
 import Paragraph from './paragraph'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import Slideshow from '../slideshow'
+import Slideshow from './slideshow'
 // lodash
 import map from 'lodash/map'
 
@@ -36,8 +37,14 @@ function getElementComponent(type) {
     case 'embeddedCode':
     case 'embeddedcode':
       return null
+    case 'small-image':
     case 'image':
-      return null
+    case 'image-link':
+      /*
+        The `image-link` in keystone editor is using `embedded-code` component actually currently.
+        If we add a `image-link` type in the future, we just have to make the data format of `image-link` and `image` the same.
+      */
+      return Image
     case 'imageDiff':
     case 'imagediff':
       return null
