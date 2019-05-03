@@ -19,13 +19,13 @@ const ImgContainer = styled.div`
 const Placeholder = styled.div`
   width: 100%;
   height: 100%;
-  position absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: ${props => (props.toShow ? 'block' : 'none')};
   svg {
-    position absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
