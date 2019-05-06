@@ -6,13 +6,17 @@ import styled from 'styled-components'
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
-import sortBy from 'lodash/sortBy'
 
 const _ = {
   get,
   map,
-  sortBy,
 }
+
+const imagePropType = PropTypes.shape({
+  url: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+})
 
 const objectFitConsts = {
   contain: 'contain',
@@ -23,7 +27,7 @@ const ImgContainer = styled.div`
   position: relative;
   overflow: hidden;
   width: 100%;
-  padding-bottom: ${props => `${props.heightWidthRatio * 100}%`};
+  ${props => props.heightString}
 `
 
 const Placeholder = styled.div`
@@ -42,45 +46,24 @@ const Placeholder = styled.div`
   }
 `
 
-const StyledImg = styled.img`
+const ImgWithObjectFit = styled.img`
+  display: block;
+  height: 100%;
   object-fit: ${props => props.objectFit || 'none'};
-  ${props => ({
-    height: props.height,
-    width: props.width,
-  })};
+  object-position: ${props => props.objectPosition || '50% 50%'};
+  opacity: ${props => (props.toShowFallback ? '0' : '1')};
 `
 
 const FallbackObjectFitImg = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: ${props => props.objectFit};
   background-repeat: no-repeat;
-  background-position: center center;
-  ${props => ({
-    height: props.height || '100%',
-    width: props.width || '100%',
-  })};
-  ${props => {
-    const sortedImageSet = _.sortBy(props.imageSet, ['width']) // ascending
-    let bgImageCssString = ''
-    const imagesCount = sortedImageSet.length
-    for (let i = 0; i < imagesCount; i += 1) {
-      const currentImage = sortedImageSet[i]
-      if (i === 0) {
-        const nextImage = sortedImageSet[i + 1]
-        bgImageCssString += `
-          @media (max-width: ${nextImage.width - 1}px) {
-            background-image: url(${currentImage.url});
-          }
-        `
-      } else {
-        bgImageCssString += `
-          @media (min-width: ${currentImage.width}px) {
-            background-image: url(${currentImage.url});
-          }
-        `
-      }
-    }
-    return bgImageCssString
-  }}
+  background-position: ${props => props.objectPosition || '50% 50%'};
+  background-image: url(${props => props.url});
 `
 
 const ImgBox = styled.div`
@@ -106,17 +89,10 @@ const ImgBox = styled.div`
 export default class Img extends React.PureComponent {
   static propTypes = {
     alt: PropTypes.string,
-    height: PropTypes.string,
-    width: PropTypes.string,
     imgProps: PropTypes.object,
     // The properties of `imgProps` will all be passed to `<img />` element.
-    imageSet: PropTypes.arrayOf(
-      PropTypes.shape({
-        url: PropTypes.string.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-      })
-    ),
+    imageSet: PropTypes.arrayOf(imagePropType),
+    defaultImage: imagePropType,
     // The component will take the first item in `imageSet` as the default image.
     // The usage of default image:
     //   1. `img.src = defaultImage.url` for the browser not supporting `srcset`.
@@ -125,6 +101,7 @@ export default class Img extends React.PureComponent {
       objectFitConsts.cover,
       objectFitConsts.contain,
     ]),
+    objectPosition: PropTypes.string,
     sizes: PropTypes.string.isRequired,
   }
 
@@ -183,14 +160,13 @@ export default class Img extends React.PureComponent {
     const { toShowPlaceholder } = this.state
     const {
       alt,
-      height,
       imgProps,
       imageSet,
+      defaultImage,
       objectFit,
+      objectPosition,
       sizes,
-      width,
     } = this.props
-    const defaultImage = imageSet[0]
     const srcset = getSrcsetString(imageSet)
     const heightWidthRatio =
       _.get(defaultImage, 'height') / _.get(defaultImage, 'width')
@@ -200,31 +176,50 @@ export default class Img extends React.PureComponent {
         defaultImage
       )
     }
+    const isObjectFit = Boolean(objectFit)
     return (
-      <ImgContainer heightWidthRatio={heightWidthRatio}>
+      <ImgContainer
+        heightString={
+          isObjectFit
+            ? `height: 100%;`
+            : `padding-top: ${heightWidthRatio * 100}%;`
+        }
+      >
         <Placeholder toShow={toShowPlaceholder}>
           <PlaceholderIcon />
         </Placeholder>
         <ImgBox toShow={!toShowPlaceholder}>
-          {this._supportObjectFit || !objectFit ? (
-            <StyledImg
+          {isObjectFit ? (
+            <React.Fragment>
+              <ImgWithObjectFit
+                alt={alt}
+                objectFit={objectFit}
+                objectPosition={objectPosition}
+                onLoad={this.handleImageLoaded}
+                ref={this._img}
+                sizes={this._supportObjectFit ? sizes : ''}
+                src={_.get(defaultImage, 'url')}
+                srcSet={this._supportObjectFit ? srcset : ''}
+                hide={!this._supportObjectFit}
+                {...imgProps}
+              />
+              {this._supportObjectFit ? null : (
+                <FallbackObjectFitImg
+                  url={_.get(defaultImage, 'url')}
+                  objectFit={objectFit}
+                  objectPosition={objectPosition}
+                />
+              )}
+            </React.Fragment>
+          ) : (
+            <img
               alt={alt}
-              height={height}
-              objectFit={objectFit}
               onLoad={this.handleImageLoaded}
               ref={this._img}
               sizes={sizes}
               src={_.get(defaultImage, 'url')}
               srcSet={srcset}
-              width={width}
               {...imgProps}
-            />
-          ) : (
-            <FallbackObjectFitImg
-              height={height}
-              imageSet={imageSet}
-              objectFit={objectFit}
-              width={width}
             />
           )}
         </ImgBox>
