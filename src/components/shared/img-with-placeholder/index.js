@@ -1,6 +1,7 @@
 import { getSrcsetString } from '../../../utils/image'
 import PlaceholderIcon from './img-loading-placeholder.svg'
 import PropTypes from 'prop-types'
+import predefinedPropTypes from './prop-types'
 import React from 'react'
 import styled from 'styled-components'
 // lodash
@@ -11,12 +12,6 @@ const _ = {
   get,
   map,
 }
-
-const imagePropType = PropTypes.shape({
-  url: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-})
 
 const objectFitConsts = {
   contain: 'contain',
@@ -91,8 +86,8 @@ export default class Img extends React.PureComponent {
     alt: PropTypes.string,
     imgProps: PropTypes.object,
     // The properties of `imgProps` will all be passed to `<img />` element.
-    imageSet: PropTypes.arrayOf(imagePropType),
-    defaultImage: imagePropType,
+    imageSet: PropTypes.arrayOf(predefinedPropTypes.imagePropType),
+    defaultImage: predefinedPropTypes.imagePropType,
     // The component will take the first item in `imageSet` as the default image.
     // The usage of default image:
     //   1. `img.src = defaultImage.url` for the browser not supporting `srcset`.
