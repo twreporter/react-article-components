@@ -4,6 +4,7 @@ import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Image from './image'
 import Infobox from './infobox'
+import list from './list'
 import Paragraph from './paragraph'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
@@ -51,9 +52,9 @@ function getElementComponent(type) {
     case 'infobox':
       return Infobox
     case 'ordered-list-item':
-      return null
+      return list.OrderedList
     case 'unordered-list-item':
-      return null
+      return list.UnorderedList
     case 'unstyled':
       return Paragraph
     case 'slideshow':
