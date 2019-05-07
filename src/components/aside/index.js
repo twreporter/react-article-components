@@ -83,9 +83,23 @@ export default class Aside extends React.PureComponent {
     this.setToolsBottom = this.setToolsPosition.bind(this, _toolPosition.bottom)
   }
 
-  setToolsPosition(position) {
+  setToolsPosition(nextPosition, waypointObj) {
+    const toolPosition = this.state.toolPosition
+    if (
+      // viewport is below `ToolsFixedArea`
+      // make toolPosition stay at `bottom`
+      (toolPosition === _toolPosition.bottom &&
+        waypointObj.currentPosition === 'above') ||
+      // viewport is above `ToolsFixedArea`
+      // make toolPosition stay at top
+      (toolPosition === _toolPosition.top &&
+        waypointObj.currentPosition === 'below')
+    ) {
+      return
+    }
+
     this.setState({
-      toolPosition: position,
+      toolPosition: nextPosition,
     })
   }
 
