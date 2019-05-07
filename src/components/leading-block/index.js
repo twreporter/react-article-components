@@ -1,5 +1,7 @@
+import Img from '../shared/img-with-placeholder'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import predefinedPropTypes from '../shared/img-with-placeholder/prop-types'
 import styled from 'styled-components'
 
 const mockup = {
@@ -97,26 +99,14 @@ const FigureBlock = styled.figure`
   height: 100%;
   position: absolute;
   margin: 0;
-
-  > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `
-
-const imgProp = PropTypes.shape({
-  url: PropTypes.string.isRequired,
-})
 
 export default class LeadingBlock extends PureComponent {
   static propTypes = {
     poster: PropTypes.shape({
-      resized_targets: PropTypes.shape({
-        mobile: imgProp.isRequired,
-        tablet: imgProp.isRequired,
-        desktop: imgProp.isRequired,
-      }),
+      mobile: predefinedPropTypes.imagePropType.isRequired,
+      tablet: predefinedPropTypes.imagePropType.isRequired,
+      desktop: predefinedPropTypes.imagePropType.isRequired,
     }).isRequired,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
@@ -131,7 +121,7 @@ export default class LeadingBlock extends PureComponent {
   }
 
   render() {
-    const { paddingTop, poster, subtitle, title, topicName } = this.props
+    const { paddingTop, poster = {}, subtitle, title, topicName } = this.props
 
     return (
       <BackgroundBlock paddingTop={paddingTop}>
@@ -148,8 +138,13 @@ export default class LeadingBlock extends PureComponent {
             </TitleTextBlock>
           </TextBlock>
           <FigureBlock>
-            {/* TODO use image component later */}
-            <img src={poster.resized_targets.tablet.url} />
+            <Img
+              imageSet={[poster.mobile, poster.tablet, poster.desktop]}
+              defaultImage={poster.mobile}
+              objectFit="cover"
+              objectPostion="center center"
+              sizes="(max-width: 800px) 800px, (max-width: 1200px) 1200px, 2000px"
+            />
           </FigureBlock>
         </ContentBlock>
       </BackgroundBlock>

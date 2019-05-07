@@ -205,7 +205,11 @@ export default class Article extends PureComponent {
             title={post.title}
             subtitle={post.subtitle}
             topicName={_.get(post, 'topics.topic_name', '')}
-            poster={post.hero_image}
+            poster={{
+              mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
+              tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
+              desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
+            }}
           />
           <BodyBackground>
             <BodyBlock columns={5}>
