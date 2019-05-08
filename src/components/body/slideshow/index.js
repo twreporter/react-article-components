@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import mq from '../../../utils/media-query'
+import predefinedStyled from '../styled'
 import styled from 'styled-components'
 
 const _ = {
@@ -185,20 +186,10 @@ const ImageTotal = styled(ImageNumber)`
   `}
 `
 
-const Desc = styled.p`
+const Desc = styled(predefinedStyled.Multimedia.Caption)`
   position: relative;
   display: inline-block;
-  width: 180px;
-  color: #494949;
-
-  border-bottom: solid 1px ${props => props.theme.colors.primary.line};
-  margin-top: 26px;
-  padding-bottom: 15px;
-
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.36;
-  letter-spacing: 0.5px;
+  transform: none;
 `
 
 const SlidesFlexBox = styled.div`

@@ -10,6 +10,7 @@ import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Slideshow from './slideshow'
+import Youtube from './youtube'
 // lodash
 import map from 'lodash/map'
 
@@ -60,7 +61,7 @@ function getElementComponent(type) {
     case 'slideshow':
       return Slideshow
     case 'youtube':
-      return null
+      return Youtube
     default:
       return null
   }
