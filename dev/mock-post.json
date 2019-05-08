@@ -699,7 +699,7 @@
         "alignment": "center",
         "content": [
           {
-            "caption": "",
+            "caption": "資料來源：Twitter",
             "embeddedCode": "<blockquote class=\"twitter-tweet\" data-lang=\"zh-tw\"><p lang=\"zh\" dir=\"ltr\">「一個糖果3塊錢，小華買了5個，請問他花了多少錢？」<br>小盆友題目看了很久，一直沒有動筆。<br>「題目看不懂嗎？」<br>「嗯。」<br>「哪裡不懂？」<br>「小華是誰啊？」<br><br>你認為那根本不是重點，他卻很認真。他想知道答案，你偏偏講不出來。<br><br>小孩世界運作的基本邏輯：不要跟自以為聰明的大人一樣。</p>&mdash; irrenhäusler (@irrenhaeusler) <a href=\"https://twitter.com/irrenhaeusler/status/1115225984066772992?ref_src=twsrc%5Etfw\">2019年4月8日</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
             "embeddedCodeWithoutScript": "<blockquote class=\"twitter-tweet\" data-lang=\"zh-tw\"><p lang=\"zh\" dir=\"ltr\">「一個糖果3塊錢，小華買了5個，請問他花了多少錢？」<br>小盆友題目看了很久，一直沒有動筆。<br>「題目看不懂嗎？」<br>「嗯。」<br>「哪裡不懂？」<br>「小華是誰啊？」<br><br>你認為那根本不是重點，他卻很認真。他想知道答案，你偏偏講不出來。<br><br>小孩世界運作的基本邏輯：不要跟自以為聰明的大人一樣。</p>&mdash; irrenhäusler (@irrenhaeusler) <a href=\"https://twitter.com/irrenhaeusler/status/1115225984066772992?ref_src=twsrc%5Etfw\">2019年4月8日</a></blockquote>\n\n",
             "scripts": [
@@ -715,7 +715,7 @@
         ],
         "id": "3b0gq",
         "styles": {},
-        "type": "embeddedcode"
+        "type": "embedded-code"
       },
       {
         "alignment": "center",
@@ -895,7 +895,7 @@
         ],
         "id": "dpkev",
         "styles": {},
-        "type": "embeddedcode"
+        "type": "embedded-code"
       },
       {
         "alignment": "center",

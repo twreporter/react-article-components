@@ -32,6 +32,7 @@ const elementData = PropTypes.shape({
     'code',
     'embeddedCode',
     'embeddedcode',
+    'embedded-code',
     'header-one',
     'header-two',
     'image',

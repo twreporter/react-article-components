@@ -2,6 +2,7 @@ import Annotation from './annotation'
 import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
+import Embedded from './embedded-code'
 import Image from './image'
 import Infobox from './infobox'
 import list from './list'
@@ -36,9 +37,10 @@ function getElementComponent(type) {
       return null
     case 'code':
       return null
+    case 'embedded-code':
     case 'embeddedCode':
     case 'embeddedcode':
-      return null
+      return Embedded
     case 'small-image':
     case 'image':
     case 'image-link':

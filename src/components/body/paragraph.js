@@ -20,12 +20,6 @@ const P = styled.p`
     width: 580px;
   `}
   margin: 2.62em auto 2.62em auto;
-  &:first-child {
-    margin-top: 0;
-  }
-  &:last-child {
-    margin-bottom: 0;
-  }
 `
 
 export default function Paragraph({ data }) {
