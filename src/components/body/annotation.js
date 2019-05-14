@@ -1,4 +1,3 @@
-import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
@@ -24,6 +23,7 @@ const slideDownAndFadeIn = keyframes`
 `
 
 const Container = styled.div`
+  ${styles.body.width.normal}
   ${styles.paragraphText}
   ${styles.linkChildren}
   margin: 2.62em auto 2.62em auto;
@@ -33,12 +33,6 @@ const Container = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-  ${mq.desktopOnly`
-    width: 480px;
-  `}
-  ${mq.hdOnly`
-    width: 580px;
-  `}
 `
 
 const AnnotationContainer = styled.abbr`

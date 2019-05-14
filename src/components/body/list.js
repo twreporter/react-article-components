@@ -1,4 +1,3 @@
-import mq from '../../utils/media-query'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import predefinedPropTypes from '../../constants/prop-types'
@@ -13,12 +12,7 @@ const _ = {
 }
 
 const Container = styled.div`
-  ${mq.desktopOnly`
-    width: 480px;
-  `}
-  ${mq.hdOnly`
-    width: 580px;
-  `}
+  ${styles.body.width.normal}
   margin: 0 auto;
 `
 

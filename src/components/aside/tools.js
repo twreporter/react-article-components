@@ -6,20 +6,40 @@ import PrintIcon from './assets/tool-print.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
 import TextIcon from './assets/tool-text.svg'
+import mq from '../../utils/media-query'
 import predefinedProps from './prop-types'
 import styled from 'styled-components'
 
 const ToolsBlock = styled.div`
-  width: 20px;
-  height: ${props => props.height};
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
 
   > svg {
     cursor: pointer;
   }
+
+  ${mq.mobileOnly`
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+  `}
+
+  ${mq.tabletOnly`
+    width: 513px;
+    margin-left: auto;
+    margin-right: auto;
+    > svg {
+      margin-right: 30px;
+    }
+  `}
+
+  ${mq.desktopAndAbove`
+    width: 20px;
+    height: ${props => props.height || 'auto'};
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  `}
 `
 
 function FBShareBT(props) {

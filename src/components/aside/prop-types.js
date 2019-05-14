@@ -25,6 +25,7 @@ export default {
     designers: PropTypes.arrayOf(authorPropType),
     engineers: PropTypes.arrayOf(authorPropType),
     rawAutherText: PropTypes.string,
+    date: PropTypes.string,
   },
   tools: {
     fbAppID: PropTypes.string,

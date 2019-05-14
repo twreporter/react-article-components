@@ -108,6 +108,7 @@ export default class Aside extends React.PureComponent {
 
     const {
       categories,
+      date,
       designers,
       engineers,
       photographers,
@@ -121,6 +122,7 @@ export default class Aside extends React.PureComponent {
     const metadataJSX = (
       <Metadata
         categories={categories}
+        date={date}
         designers={designers}
         photographers={photographers}
         tags={tags}

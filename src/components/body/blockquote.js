@@ -2,6 +2,7 @@ import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import styles from '../../constants/css'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -11,6 +12,7 @@ const _ = {
 }
 
 const Quote = styled.blockquote`
+  ${styles.body.width.normal}
   line-height: 2.11;
   letter-spacing: 0.6px;
   color: ${props => props.theme.colors.base.lightText};
@@ -18,12 +20,17 @@ const Quote = styled.blockquote`
   font-weight: ${typography.font.weight.light};
   border-left: 2px solid ${props => props.theme.colors.base.line};
   margin: 40px auto;
-  padding-left: 20px;
+  ${mq.mobileOnly`
+    padding-left: 16px;
+  `}
+  ${mq.tabletOnly`
+    padding-left: 18px;
+  `}
   ${mq.desktopOnly`
-    width: 480px;
+    padding-left: 18px;
   `}
   ${mq.hdOnly`
-    width: 580px;
+    padding-left: 20px;
   `}
 `
 
