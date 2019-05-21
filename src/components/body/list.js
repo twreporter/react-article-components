@@ -42,8 +42,8 @@ const Li = styled.li`
   }
 `
 
-const buildLi = listItem => (
-  <Li dangerouslySetInnerHTML={{ __html: listItem }} />
+const buildLi = (listItem, index) => (
+  <Li key={`list_${index}`} dangerouslySetInnerHTML={{ __html: listItem }} />
 )
 
 // eslint-disable-next-line react/display-name
