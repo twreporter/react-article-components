@@ -1,7 +1,6 @@
 import React from 'react'
 import get from 'lodash.get'
 import styled, { css } from 'styled-components'
-import styles from '../../constants/css'
 import typography from '../../constants/typography'
 
 const _ = {
@@ -9,8 +8,9 @@ const _ = {
 }
 
 const heading = css`
-  ${styles.body.width.normal}
-  margin: 60px auto 40px auto;
+  /* clear default margin */
+  margin: 0;
+
   font-weight: ${typography.font.weight.bold};
 `
 

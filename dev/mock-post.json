@@ -113,7 +113,7 @@
   ],
   "style": "article:fullscreen:dark",
   "theme": null,
-  "copyright": "Creative-Commons",
+  "copyright": "Copyrighted",
   "tags": [
     {
       "id": "577e2c28c142b41000aca36b",
@@ -2745,5 +2745,12 @@
   ],
   "published_date": "2019-03-25T08:00:00+08:00",
   "updated_at": "2019-04-10T16:08:44.895+08:00",
-  "full": true
+  "full": true,
+  "topics": {
+    "id": "5cd3b75044ebf71700c9606f",
+    "slug": "2019-venice-biennale",
+    "name": "2019-venice-biennale",
+    "topic_name": "報導者「全面監控」威尼斯",
+    "title": "報導者「全面監控」威尼斯"
+  }
 }

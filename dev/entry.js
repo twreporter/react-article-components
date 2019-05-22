@@ -6,11 +6,8 @@ import styled from 'styled-components'
 import uh from '@twreporter/universal-header'
 
 const HeaderContainerWithTransparentTheme = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
+  position: relative;
+  background-color: #fabcf0;
 `
 
 ReactDOM.render(

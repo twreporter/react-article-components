@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import predefinedPropTypes from '../../constants/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/body'
 import styles from '../../constants/css'
 // lodash
 import get from 'lodash/get'
@@ -10,11 +10,6 @@ const _ = {
   get,
   map,
 }
-
-const Container = styled.div`
-  ${styles.body.width.normal}
-  margin: 0 auto;
-`
 
 const listStyle = css`
   ${styles.paragraphText}
@@ -55,9 +50,9 @@ const buildList = ordered => {
       return null
     }
     return (
-      <Container>
+      <div>
         <L>{_.map(listItems, buildLi)}</L>
-      </Container>
+      </div>
     )
   }
   List.propTypes = {

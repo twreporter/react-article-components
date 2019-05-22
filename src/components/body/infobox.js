@@ -1,8 +1,7 @@
 import mq from '../../utils/media-query'
-import predefinedPropTypes from '../../constants/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import styles from '../../constants/css'
+import styled, { css } from 'styled-components'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -11,8 +10,26 @@ const _ = {
   get,
 }
 
+const widthCSS = css`
+  ${mq.mobileOnly`
+    width: calc(248/300*100%);
+  `}
+
+  ${mq.tabletOnly`
+    width: 445px;
+  `}
+
+  ${mq.desktopOnly`
+    width: 480px;
+  `}
+
+  ${mq.hdOnly`
+    width: 580px;
+  `}
+`
+
 const Title = styled.div`
-  ${styles.body.width.normal}
+  ${widthCSS}
   color: ${props => props.theme.colors.base.text};
   line-height: 1.9;
   letter-spacing: 0.7px;
@@ -22,18 +39,17 @@ const Title = styled.div`
 `
 
 const Content = styled.div`
-  ${styles.body.width.normal}
+  ${widthCSS}
   color: ${props => props.theme.colors.base.text};
   line-height: 1.75;
   letter-spacing: 0.5px;
-  font-weight: ${typography.font.weight.light};
+  font-weight: ${typography.font.weight.normal};
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
   margin: 0 auto;
 `
 
 const Container = styled.div`
-  ${styles.body.width.large}
-  background: ${props => props.theme.colors.base.shape};
+  background: ${props => props.theme.colors.base.background};
   position: relative;
   margin: 60px auto 0 auto;
   ${mq.tabletAndBelow`
@@ -46,7 +62,7 @@ const Container = styled.div`
   `}
   &::before {
     /* sides of the triangle: 58 48 33 */
-    content: "";
+    content: '';
     display: block;
     width: 58px;
     height: 1px;
@@ -55,14 +71,14 @@ const Container = styled.div`
     position: absolute;
     right: -15px;
     top: 28px;
-    background: ${props => props.theme.colors.primary.line};
+    background: ${props => props.theme.colors.primary.support};
   }
   &::after {
     /*
       sides of the triangle: 58 48 33 (px)
       translate hori: -6, verti: 11 (px)
     */
-    content: "";
+    content: '';
     display: block;
     width: 58px;
     height: 1px;
@@ -71,7 +87,7 @@ const Container = styled.div`
     position: absolute;
     left: -6px;
     bottom: 22px;
-    background: ${props => props.theme.colors.primary.line};
+    background: ${props => props.theme.colors.primary.support};
   }
 `
 

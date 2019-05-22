@@ -7,41 +7,95 @@ import Headings from './headings'
 import Image from './image'
 import Infobox from './infobox'
 import list from './list'
+import map from 'lodash/map'
 import Paragraph from './paragraph'
-import predefinedPropTypes from '../../constants/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/body'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Slideshow from './slideshow'
+import styled from 'styled-components'
+import cssConst from '../../constants/css'
 import Youtube from './youtube'
-// lodash
-import map from 'lodash/map'
 
 const _ = {
   map,
 }
 
-function getElementComponent(type) {
-  switch (type) {
+const _blockWidth = {
+  normal: 'normal',
+  large: 'large',
+  extend: 'extend',
+}
+
+const BlockSizing = styled.div`
+  margin: ${props => {
+    if (props.margin) {
+      return props.margin
+    }
+    return props.blockWidth === _blockWidth.normal ? '40px auto' : '60px auto'
+  }};
+  ${props => cssConst.body.width[props.blockWidth]}
+`
+
+const BriefBlock = styled(BlockSizing)`
+  margin: 0 auto;
+`
+
+function renderElement(data = {}) {
+  switch (data.type) {
     case 'annotation':
-      return Annotation
+      return (
+        <BlockSizing blockWidth={_blockWidth.normal}>
+          <Annotation data={data} />
+        </BlockSizing>
+      )
     case 'audio':
       return null
     case 'centered-quote':
-      return CenteredQuote
+      return (
+        <BlockSizing blockWidth={_blockWidth.large}>
+          <CenteredQuote data={data} />
+        </BlockSizing>
+      )
     case 'blockquote':
-      return Blockquote
+      return (
+        <BlockSizing blockWidth={_blockWidth.normal}>
+          <Blockquote data={data} />
+        </BlockSizing>
+      )
     case 'quoteby':
       return null
     case 'header-one':
-      return Headings.H1
+      return (
+        <BlockSizing
+          blockWidth={_blockWidth.normal}
+          margin="60px auto 40px auto"
+        >
+          <Headings.H1 data={data} />
+        </BlockSizing>
+      )
     case 'header-two':
-      return Headings.H2
+      return (
+        <BlockSizing
+          blockWidth={_blockWidth.normal}
+          margin="60px auto 40px auto"
+        >
+          <Headings.H2 data={data} />
+        </BlockSizing>
+      )
     case 'code':
       return null
     case 'embedded-code':
     case 'embeddedCode':
     case 'embeddedcode':
-      return Embedded
+      return (
+        <BlockSizing
+          blockWidth={_blockWidth.large}
+          style={{ overflow: 'hidden' }}
+        >
+          <Embedded data={data} />
+        </BlockSizing>
+      )
     case 'small-image':
     case 'image':
     case 'image-link':
@@ -49,22 +103,50 @@ function getElementComponent(type) {
         The `image-link` in keystone editor is using `embedded-code` component actually currently.
         If we add a `image-link` type in the future, we just have to make the data format of `image-link` and `image` the same.
       */
-      return Image
+      return (
+        <BlockSizing blockWidth={_blockWidth.extend}>
+          <Image data={data} />
+        </BlockSizing>
+      )
     case 'imageDiff':
     case 'imagediff':
       return null
     case 'infobox':
-      return Infobox
+      return (
+        <BlockSizing blockWidth={_blockWidth.large}>
+          <Infobox data={data} />
+        </BlockSizing>
+      )
     case 'ordered-list-item':
-      return list.OrderedList
+      return (
+        <BlockSizing blockWidth={_blockWidth.normal}>
+          <list.OrderedList data={data} />
+        </BlockSizing>
+      )
     case 'unordered-list-item':
-      return list.UnorderedList
+      return (
+        <BlockSizing blockWidth={_blockWidth.normal}>
+          <list.UnorderedList data={data} />
+        </BlockSizing>
+      )
     case 'unstyled':
-      return Paragraph
+      return (
+        <BlockSizing blockWidth={_blockWidth.normal}>
+          <Paragraph data={data} />
+        </BlockSizing>
+      )
     case 'slideshow':
-      return Slideshow
+      return (
+        <BlockSizing blockWidth={_blockWidth.extend}>
+          <Slideshow data={data} />
+        </BlockSizing>
+      )
     case 'youtube':
-      return Youtube
+      return (
+        <BlockSizing blockWidth={_blockWidth.extend}>
+          <Youtube data={data} />
+        </BlockSizing>
+      )
     default:
       return null
   }
@@ -74,8 +156,6 @@ export default class Body extends PureComponent {
   static propTypes = {
     brief: PropTypes.arrayOf(predefinedPropTypes.elementData),
     content: PropTypes.arrayOf(predefinedPropTypes.elementData),
-    renderBrief: PropTypes.func.isRequired,
-    renderElement: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -83,10 +163,10 @@ export default class Body extends PureComponent {
     content: [],
   }
 
-  _buildContentElement = data => {
-    const Ele = getElementComponent(data.type)
-    if (!Ele) return null
-    return this.props.renderElement(Ele, data)
+  _buildContentElement = (data, index) => {
+    return (
+      <div key={data.id || `body_element_${index}`}>{renderElement(data)}</div>
+    )
   }
 
   render() {
@@ -96,7 +176,9 @@ export default class Body extends PureComponent {
       : null
     return (
       <div>
-        {this.props.renderBrief(Brief, brief)}
+        <BriefBlock blockWidth={_blockWidth.normal}>
+          <Brief data={brief} />
+        </BriefBlock>
         {contentJsx}
       </div>
     )

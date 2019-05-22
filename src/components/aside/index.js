@@ -1,7 +1,7 @@
 import Metadata from './metadata'
 import React from 'react'
 import Tools from './tools'
-import predefinedProps from './prop-types'
+import predefinedProps from '../../constants/prop-types/aside'
 import styled from 'styled-components'
 import { Waypoint } from 'react-waypoint'
 
@@ -21,6 +21,8 @@ const AsideFlexBox = styled.aside`
 const ToolsFixedArea = styled.div`
   position: relative;
   flex-grow: 1;
+  margin-top: 90px;
+  margin-bottom: 90px;
 `
 
 const ToolsPositioningBlock = styled.div`
@@ -104,9 +106,10 @@ export default class Aside extends React.PureComponent {
   }
 
   render() {
-    const toolsHeight = 220 // px
+    const toolsHeight = 280 // px
 
     const {
+      backToTopic,
       categories,
       date,
       designers,
@@ -145,6 +148,7 @@ export default class Aside extends React.PureComponent {
           </Waypoint>
           <ToolsPositioningBlock toolPosition={this.state.toolPosition}>
             <Tools
+              backToTopic={backToTopic}
               height={`${toolsHeight}px`}
               title={title}
               onFontLevelChange={onFontLevelChange}
