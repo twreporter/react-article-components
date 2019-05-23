@@ -3,6 +3,7 @@ import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Embedded from './embedded-code'
+import Headings from './headings'
 import Image from './image'
 import Infobox from './infobox'
 import list from './list'
@@ -32,9 +33,9 @@ function getElementComponent(type) {
     case 'quoteby':
       return null
     case 'header-one':
-      return null
+      return Headings.H1
     case 'header-two':
-      return null
+      return Headings.H2
     case 'code':
       return null
     case 'embedded-code':

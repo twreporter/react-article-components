@@ -14,21 +14,9 @@ const _ = {
   map,
 }
 
-const mockup = {
-  width: {
-    desktop: 529,
-    hd: 718,
-  },
-}
-
 const Container = styled.div`
+  ${styles.body.width.large}
   margin: 0 auto;
-  ${mq.desktopOnly`
-    width: ${mockup.width.desktop}px;
-  `}
-  ${mq.hdOnly`
-    width: ${mockup.width.hd}px;
-  `}
 `
 
 const Content = styled.div`
@@ -47,12 +35,9 @@ const Content = styled.div`
 `
 
 const Separation = styled.div`
-  ${mq.desktopAndAbove`
-    margin: 60px auto;
-  `}
-  ${mq.desktopOnly`
-    width: 192px;
-  `}
+  width: 192px;
+  margin: 60px auto;
+
   ${mq.hdOnly`
     width: 270px;
   `}

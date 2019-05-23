@@ -1,4 +1,6 @@
 import Aside from './aside'
+import Metadata from './aside/metadata'
+import Tools from './aside/tools'
 import Body from './body'
 import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import LeadingBlock from './leading-block'
@@ -38,12 +40,12 @@ const mockup = {
 
 const defaultColors = {
   primary: {
-    text: '#55e07f',
-    line: '#70f197',
-    shape: '#73fa9c',
+    text: '#ef7ede',
+    line: '#fbafef',
+    shape: '#fabcf0',
   },
   secondary: {
-    text: '#2440fb',
+    text: '#355ed3',
   },
   base: {
     text: '#494949',
@@ -76,18 +78,36 @@ const BodyBackground = styled.div`
   background-color: #fff;
 `
 
-const ArticleBlock = styled(HorizontalCentered)`
-  display: flex;
-  width: ${props => props.columns * mockup.desktop.column.width}px;
+const BodyBlock = styled(HorizontalCentered)`
+
+  ${mq.tabletAndBelow`
+    display: block;
+    width: 100%;
+  `}
+
+  ${mq.desktopOnly`
+    display: flex;
+    width: ${props => props.columns * mockup.desktop.column.width}px;
+    padding-top: 60px;
+  `}
 
   ${mq.hdOnly`
+    display: flex;
     width: ${props => props.columns * mockup.hd.column.width}px;
+    padding-top: 55px;
   `}
 `
 
 const AsideBlock = styled.div`
-  flex: 0 1 ${props => props.columns * mockup.desktop.column.width}px;
-  padding-right: ${mockup.desktop.column.paddingRight}px;
+
+  ${mq.tabletAndBelow`
+    display: none;
+  `}
+
+  ${mq.tabletOnly`
+    flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+    padding-right: ${mockup.desktop.column.paddingRight}px;
+  `}
 
   ${mq.hdOnly`
     flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
@@ -95,8 +115,40 @@ const AsideBlock = styled.div`
   `}
 `
 
+const MetadataAndToolsBlock = styled.div`
+  ${mq.mobileOnly`
+    padding-top: 30px;
+    padding-bottom: 30px;
+  `}
+
+  ${mq.tabletOnly`
+    padding-top: 60px;
+    padding-bottom: 60px;
+  `}
+
+  ${mq.desktopAndAbove`
+    display: none;
+  `}
+`
+
+const ToolsBlock = styled.div`
+  ${mq.mobileOnly`
+    margin-top: 20px;
+  `}
+
+  ${mq.tabletOnly`
+    margin-top: 30px;
+  `}
+`
+
 const ContentBlock = styled.div`
-  flex: 0 1 ${props => props.columns * mockup.desktop.column.width}px;
+  ${mq.tabletAndBelow`
+    width: 100%;
+  `}
+
+  ${mq.desktopOnly`
+    flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+  `}
 
   ${mq.hdOnly`
     flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
@@ -104,7 +156,13 @@ const ContentBlock = styled.div`
 `
 
 const BlockSizing = styled.div`
-  width: ${props => props.columns * mockup.desktop.column.width}px;
+  ${mq.tabletAndBelow`
+    width: 100%;
+  `}
+
+  ${mq.desktopOnly`
+    width: ${props => props.columns * mockup.desktop.column.width}px;
+  `}
 
   ${mq.hdOnly`
     width: ${props => props.columns * mockup.hd.column.width}px;
@@ -251,10 +309,11 @@ export default class Article extends PureComponent {
               }}
             />
             <BodyBackground>
-              <ArticleBlock columns={5}>
+              <BodyBlock columns={5}>
                 <AsideBlock columns={1}>
                   <Aside
                     categories={post.categories}
+                    date={post.published_date}
                     designers={post.designers}
                     photographers={post.photographers}
                     tags={post.tags}
@@ -264,6 +323,21 @@ export default class Article extends PureComponent {
                     onFontLevelChange={this.changeFontLevel}
                   />
                 </AsideBlock>
+                <MetadataAndToolsBlock>
+                  <Metadata
+                    categories={post.categories}
+                    date={post.published_date}
+                    designers={post.designers}
+                    photographers={post.photographers}
+                    tags={post.tags}
+                    writers={post.writters}
+                    engineers={post.engineers}
+                    rawAutherText={post.extend_byline}
+                  />
+                  <ToolsBlock>
+                    <Tools onFontLevelChange={this.changeFontLevel} />
+                  </ToolsBlock>
+                </MetadataAndToolsBlock>
                 <ContentBlock columns={4}>
                   <Body
                     brief={_.get(post, 'brief.api_data')}
@@ -285,7 +359,22 @@ export default class Article extends PureComponent {
                     }}
                   />
                 </ContentBlock>
-              </ArticleBlock>
+                <MetadataAndToolsBlock>
+                  <Metadata
+                    categories={post.categories}
+                    date={post.published_date}
+                    designers={post.designers}
+                    photographers={post.photographers}
+                    tags={post.tags}
+                    writers={post.writters}
+                    engineers={post.engineers}
+                    rawAutherText={post.extend_byline}
+                  />
+                  <ToolsBlock>
+                    <Tools onFontLevelChange={this.changeFontLevel} />
+                  </ToolsBlock>
+                </MetadataAndToolsBlock>
+              </BodyBlock>
               <RelatedBlock columns={5}>
                 <Related data={relateds} />
               </RelatedBlock>

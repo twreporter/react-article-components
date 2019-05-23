@@ -2,6 +2,7 @@ import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
+import styles from '../../constants/css'
 import typography from '../../constants/typography'
 // lodash
 import get from 'lodash/get'
@@ -11,48 +12,37 @@ const _ = {
 }
 
 const Title = styled.div`
+  ${styles.body.width.normal}
   color: ${props => props.theme.colors.base.text};
   line-height: 1.9;
   letter-spacing: 0.7px;
   font-weight: ${typography.font.weight.bold};
   font-size: ${props => props.theme.fontSizeOffset + 20}px;
-  ${mq.desktopOnly`
-    width: 480px;
-  `}
-  ${mq.hdOnly`
-    width: 580px;
-  `}
   margin: 0 auto 21px auto;
 `
 
 const Content = styled.div`
+  ${styles.body.width.normal}
   color: ${props => props.theme.colors.base.text};
   line-height: 1.75;
   letter-spacing: 0.5px;
   font-weight: ${typography.font.weight.light};
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
-  ${mq.desktopOnly`
-    width: 480px;
-  `}
-  ${mq.hdOnly`
-    width: 580px;
-  `}
   margin: 0 auto;
 `
 
 const Container = styled.div`
+  ${styles.body.width.large}
   background: ${props => props.theme.colors.base.shape};
   position: relative;
   margin: 60px auto 0 auto;
+  ${mq.tabletAndBelow`
+    padding-top: 30px;
+    padding-bottom: 30px;
+  `}
   ${mq.desktopAndAbove`
     padding-top: 40px;
     padding-bottom: 40px;
-  `}
-  ${mq.desktopOnly`
-    width: 549px;
-  `}
-  ${mq.hdOnly`
-    width: 729px;
   `}
   &::before {
     /* sides of the triangle: 58 48 33 */

@@ -14,6 +14,32 @@ const _ = {
 }
 
 const mockup = {
+  mobile: {
+    container: {
+      width: 375, // px
+    },
+    slide: {
+      width: 340, // px
+      height: 212, // px
+      paddingRight: 2, // px
+    },
+    offset: {
+      left: 18, // px
+    },
+  },
+  tablet: {
+    container: {
+      width: 768, // px
+    },
+    slide: {
+      width: 690, // px
+      height: 478, // px
+      paddingRight: 3, // px
+    },
+    offset: {
+      left: 39, // px
+    },
+  },
   desktop: {
     container: {
       width: 752, // px
@@ -62,19 +88,25 @@ const duration = 300
 const defaultCurIndex = 0
 
 const SlideshowFlexBox = styled.div`
-  max-width: ${mockup.desktop.container.width}px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 
+  ${mq.tabletAndBelow`
+    // 10px is the border-left of body
+    margin-left: -10px;
+    // 20px is the border-(right|left) of body
+    width: calc(100% + 20px);
+  `}
+
+  ${mq.desktopOnly`
+    max-width: ${mockup.desktop.container.width}px;
+  `}
+
   ${mq.hdOnly`
     max-width: ${mockup.hd.container.width}px;
   `}
-
-  * {
-    box-sizing: border-box;
-  }
 `
 
 const SlidesSection = styled.div`
@@ -86,6 +118,10 @@ const SlidesSection = styled.div`
     mockup.desktop.container.width) *
     100}%;
 
+  ${mq.tabletAndBelow`
+    order: 2;
+  `}
+
   ${mq.hdOnly`
     padding-bottom: ${(mockup.hd.slide.height / mockup.hd.container.width) *
       100}%;
@@ -94,6 +130,18 @@ const SlidesSection = styled.div`
 
 const PrevNextSection = styled.div`
   margin-top: 20px;
+
+  ${mq.tabletAndBelow`
+    order: 3;
+  `}
+
+  ${mq.mobileOnly`
+    margin-left: 25px;
+  `}
+
+  ${mq.tabletOnly`
+    margin-left: 47px;
+  `}
 `
 
 const PrevButton = styled.div`
@@ -122,10 +170,6 @@ const NextButton = styled(PrevButton)`
   border-left: none;
 `
 
-const DescriptionSection = styled.div`
-  margin-top: 6px;
-`
-
 const ImageNumberCircle = styled.div`
   display: inline-block;
   width: 80px;
@@ -146,6 +190,22 @@ const ImageNumberCircle = styled.div`
     top: 67px;
     left: 7px;
   }
+
+  ${mq.tabletAndBelow`
+    order: 1;
+
+    // align right
+    margin-left: auto;
+    // 10px is the border-right width of body
+    margin-right: 10px;
+  `}
+
+  ${mq.desktopAndAbove`
+    margin-top: 6px;
+
+    // align right
+    margin-left: auto;
+  `}
 
   ${mq.hdOnly`
     margin-right: -18px;
@@ -187,9 +247,23 @@ const ImageTotal = styled(ImageNumber)`
 `
 
 const Desc = styled(predefinedStyled.Multimedia.Caption)`
+  align-self: flex-start;
   position: relative;
   display: inline-block;
   transform: none;
+
+  ${mq.tabletAndBelow`
+    order: 4;
+    padding-top: 15px;
+  `}
+
+  ${mq.mobileOnly`
+    max-width: calc(180/375*100%);
+  `}
+
+  ${mq.desktopAndAbove`
+    padding-top: 30px;
+  `}
 `
 
 const SlidesFlexBox = styled.div`
@@ -205,8 +279,25 @@ const SlidesFlexBox = styled.div`
       return `transition: transform ${props.duration}ms ease-in-out;`
     }
   }}
-  transform: translateX(${props =>
-    getTranslateX(mockup.desktop, props.translateXUint)}px);
+
+  ${mq.mobileOnly`
+    transform: translateX(${props =>
+      (getTranslateX(mockup.mobile, props.translateXUint) /
+        getContainerWidth(mockup.mobile)) *
+      100}%);
+  `}
+
+  ${mq.tabletOnly`
+    transform: translateX(${props =>
+      (getTranslateX(mockup.tablet, props.translateXUint) /
+        getContainerWidth(mockup.tablet)) *
+      100}%);
+  `}
+
+  ${mq.desktopOnly`
+    transform: translateX(${props =>
+      getTranslateX(mockup.desktop, props.translateXUint)}px);
+  `}
 
   ${mq.hdOnly`
     transform: translateX(${props =>
@@ -216,8 +307,30 @@ const SlidesFlexBox = styled.div`
 
 const SlideFlexItem = styled.div`
   flex-shrink: 0;
-  flex-basis: ${getSlideWidth(mockup.desktop)}px;
-  padding-right: ${mockup.desktop.slide.paddingRight}px;
+
+  ${mq.mobileOnly`
+    flex-basis: ${(getSlideWidth(mockup.mobile) /
+      getContainerWidth(mockup.mobile)) *
+      100}%;
+    padding-right: ${(mockup.mobile.slide.paddingRight /
+      getContainerWidth(mockup.mobile)) *
+      100}%;
+  `}
+
+  ${mq.tabletOnly`
+    flex-basis: ${(getSlideWidth(mockup.tablet) /
+      getContainerWidth(mockup.tablet)) *
+      100}%;
+    padding-right: ${(mockup.tablet.slide.paddingRight /
+      getContainerWidth(mockup.tablet)) *
+      100}%;
+  `}
+
+
+  ${mq.desktopOnly`
+    flex-basis: ${getSlideWidth(mockup.desktop)}px;
+    padding-right: ${mockup.desktop.slide.paddingRight}px;
+  `}
 
   ${mq.hdOnly`
     flex-basis: ${getSlideWidth(mockup.hd)}px;
@@ -235,7 +348,22 @@ const SlideMask = styled.div`
 
 const LeftSlideMask = styled(SlideMask)`
   left: 0;
-  width: ${getLeftMaskWidth(mockup.desktop)}px;
+
+  ${mq.mobileOnly`
+    width: ${(getLeftMaskWidth(mockup.mobile) /
+      getContainerWidth(mockup.mobile)) *
+      100}%;
+  `}
+
+  ${mq.tabletOnly`
+    width: ${(getLeftMaskWidth(mockup.tablet) /
+      getContainerWidth(mockup.tablet)) *
+      100}%;
+  `}
+
+  ${mq.desktopOnly`
+    width: ${getLeftMaskWidth(mockup.desktop)}px;
+  `}
 
   ${mq.hdOnly`
     width: ${getLeftMaskWidth(mockup.hd)}px;
@@ -244,7 +372,22 @@ const LeftSlideMask = styled(SlideMask)`
 
 const RightSlideMask = styled(SlideMask)`
   right: 0;
-  width: ${getRightMaskWidth(mockup.desktop)}px;
+
+  ${mq.mobileOnly`
+    width: ${(getRightMaskWidth(mockup.mobile) /
+      getContainerWidth(mockup.mobile)) *
+      100}%;
+  `}
+
+  ${mq.tabletOnly`
+    width: ${(getRightMaskWidth(mockup.tablet) /
+      getContainerWidth(mockup.tablet)) *
+      100}%;
+  `}
+
+  ${mq.desktopOnly`
+    width: ${getRightMaskWidth(mockup.desktop)}px;
+  `}
 
   ${mq.hdOnly`
     width: ${getRightMaskWidth(mockup.hd)}px;
@@ -289,6 +432,14 @@ function getTranslateX(deviceMockup, unit) {
   // add left mask width and padding
   translateX = translateX + deviceMockup.offset.left
   return translateX // px
+}
+
+/**
+ * @param {DeviceMockup} deviceMockup
+ * @return {number}
+ */
+function getContainerWidth(deviceMockup) {
+  return deviceMockup.container.width
 }
 
 /**
@@ -471,13 +622,11 @@ export default class Slideshow extends PureComponent {
             <NextArrowSvg />
           </NextButton>
         </PrevNextSection>
-        <DescriptionSection>
-          <ImageNumberCircle>
-            <ImageNumber>{curSlideIndex + 1}</ImageNumber>
-            <ImageTotal>{this.total}</ImageTotal>
-          </ImageNumberCircle>
-          <Desc>{_.get(slides, [curSlideIndex, 'description'])}</Desc>
-        </DescriptionSection>
+        <ImageNumberCircle>
+          <ImageNumber>{curSlideIndex + 1}</ImageNumber>
+          <ImageTotal>{this.total}</ImageTotal>
+        </ImageNumberCircle>
+        <Desc>{_.get(slides, [curSlideIndex, 'description'])}</Desc>
       </SlideshowFlexBox>
     )
   }

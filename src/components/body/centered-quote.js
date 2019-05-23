@@ -1,4 +1,3 @@
-import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -16,13 +15,8 @@ const Container = styled.div`
 `
 
 const QuoteContent = styled.blockquote`
+  ${styles.body.width.large}
   margin: 0 auto;
-  ${mq.desktopOnly`
-    width: 550px;
-  `}
-  ${mq.hdOnly`
-    width: 730px;
-  `}
   font-weight: ${typography.font.weight.light};
   font-size: ${props => props.theme.fontSizeOffset + 32}px;
   line-height: 1.56;
@@ -32,13 +26,8 @@ const QuoteContent = styled.blockquote`
 `
 
 const QuoteBy = styled.cite`
+  ${styles.body.width.large}
   margin: 25px auto 0 auto;
-  ${mq.desktopOnly`
-    width: 366px;
-  `}
-  ${mq.hdOnly`
-    width: 486px;
-  `}
   display: block;
   font-style: normal;
   font-weight: ${typography.font.weight.light};

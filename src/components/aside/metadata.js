@@ -2,7 +2,7 @@ import predefinedProps from './prop-types'
 import React, { PureComponent } from 'react'
 import map from 'lodash/map'
 import sortBy from 'lodash/sortBy'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import mq from '../../utils/media-query'
 
 const _ = {
@@ -11,46 +11,74 @@ const _ = {
 }
 
 const MetadataContainer = styled.div`
-  max-width: 180px;
   letter-spacing: 0.4px;
-  ${mq.hdOnly`
-    max-width: 250px;
+
+  ${mq.mobileOnly`
+    width: calc(300/355*100%);
+    margin: 0 auto;
+  `}
+
+  ${mq.tabletOnly`
+    width: 513px;
+    margin: 0 auto;
   `}
 `
 
-const SeparationLine = styled.div`
-  width: 100%;
-  height: 12px;
-  border-right: solid 0.5px #d8d8d8;
-`
+const createLine = topOrBottom => {
+  return css`
+    position: relative;
+    border-${topOrBottom}: solid 0.5px #d8d8d8;
+    padding-${topOrBottom}: 15px;
 
-const UpperSeparationLine = styled(SeparationLine)`
-  border-top: solid 0.5px #d8d8d8;
-  margin-bottom: -2px;
-`
-
-const LowerSeparationLine = styled(SeparationLine)`
-  border-bottom: solid 0.5px #d8d8d8;
-`
-
-const StyledText = styled.div`
-  font-size: ${props => props.theme.fontSizeOffset + props.fontSize}px;
-  font-weight: ${props => props.fontWeight || 'normal'};
-`
+    &::after {
+      content: '';
+      border-right: solid 0.5px #d8d8d8;
+      width: 1px;
+      height: 12px;
+      ${topOrBottom}: 0;
+      right: 0;
+      position: absolute;
+    }
+  `
+}
 
 const CategoryFlexBox = styled.div`
   display: flex;
 `
 
 const CategoryFlex = styled.div`
-  flex-grow: 1;
+  ${createLine('top')}
+  flex-grow: ${props => props.flexGrow};
+
+  ${mq.tabletAndBelow`
+    padding-right: 15px;
+    padding-left: 15px;
+  `}
+
+  ${mq.desktopAndAbove`
+    padding-right: 5px;
+    padding-left: 5px;
+  `}
 `
 
-const CategoryText = styled(StyledText)`
-  color: ${props => props.theme.colors.primary.text};
+const CategoryText = styled.div`
+  color: ${props => props.theme.colors.secondary.text};
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
-  line-height: 1.5;
+  line-height: 1;
   padding-left: 5px;
+`
+
+const DateSection = styled.div`
+  ${createLine('top')}
+  font-size: 14px;
+  color: #9c9c9c;
+  margin-left: 5px;
+  margin-top: 15px;
+
+  &::before {
+    content: '刊出日期';
+    margin-right: 10px;
+  }
 `
 
 const AuthorSection = styled.div`
@@ -60,40 +88,41 @@ const AuthorSection = styled.div`
 
 const AuthorFlexBox = styled.div`
   display: flex;
-  margin-bottom: 6px;
+  align-items: center;
+  margin-bottom: 10px;
 `
 
 const NoShrinkFlexItem = styled.div`
   flex-shrink: 0;
 `
 
-const authorTextHeight = 20 // px
-
-const AuthorJobTitle = styled(StyledText)`
+const AuthorJobTitle = styled.div`
+  font-size: ${props => props.theme.fontSizeOffset + 14}px;
   color: #808080;
-  margin-left: ${props => props.marginLeft || '0'}px;
-  line-height: ${props => authorTextHeight / props.fontSize};
+  margin-left: 5px;
+  line-height: 1;
 `
 
 const AuthorName = styled(AuthorJobTitle)`
-  color: ${props => props.theme.colors.primary.text};
+  color: ${props => props.theme.colors.secondary.text};
+  font-size: ${props => props.theme.fontSizeOffset + 16}px;
+  margin-left: 5px;
 
   ${mq.mobileOnly`
     display: inline-block;
   `}
 `
 
-const RawAuthorText = styled(StyledText)`
+const RawAuthorText = styled.div`
+  font-size: ${props => props.theme.fontSizeOffset + 14}px;
   color: #808080;
   padding-left: 5px;
 `
 
 const AngledSeparationLine = styled.div`
   border-bottom: 0.5px solid ${props => props.theme.colors.primary.line};
-  width: 27.7px;
-  height: ${authorTextHeight / 2}px;
-  transform: rotate(-25deg);
-  margin-left: -18px;
+  width: 15px;
+  transform: rotate(-45deg);
 `
 
 const TagButton = styled.div`
@@ -115,6 +144,8 @@ const TagsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: center;
+
+  ${createLine('bottom')}
 `
 
 const StyledA = styled.a`
@@ -141,10 +172,11 @@ class Metadata extends PureComponent {
 
     const categoriesJSX = _.map(categories, (cat, index) => {
       return (
-        <CategoryFlex key={`category_${cat.id}`}>
-          <UpperSeparationLine />
+        <CategoryFlex key={`category_${cat.id}`} flexGrow={index}>
           <StyledA href={`/categories/${cat.id}`}>
-            <CategoryText fontWeight={index === 0 ? 'bold' : 'normal'}>
+            <CategoryText
+              style={{ fontWeight: index === 0 ? 'bold' : 'normal' }}
+            >
               {cat.name}
             </CategoryText>
           </StyledA>
@@ -169,7 +201,6 @@ class Metadata extends PureComponent {
     return (
       <React.Fragment>
         <TagsSection>{tagsJSX}</TagsSection>
-        <LowerSeparationLine />
       </React.Fragment>
     )
   }
@@ -182,9 +213,7 @@ class Metadata extends PureComponent {
     const authorNamesJSX = _.map(authors, author => {
       return (
         <StyledA key={`author_${author.id}`} href={`/authors/${author.id}`}>
-          <AuthorName fontSize={16} marginLeft="8">
-            {author.name}
-          </AuthorName>
+          <AuthorName>{author.name}</AuthorName>
         </StyledA>
       )
     })
@@ -192,9 +221,7 @@ class Metadata extends PureComponent {
     return (
       <AuthorFlexBox>
         <NoShrinkFlexItem>
-          <AuthorJobTitle fontSize={14} marginLeft="5">
-            {label}
-          </AuthorJobTitle>
+          <AuthorJobTitle>{label}</AuthorJobTitle>
         </NoShrinkFlexItem>
         <NoShrinkFlexItem>
           <AngledSeparationLine />
@@ -215,20 +242,28 @@ class Metadata extends PureComponent {
 
     return (
       <AuthorSection>
-        <UpperSeparationLine />
         {this.renderAuthorsRow('文字', writers)}
         {this.renderAuthorsRow('攝影', photographers)}
         {this.renderAuthorsRow('設計', designers)}
         {this.renderAuthorsRow('工程', engineers)}
-        <RawAuthorText fontSize={14}>{rawAutherText}</RawAuthorText>
+        <RawAuthorText>{rawAutherText}</RawAuthorText>
       </AuthorSection>
     )
   }
 
   render() {
+    const date = this.props.date
+      ? new Date(this.props.date).toLocaleString('zh-hant', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        })
+      : ''
+
     return (
       <MetadataContainer>
         {this.renderCategorySection()}
+        <DateSection>{date}</DateSection>
         {this.renderAuthorsSection()}
         {this.renderTagsSection()}
       </MetadataContainer>

@@ -1,4 +1,3 @@
-import mq from '../../utils/media-query'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import predefinedPropTypes from '../../constants/prop-types'
@@ -13,12 +12,7 @@ const _ = {
 }
 
 const Container = styled.div`
-  ${mq.desktopOnly`
-    width: 480px;
-  `}
-  ${mq.hdOnly`
-    width: 580px;
-  `}
+  ${styles.body.width.normal}
   margin: 0 auto;
 `
 
@@ -48,8 +42,8 @@ const Li = styled.li`
   }
 `
 
-const buildLi = listItem => (
-  <Li dangerouslySetInnerHTML={{ __html: listItem }} />
+const buildLi = (listItem, index) => (
+  <Li key={`list_${index}`} dangerouslySetInnerHTML={{ __html: listItem }} />
 )
 
 // eslint-disable-next-line react/display-name

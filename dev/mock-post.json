@@ -886,8 +886,8 @@
         "content": [
           {
             "caption": "",
-            "embeddedCode": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ftwreporter%2Fposts%2F2287518031496056&width=500\" width=\"500\" height=\"568\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>",
-            "embeddedCodeWithoutScript": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ftwreporter%2Fposts%2F2287518031496056&width=500\" width=\"500\" height=\"568\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>",
+            "embeddedCode": "<div style=\"padding-bottom:113%;position:relative;\"><iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ftwreporter%2Fposts%2F2287518031496056&width=500\" style=\"border:none;overflow:hidden;position:absolute;width:100%;height:100%\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>",
+            "embeddedCodeWithoutScript": "<div style=\"padding-bottom:113%;position:relative;\"><iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ftwreporter%2Fposts%2F2287518031496056&width=500\" style=\"border:none;overflow:hidden;position:absolute;width:100%;height:100%;top:0;left:0;\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>",
             "height": "568",
             "scripts": [],
             "width": "500"

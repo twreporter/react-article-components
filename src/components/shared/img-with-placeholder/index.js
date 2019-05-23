@@ -84,6 +84,7 @@ const ImgBox = styled.div`
 export default class Img extends React.PureComponent {
   static propTypes = {
     alt: PropTypes.string,
+    className: PropTypes.string,
     imgProps: PropTypes.object,
     // The properties of `imgProps` will all be passed to `<img />` element.
     imageSet: PropTypes.arrayOf(predefinedPropTypes.imagePropType),
@@ -102,6 +103,7 @@ export default class Img extends React.PureComponent {
 
   static defaultProps = {
     alt: '',
+    className: '',
     imgProps: {},
     imageSet: [],
     sizes: '',
@@ -155,6 +157,7 @@ export default class Img extends React.PureComponent {
     const { toShowPlaceholder } = this.state
     const {
       alt,
+      className,
       imgProps,
       imageSet,
       defaultImage,
@@ -174,6 +177,7 @@ export default class Img extends React.PureComponent {
     const isObjectFit = Boolean(objectFit)
     return (
       <ImgContainer
+        className={className}
         heightString={
           isObjectFit
             ? `height: 100%;`
