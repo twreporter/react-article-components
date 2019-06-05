@@ -1,6 +1,6 @@
 import React from 'react'
-import predefinedPropTypes from '../../constants/prop-types'
-import predefinedStyled from './styled'
+import predefinedPropTypes from '../../constants/prop-types/body'
+import Multimedia from './multimedia'
 import styled from 'styled-components'
 import get from 'lodash/get'
 
@@ -8,19 +8,22 @@ const _ = {
   get,
 }
 
-const Block = styled(predefinedStyled.Multimedia.Block)`
+const Block = Multimedia.Block
+
+const IframeBlock = styled.div`
   padding-bottom: 56.25%;
+  position: relative;
+
+  > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 `
 
-const Iframe = styled.iframe`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`
-
-const Desc = predefinedStyled.Multimedia.Caption
+const Desc = Multimedia.Caption
 
 export default class Youtube extends React.PureComponent {
   static propTypes = {
@@ -33,12 +36,14 @@ export default class Youtube extends React.PureComponent {
     const desc = _.get(data, 'content.0.description')
     return (
       <Block>
-        <Iframe
-          frameBorder="0"
-          allowFullScreen={true}
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          src={`https://www.youtube.com/embed/${id}`}
-        />
+        <IframeBlock>
+          <iframe
+            frameBorder="0"
+            allowFullScreen={true}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            src={`https://www.youtube.com/embed/${id}`}
+          />
+        </IframeBlock>
         <Desc>{desc}</Desc>
       </Block>
     )

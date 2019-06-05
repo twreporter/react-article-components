@@ -1,20 +1,32 @@
-import BookmarkIcon from './assets/tool-bookmark.svg'
-import FBIcon from './assets/share-fb.svg'
-import LineIcon from './assets/share-line.svg'
-import TwitterIcon from './assets/share-twitter.svg'
-import PrintIcon from './assets/tool-print.svg'
+import BackToTopicIcon from '../../assets/aside/back-top-topic.svg'
+import BookmarkIcon from '../../assets/aside/tool-bookmark.svg'
+import DynamicComponentsContext from '../../contexts/dynamic-components-context'
+import FBIcon from '../../assets/aside/share-fb.svg'
+import LineIcon from '../../assets/aside/share-line.svg'
+import TwitterIcon from '../../assets/aside/share-twitter.svg'
+import PrintIcon from '../../assets/aside/tool-print.svg'
 import PropTypes from 'prop-types'
 import React from 'react'
-import TextIcon from './assets/tool-text.svg'
+import TextIcon from '../../assets/aside/tool-text.svg'
 import mq from '../../utils/media-query'
-import predefinedProps from './prop-types'
-import styled from 'styled-components'
+import predefinedProps from '../../constants/prop-types/aside'
+import styled, { css } from 'styled-components'
 
 const ToolsBlock = styled.div`
   display: flex;
 
   > svg {
     cursor: pointer;
+  }
+
+  svg:hover {
+    .darker-on-hover.darker-fill {
+      fill: #262626;
+    }
+
+    .darker-on-hover.darker-stroke {
+      stroke: #262626;
+    }
   }
 
   ${mq.mobileOnly`
@@ -28,7 +40,7 @@ const ToolsBlock = styled.div`
     width: 513px;
     margin-left: auto;
     margin-right: auto;
-    > svg {
+    > svg, > div, > a {
       margin-right: 30px;
     }
   `}
@@ -39,6 +51,75 @@ const ToolsBlock = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+  `}
+`
+
+function changeFontSizeOffsetToPct(fontSizeOffset) {
+  switch (fontSizeOffset) {
+    case 2: {
+      return '110%'
+    }
+    case 4: {
+      return '120%'
+    }
+    case 0:
+    default: {
+      return '100%'
+    }
+  }
+}
+
+const iconBlockCSS = css`
+  position: relative;
+
+  &:after {
+    position: absolute;
+    color: #262626;
+    font-size: 14px;
+    line-height: 23px;
+    margin-left: 5px;
+    visibility: hidden;
+  }
+
+  &:hover {
+    &:after {
+      visibility: visible;
+    }
+  }
+`
+
+const TextIconBlock = styled.div`
+  ${iconBlockCSS}
+  cursor: pointer;
+
+  &:after {
+    width: calc(14px * 7);
+    content: '字級大小${props =>
+      changeFontSizeOffsetToPct(props.theme.fontSizeOffset)}';
+  }
+
+  ${mq.tabletAndBelow`
+    &:after {
+      top: 0;
+      left: 0;
+      transform: translateY(100%);
+    }
+  `}
+`
+
+const BackToTopicBlock = styled.div`
+  ${iconBlockCSS}
+  &:after {
+    width: calc(14px * 4);
+    content: '回到專題';
+  }
+
+  ${mq.tabletAndBelow`
+    &:after {
+      top: 0;
+      left: 0;
+      transform: translateY(100%);
+    }
   `}
 `
 
@@ -94,14 +175,16 @@ export default class Tools extends React.PureComponent {
   static propTypes = predefinedProps.tools
 
   render() {
-    const { fbAppID, height, onFontLevelChange } = this.props
+    const { backToTopic, fbAppID, height, onFontLevelChange } = this.props
 
     return (
       <ToolsBlock height={height}>
         <FBShareBT appID={fbAppID || defaultFbAppID} />
         <TwitterShareBT />
         <LineShareBT />
-        <TextIcon onClick={onFontLevelChange} />
+        <TextIconBlock>
+          <TextIcon onClick={onFontLevelChange} />
+        </TextIconBlock>
         <PrintIcon
           onClick={() => {
             window.print()
@@ -109,6 +192,19 @@ export default class Tools extends React.PureComponent {
         />
         {/* TODO move bookmark widget out of twreporter-react repo */}
         <BookmarkIcon />
+        {backToTopic ? (
+          <DynamicComponentsContext.Consumer>
+            {components => {
+              return (
+                <components.Link to={backToTopic} target="_self">
+                  <BackToTopicBlock>
+                    <BackToTopicIcon />
+                  </BackToTopicBlock>
+                </components.Link>
+              )
+            }}
+          </DynamicComponentsContext.Consumer>
+        ) : null}
       </ToolsBlock>
     )
   }

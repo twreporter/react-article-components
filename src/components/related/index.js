@@ -5,55 +5,88 @@ import React from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import mq from '../../utils/media-query'
-import predefinedProps from './prop-types'
+import predefinedProps from '../../constants/prop-types/related'
 import styled from 'styled-components'
+import typography from '../../constants/typography'
 
 const _ = {
   get,
   map,
 }
 
-const mockup = {
-  desktop: {
-    descriptor: {
-      width: 180, // px
-      marginRight: 8, // px
-    },
-  },
-}
-
 const Block = styled.section`
-  display: flex;
+  ${mq.desktopAndAbove`
+    display: flex;
+  `}
+
+  ${mq.desktopOnly`
+    margin-left: 28px;
+  `}
+
+  ${mq.hdOnly`
+    margin-left: 53px;
+  `}
 `
 
 const Descriptor = styled.div`
-  width: ${mockup.desktop.descriptor.width}px;
-  flex-shrink: 0;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 1.5;
-  letter-spacing: 0.4px;
-  color: #494949;
-  margin-right: ${mockup.desktop.descriptor.marginRight}px;
-  padding-top: 5px;
-  border-top: solid 0.5px #d8d8d8;
-  position: relative;
 
-  &:before {
-    content: '相關文章';
-    margin-left: 5px;
-    margin-top: 5px;
-  }
+  ${mq.tabletAndBelow`
+    margin: 0 auto 40px auto;
+    color: ${props => props.theme.colors.base.lightText};
+    font-size: 20px;
+    font-weigth: ${typography.font.weight.bold};
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 12px;
-    border-right: solid 0.5px #d8d8d8;
-  }
+    &:before {
+      content: '相關文章';
+    }
+  `}
+
+  ${mq.mobileOnly`
+    width: calc(309/355*100%);
+  `}
+
+  ${mq.tabletOnly`
+    width: 513px;
+  `}
+
+  ${mq.desktopAndAbove`
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+    color: #494949;
+    margin-right: auto;
+    padding-top: 5px;
+    border-top: solid 0.5px #d8d8d8;
+    position: relative;
+
+    &:before {
+      content: '相關文章';
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 12px;
+      border-right: solid 0.5px #d8d8d8;
+    }
+  `}
+
+  ${mq.desktopOnly`
+    width: 180px;
+    margin-right: 15px;
+  `}
+
+  ${mq.hdOnly`
+    width: 250px;
+    margin-right: 12px;
+  `}
 `
 
 const List = styled.div`
@@ -67,11 +100,19 @@ const Item = styled.div`
   border-width: 0 0.5px 0.5px 0;
   border-color: #d8d8d8;
   margin-bottom: 40px;
-  margin-right: 4px;
+  margin-right: 3px;
 
   ${mq.tabletAndBelow`
-    flex-basis: 100%;
     border-width: 0 0 0.5px 0;
+    margin: 0 auto;
+  `}
+
+  ${mq.mobileOnly`
+    flex-basis: calc(309/355*100%);
+  `}
+
+  ${mq.tabletOnly`
+    flex-basis: 513px;
   `}
 `
 

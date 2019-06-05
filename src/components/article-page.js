@@ -2,17 +2,20 @@ import Aside from './aside'
 import Metadata from './aside/metadata'
 import Tools from './aside/tools'
 import Body from './body'
+import DonationBox from './donation-box'
 import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import LeadingBlock from './leading-block'
-import Link from './shared/link'
+import License from './license'
+import Link from './link'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Related from './related'
+import SeparationCurve from './separation-curve'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
 import mq from '../utils/media-query'
-import predefinedPropTypes from '../constants/prop-types'
+import predefinedPropTypes from '../constants/prop-types/article-page'
 import sortBy from 'lodash/sortBy'
 import styled, { ThemeProvider } from 'styled-components'
 
@@ -23,35 +26,25 @@ const _ = {
   sortBy,
 }
 
-const mockup = {
-  desktop: {
-    column: {
-      width: 188, // px
-      paddingRight: 4, // px
-    },
-  },
-  hd: {
-    column: {
-      width: 267, // px
-      paddingRight: 6, // px
-    },
-  },
-}
-
 const defaultColors = {
   primary: {
-    text: '#ef7ede',
-    line: '#fbafef',
-    shape: '#fabcf0',
+    text: '#355ed3',
+    accent: '#ef7ede',
+    support: '#fbafef',
+    background: '#fadaf5',
   },
   secondary: {
-    text: '#355ed3',
+    text: '#a67a44',
+    accent: '#a67a44',
+    support: '#d0a67d',
+    background: '#c9af8e',
   },
   base: {
-    text: '#494949',
+    text: '#404040',
     lightText: '#808080',
-    line: '#d8d8d8',
-    shape: '#f4f4f4',
+    button: '#808080',
+    line: '#afafaf',
+    background: '#fff',
   },
 }
 
@@ -63,62 +56,64 @@ const BorderBox = styled.div`
 
 const BackgroundBlock = styled(BorderBox)`
   /* pass from ThemeProvider */
-  background-color: ${props => props.theme.colors.primary.shape};
+  background-color: ${props => props.theme.colors.primary.background};
 
   padding-left: 10px;
   padding-right: 10px;
 `
 
-const HorizontalCentered = styled.div`
-  margin: 0 auto;
-`
-
 const BodyBackground = styled.div`
   width: 100%;
-  background-color: #fff;
-`
-
-const BodyBlock = styled(HorizontalCentered)`
-
-  ${mq.tabletAndBelow`
-    display: block;
-    width: 100%;
-  `}
-
+  background-color: #f4f4f4;
   ${mq.desktopOnly`
-    display: flex;
-    width: ${props => props.columns * mockup.desktop.column.width}px;
     padding-top: 60px;
   `}
 
   ${mq.hdOnly`
-    display: flex;
-    width: ${props => props.columns * mockup.hd.column.width}px;
     padding-top: 55px;
   `}
 `
 
-const AsideBlock = styled.div`
+const BodyBlock = styled.div`
+  position: relative;
+  width: 100%;
 
+  ${mq.desktopOnly`
+    max-width: 1024px;
+    margin: 0 auto;
+  `}
+
+  ${mq.hdOnly`
+    max-width: 1440px;
+    margin: 0 auto;
+  `}
+`
+
+const AsideBlock = styled.div`
   ${mq.tabletAndBelow`
     display: none;
   `}
 
-  ${mq.tabletOnly`
-    flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
-    padding-right: ${mockup.desktop.column.paddingRight}px;
+  ${mq.desktopAndAbove`
+    position: absolute;
+    height: 100%;
+  `}
+
+  ${mq.desktopOnly`
+    width: 180px;
+    left: 28px;
   `}
 
   ${mq.hdOnly`
-    flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
-    padding-right: ${mockup.hd.column.paddingRight}px;
+    width: 250px;
+    left: 53px;
   `}
 `
 
 const MetadataAndToolsBlock = styled.div`
   ${mq.mobileOnly`
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 60px;
   `}
 
   ${mq.tabletOnly`
@@ -142,51 +137,22 @@ const ToolsBlock = styled.div`
 `
 
 const ContentBlock = styled.div`
+  margin: 0 auto;
+
   ${mq.tabletAndBelow`
     width: 100%;
   `}
-
   ${mq.desktopOnly`
-    flex: 1 1 ${props => props.columns * mockup.desktop.column.width}px;
+    width: 550px;
   `}
-
   ${mq.hdOnly`
-    flex: 0 1 ${props => props.columns * mockup.hd.column.width}px;
+    width: 730px;
   `}
 `
 
-const BlockSizing = styled.div`
-  ${mq.tabletAndBelow`
-    width: 100%;
-  `}
-
-  ${mq.desktopOnly`
-    width: ${props => props.columns * mockup.desktop.column.width}px;
-  `}
-
-  ${mq.hdOnly`
-    width: ${props => props.columns * mockup.hd.column.width}px;
-  `}
-`
-
-const RelatedBlock = styled(BlockSizing)`
+const RelatedBlock = styled(BodyBlock)`
   margin: 80px auto 0 auto;
 `
-
-function getColumns(type) {
-  switch (type) {
-    case 'small-image':
-    case 'image-link':
-    case 'image':
-    case 'imageDiff':
-    case 'imagediff':
-    case 'slideshow':
-    case 'youtube':
-      return 4
-    default:
-      return 3
-  }
-}
 
 const _fontLevel = {
   base: 'base',
@@ -196,6 +162,14 @@ const _fontLevel = {
 
 const _articleStyles = {
   interactive: 'interactive',
+}
+
+function getTopicHref(topicObj = {}) {
+  const slug = _.get(topicObj, 'slug')
+  if (slug) {
+    return `/topics/${slug}`
+  }
+  return null
 }
 
 export default class Article extends PureComponent {
@@ -289,6 +263,8 @@ export default class Article extends PureComponent {
       }
     })
 
+    const topicHref = getTopicHref(post.topics)
+
     return (
       <ThemeProvider
         theme={{
@@ -301,6 +277,7 @@ export default class Article extends PureComponent {
             <LeadingBlock
               title={post.title}
               subtitle={post.subtitle}
+              topicHref={topicHref}
               topicName={_.get(post, 'topics.topic_name', '')}
               poster={{
                 mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
@@ -309,9 +286,10 @@ export default class Article extends PureComponent {
               }}
             />
             <BodyBackground>
-              <BodyBlock columns={5}>
-                <AsideBlock columns={1}>
+              <BodyBlock>
+                <AsideBlock>
                   <Aside
+                    backToTopic={topicHref}
                     categories={post.categories}
                     date={post.published_date}
                     designers={post.designers}
@@ -335,28 +313,16 @@ export default class Article extends PureComponent {
                     rawAutherText={post.extend_byline}
                   />
                   <ToolsBlock>
-                    <Tools onFontLevelChange={this.changeFontLevel} />
+                    <Tools
+                      backToTopic={topicHref}
+                      onFontLevelChange={this.changeFontLevel}
+                    />
                   </ToolsBlock>
                 </MetadataAndToolsBlock>
-                <ContentBlock columns={4}>
+                <ContentBlock>
                   <Body
                     brief={_.get(post, 'brief.api_data')}
                     content={_.get(post, 'content.api_data')}
-                    renderBrief={(Brief, data) => {
-                      return (
-                        <BlockSizing columns={3}>
-                          <Brief data={data} />
-                        </BlockSizing>
-                      )
-                    }}
-                    renderElement={(Element, data) => {
-                      const columns = getColumns(_.get(data, 'type'))
-                      return (
-                        <BlockSizing columns={columns} key={data.id}>
-                          <Element data={data} />
-                        </BlockSizing>
-                      )
-                    }}
                   />
                 </ContentBlock>
                 <MetadataAndToolsBlock>
@@ -371,11 +337,20 @@ export default class Article extends PureComponent {
                     rawAutherText={post.extend_byline}
                   />
                   <ToolsBlock>
-                    <Tools onFontLevelChange={this.changeFontLevel} />
+                    <Tools
+                      backToTopic={topicHref}
+                      onFontLevelChange={this.changeFontLevel}
+                    />
                   </ToolsBlock>
                 </MetadataAndToolsBlock>
               </BodyBlock>
-              <RelatedBlock columns={5}>
+              <DonationBox />
+              <License
+                license={post.copyright}
+                publishedDate={post.published_date}
+              />
+              <SeparationCurve />
+              <RelatedBlock>
                 <Related data={relateds} />
               </RelatedBlock>
             </BodyBackground>

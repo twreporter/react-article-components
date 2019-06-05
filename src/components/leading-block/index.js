@@ -1,8 +1,9 @@
-import Img from '../shared/img-with-placeholder'
+import DynamicComponentsContext from '../../contexts/dynamic-components-context'
+import Img from '../img-with-placeholder'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import mq from '../../utils/media-query'
-import predefinedPropTypes from '../shared/img-with-placeholder/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/img-with-placeholder'
 import styled from 'styled-components'
 
 const mockup = {
@@ -20,29 +21,14 @@ const mockup = {
 
 const BackgroundBlock = styled.div`
   /* through ThemeProvider of styled-components */
-  background-color: ${props => props.theme.colors.primary.shape};
+  background-color: ${props => props.theme.colors.primary.background};
 
   width: 100%;
 
-  // 108px is the header height
-  ${mq.mobileOnly`
-    padding-top: ${props => props.paddingTop || '108px'};
-
-    height: auto;
-  `}
-
-  // 153px is the header height of tablet version
-  ${mq.tabletOnly`
-    padding-top: ${props => props.paddingTop || '153px'};
-
-    height: auto;
-  `}
-
   ${mq.desktopAndAbove`
-    padding: ${props => props.paddingTop || '108px'}
-      10px 18px 10px;
+    padding: 0 10px 18px 10px;
 
-    height: 100vh;
+    height: ${props => `calc(100vh - ${props.paddingTop || '108px'})`};
   `}
 `
 
@@ -78,7 +64,7 @@ const TextBlock = styled.div`
 `
 
 const TopicTextBlock = styled.div`
-  background-color: ${props => props.theme.colors.primary.shape};
+  background-color: ${props => props.theme.colors.primary.support};
   border: solid 2px #fff;
   display: inline-block;
 
@@ -88,7 +74,7 @@ const TopicTextBlock = styled.div`
   margin-bottom: 30px;
 
   /* through ThemeProvider of styled-components */
-  color: ${props => props.theme.colors.secondary.text};
+  color: ${props => props.theme.colors.primary.text};
   font-size: 20px;
   font-weight: bold;
   line-height: 1.8;
@@ -99,7 +85,7 @@ const TopicTextBlock = styled.div`
 
 const TitleTextBlock = styled.h1`
   /* through ThemeProvider of styled-components */
-  color: ${props => props.theme.colors.secondary.text};
+  color: ${props => props.theme.colors.primary.text};
 
   font-weight: bold;
   padding-left: 10px;
@@ -136,7 +122,7 @@ const TitleTextBlock = styled.h1`
 
 const SubtitleTextBlock = styled.h2`
   /* through ThemeProvider of styled-components */
-  color: ${props => props.theme.colors.secondary.text};
+  color: ${props => props.theme.colors.primary.text};
   display: block;
 
   font-size: 20px;
@@ -156,29 +142,21 @@ const SubtitleTextBlock = styled.h2`
 `
 
 const FigureBlock = styled.figure`
-  // reset margin of figure
+  /* reset margin of figure */
   margin: 0;
 
   ${mq.tabletAndBelow`
     position: relative;
     left: -10px;
-    // 20px is border-(right|left) width of body
+    /* 20px is border-(right|left) width of body */
     width: calc(100% + 20px);
     padding-bottom: 75%;
+    margin-top: 40px;
 
     > .leading-image {
       position: absolute;
     }
   `}
-
-  ${mq.mobileOnly`
-    margin-top: 60px;
-  `}
-
-  ${mq.tabletOnly`
-    margin-top: 40px;
-  `}
-
 
   ${mq.desktopAndAbove`
     width: 100%;
@@ -197,23 +175,42 @@ export default class LeadingBlock extends PureComponent {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     topicName: PropTypes.string,
+    topicHref: PropTypes.string,
     paddingTop: PropTypes.string,
   }
 
   static defaultProps = {
     subtitle: '',
+    topicHref: '',
     topicName: '',
     paddingTop: '',
   }
 
   render() {
-    const { paddingTop, poster = {}, subtitle, title, topicName } = this.props
+    const {
+      paddingTop,
+      poster = {},
+      subtitle,
+      title,
+      topicHref,
+      topicName,
+    } = this.props
 
     return (
       <BackgroundBlock paddingTop={paddingTop}>
         <ContentBlock>
           <TextBlock>
-            {topicName ? <TopicTextBlock>{topicName}</TopicTextBlock> : null}
+            {topicName ? (
+              <DynamicComponentsContext.Consumer>
+                {components => {
+                  return (
+                    <components.Link to={topicHref}>
+                      <TopicTextBlock>{topicName}</TopicTextBlock>
+                    </components.Link>
+                  )
+                }}
+              </DynamicComponentsContext.Consumer>
+            ) : null}
             {subtitle ? (
               <SubtitleTextBlock>
                 <span>{subtitle}</span>

@@ -28,6 +28,7 @@ export default {
     date: PropTypes.string,
   },
   tools: {
+    backToTopic: PropTypes.string,
     fbAppID: PropTypes.string,
     height: PropTypes.string,
     onFontLevelChange: PropTypes.func,

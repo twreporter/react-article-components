@@ -1,4 +1,4 @@
-import predefinedPropTypes from '../../constants/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/body'
 import React from 'react'
 import styled from 'styled-components'
 import styles from '../../constants/css'
@@ -10,10 +10,8 @@ const _ = {
 }
 
 const P = styled.p`
-  ${styles.body.width.normal}
   ${styles.paragraphText}
   ${styles.linkChildren}
-  margin: 2.62em auto 2.62em auto;
 `
 
 export default function Paragraph({ data }) {

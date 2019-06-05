@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import predefinedPropTypes from '../shared/img-with-placeholder/prop-types'
+import predefinedPropTypes from './img-with-placeholder'
 
 const card = PropTypes.shape({
   category: PropTypes.string,

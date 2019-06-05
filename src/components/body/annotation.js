@@ -1,4 +1,4 @@
-import predefinedPropTypes from '../../constants/prop-types'
+import predefinedPropTypes from '../../constants/prop-types/body'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -23,10 +23,8 @@ const slideDownAndFadeIn = keyframes`
 `
 
 const Container = styled.div`
-  ${styles.body.width.normal}
   ${styles.paragraphText}
   ${styles.linkChildren}
-  margin: 2.62em auto 2.62em auto;
   &:first-child {
     margin-top: 0;
   }
@@ -43,7 +41,7 @@ const AnnotationContainer = styled.abbr`
 
 const AnnotatedText = styled.span`
   cursor: pointer;
-  color: ${props => props.theme.colors.annotation};
+  color: ${props => props.theme.colors.primary.text};
 `
 
 const Indicator = styled.span`
@@ -61,9 +59,9 @@ const Indicator = styled.span`
   &::after {
     content: '';
     width: 2px;
-    height: 7px;
+    height: 6.5px;
     top: 5px;
-    left: 6px;
+    left: 5px;
     transform: rotate(${props => (props.isExpanded ? '45deg' : '-45deg')});
     background: ${props => props.theme.colors.primary.text};
     display: block;
@@ -73,9 +71,9 @@ const Indicator = styled.span`
   &::before {
     content: '';
     width: 2px;
-    height: 7px;
+    height: 6.5px;
     top: 5px;
-    right: 6px;
+    right: 5px;
     transform: rotate(${props => (props.isExpanded ? '-45deg' : '45deg')});
     background: ${props => props.theme.colors.primary.text};
     display: block;
@@ -86,12 +84,12 @@ const Indicator = styled.span`
 
 const AnnotationContent = styled.div`
   display: ${props => (props.isExpanded ? 'block' : 'none')};
-  background: ${props => props.theme.colors.base.shape};
+  background: ${props => props.theme.colors.base.background};
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
   line-height: 1.43;
   letter-spacing: 0.5px;
-  font-weight: ${typography.font.weight.light};
-  border-top: 2px solid ${props => props.theme.colors.primary.line};
+  font-weight: ${typography.font.weight.normal};
+  border-top: 2px solid ${props => props.theme.colors.primary.support};
   padding: 25px 11px;
   animation: ${slideDownAndFadeIn} 300ms ease;
 `

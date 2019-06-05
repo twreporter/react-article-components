@@ -1,11 +1,11 @@
-import NextArrowSvg from './next-arrow.svg'
-import PreArrowSvg from './pre-arrow.svg'
+import Multimedia from '../multimedia'
+import NextArrowSvg from '../../../assets/body/slideshow/next-arrow.svg'
+import PreArrowSvg from '../../../assets/body/slideshow/pre-arrow.svg'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
 import mq from '../../../utils/media-query'
-import predefinedStyled from '../styled'
 import styled from 'styled-components'
 
 const _ = {
@@ -55,15 +55,15 @@ const mockup = {
   },
   hd: {
     container: {
-      width: 1063, // px
+      width: 1033, // px
     },
     slide: {
-      width: 966, // px
-      height: 603, // px
-      paddingRight: 5, // px
+      width: 938, // px
+      height: 585, // px
+      paddingRight: 4, // px
     },
     offset: {
-      left: 44, // px
+      left: 50, // px
     },
   },
 }
@@ -94,18 +94,18 @@ const SlideshowFlexBox = styled.div`
   flex-wrap: wrap;
 
   ${mq.tabletAndBelow`
-    // 10px is the border-left of body
+    /* 10px is the border-left of body */
     margin-left: -10px;
-    // 20px is the border-(right|left) of body
+    /* 20px is the border-(right|left) of body */
     width: calc(100% + 20px);
   `}
 
   ${mq.desktopOnly`
-    max-width: ${mockup.desktop.container.width}px;
+    width: ${mockup.desktop.container.width}px;
   `}
 
   ${mq.hdOnly`
-    max-width: ${mockup.hd.container.width}px;
+    width: ${mockup.hd.container.width}px;
   `}
 `
 
@@ -164,17 +164,30 @@ const PrevButton = styled.div`
       width: 31px;
     }
   `}
+
+  &:hover {
+    > svg {
+      transform: translateX(-5px);
+      transition: transform 0.3s ease;
+    }
+  }
 `
 
 const NextButton = styled(PrevButton)`
   border-left: none;
+
+  &:hover {
+    > svg {
+      transform: translateX(5px);
+    }
+  }
 `
 
 const ImageNumberCircle = styled.div`
   display: inline-block;
   width: 80px;
   height: 80px;
-  background-color: ${props => props.theme.colors.primary.shape};
+  background-color: ${props => props.theme.colors.primary.support};
   border-radius: 50%;
   vertical-align: top;
 
@@ -194,16 +207,16 @@ const ImageNumberCircle = styled.div`
   ${mq.tabletAndBelow`
     order: 1;
 
-    // align right
+    /* align right */
     margin-left: auto;
-    // 10px is the border-right width of body
+    /* 10px is the border-right width of body */
     margin-right: 10px;
   `}
 
   ${mq.desktopAndAbove`
     margin-top: 6px;
 
-    // align right
+    /* align right */
     margin-left: auto;
   `}
 
@@ -246,11 +259,9 @@ const ImageTotal = styled(ImageNumber)`
   `}
 `
 
-const Desc = styled(predefinedStyled.Multimedia.Caption)`
+const Desc = styled(Multimedia.Caption)`
   align-self: flex-start;
-  position: relative;
   display: inline-block;
-  transform: none;
 
   ${mq.tabletAndBelow`
     order: 4;
@@ -258,10 +269,12 @@ const Desc = styled(predefinedStyled.Multimedia.Caption)`
   `}
 
   ${mq.mobileOnly`
-    max-width: calc(180/375*100%);
+    width: calc(180/355*100%);
   `}
 
   ${mq.desktopAndAbove`
+    position: relative;
+    transform: none;
     padding-top: 30px;
   `}
 `
@@ -306,6 +319,7 @@ const SlidesFlexBox = styled.div`
 `
 
 const SlideFlexItem = styled.div`
+  height: 100%;
   flex-shrink: 0;
 
   ${mq.mobileOnly`
@@ -343,7 +357,7 @@ const SlideMask = styled.div`
   top: 0;
   height: 100%;
   opacity: 0.55;
-  background: #2440fb;
+  background: ${props => props.theme.colors.primary.text};
 `
 
 const LeftSlideMask = styled(SlideMask)`
