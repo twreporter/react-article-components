@@ -239,7 +239,7 @@
         "type": "unstyled"
       },
       {
-        "alignment": "center",
+        "alignment": "right",
         "content": [
           "<strong>岳父：</strong>所以你的正義感，你的人權都用在這樣該死的人身上？他要人權，被害人的人權呢？你為了這些人準備放棄我女兒⋯⋯   "
         ],
@@ -430,7 +430,7 @@
         "type": "unstyled"
       },
       {
-        "alignment": "center",
+        "alignment": "right",
         "content": [
           {
             "by": "林君陽",
@@ -542,7 +542,7 @@
         "type": "unstyled"
       },
       {
-        "alignment": "center",
+        "alignment": "right",
         "content": [
           {
             "description": "《我們與惡的距離》編劇呂蒔媛。（攝影／余志偉）",
@@ -583,7 +583,7 @@
         ],
         "id": "fgqds",
         "styles": {},
-        "type": "small-image"
+        "type": "image"
       },
       {
         "alignment": "center",
