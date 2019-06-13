@@ -149,6 +149,10 @@ export default class Related extends React.PureComponent {
       )
     })
 
+    if (cards.length === 0) {
+      return null
+    }
+
     return (
       <Block>
         <Descriptor />
