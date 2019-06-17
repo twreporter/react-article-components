@@ -176,6 +176,8 @@ export default class Article extends PureComponent {
   static propTypes = {
     colors: predefinedPropTypes.elementColors,
     post: PropTypes.object.isRequired,
+    relatedTopic: PropTypes.object,
+    relatedPosts: PropTypes.array,
     defaultFontLevel: PropTypes.oneOf([
       _fontLevel.base,
       _fontLevel.large,
@@ -185,9 +187,11 @@ export default class Article extends PureComponent {
   }
 
   static defaultProps = {
+    LinkComponent: Link,
     colors: {},
     defaultFontLevel: _fontLevel.base,
-    LinkComponent: Link,
+    relatedPosts: [],
+    relatedTopic: {},
   }
 
   constructor(props) {
@@ -238,9 +242,15 @@ export default class Article extends PureComponent {
   }
 
   render() {
-    const { LinkComponent, colors, post } = this.props
+    const {
+      LinkComponent,
+      colors,
+      post,
+      relatedPosts,
+      relatedTopic,
+    } = this.props
     const { fontLevel } = this.state
-    const relateds = _.map(_.get(post, 'relateds', []), related => {
+    const relateds = _.map(relatedPosts, related => {
       const style = _.get(related, 'style')
       const prefixPath = style === _articleStyles.interactive ? '/i/' : '/a/'
       const categories = related.categories
@@ -263,7 +273,7 @@ export default class Article extends PureComponent {
       }
     })
 
-    const topicHref = getTopicHref(post.topics)
+    const topicHref = getTopicHref(relatedTopic)
 
     return (
       <ThemeProvider
@@ -278,7 +288,7 @@ export default class Article extends PureComponent {
               title={post.title}
               subtitle={post.subtitle}
               topicHref={topicHref}
-              topicName={_.get(post, 'topics.topic_name', '')}
+              topicName={_.get(relatedTopic, 'topic_name', '')}
               poster={{
                 mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
                 tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
