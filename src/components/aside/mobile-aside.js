@@ -5,7 +5,7 @@ import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React from 'react'
 import mq from '../../utils/media-query'
-import soothScroll from 'smoothscroll'
+import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -53,7 +53,7 @@ const WidgetWrapper = styled.div`
 */
 
 const BackToTopBtn = () => (
-  <IconContainer onClick={() => soothScroll(0)}>
+  <IconContainer onClick={() => smoothScroll(0)}>
     <BackToTopIcon />
   </IconContainer>
 )

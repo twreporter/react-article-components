@@ -1,5 +1,6 @@
 import DesktopAside from './aside/desktop-aside'
 import Metadata from './aside/metadata'
+import MobileAside from './aside/mobile-aside'
 import Tools from './aside/tools'
 import Body from './body'
 import DonationBox from './donation-box'
@@ -18,12 +19,14 @@ import mq from '../utils/media-query'
 import predefinedPropTypes from '../constants/prop-types/article-page'
 import sortBy from 'lodash/sortBy'
 import styled, { ThemeProvider } from 'styled-components'
+import throttle from 'lodash/throttle'
 
 const _ = {
   get,
   map,
   merge,
   sortBy,
+  throttle,
 }
 
 const defaultColors = {
@@ -200,6 +203,26 @@ export default class Article extends PureComponent {
     this.state = {
       fontLevel: props.defaultFontLevel,
     }
+
+    this.mobileAsideRef = React.createRef()
+    this.scrollPosition = {
+      y: 0,
+    }
+    this.toggleMobileAside = this._toggleMobileAside.bind(this)
+    this.onScroll = _.throttle(this.toggleMobileAside, 300).bind(this)
+  }
+
+  componentDidMount() {
+    // detect sroll position
+    window.addEventListener('scroll', this.onScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll)
+
+    this.scrollPosition = {
+      y: 0,
+    }
   }
 
   changeFontLevel = () => {
@@ -237,6 +260,30 @@ export default class Article extends PureComponent {
       case _fontLevel.base:
       default: {
         return 0
+      }
+    }
+  }
+
+  /**
+   * If users scroll up, and the scrolling distance is more than a certain distance as well, show mobile aside.
+   * Otherwise, if users scroll down, hide the mobile aside.
+   */
+  _toggleMobileAside() {
+    if (this.mobileAsideRef) {
+      const mAside = this.mobileAsideRef
+      const currentTopY = window.scrollY
+
+      // Calculate scrolling distance to determine whether to display aside
+      const lastY = this.scrollPosition.y
+      const distance = currentTopY - lastY
+      if (distance > 30) {
+        this.scrollPosition.y = currentTopY
+        mAside.current.toShow = false
+      } else {
+        if (Math.abs(distance) > 150) {
+          this.scrollPosition.y = currentTopY
+          mAside.current.toShow = true
+        }
       }
     }
   }
@@ -297,6 +344,7 @@ export default class Article extends PureComponent {
             />
             <BodyBackground>
               <BodyBlock>
+                <MobileAside ref={this.mobileAsideRef} />
                 <DesktopAsideBlock>
                   <DesktopAside
                     backToTopic={topicHref}
