@@ -1,4 +1,4 @@
-import Aside from './aside'
+import DesktopAside from './aside/desktop-aside'
 import Metadata from './aside/metadata'
 import Tools from './aside/tools'
 import Body from './body'
@@ -89,7 +89,7 @@ const BodyBlock = styled.div`
   `}
 `
 
-const AsideBlock = styled.div`
+const DesktopAsideBlock = styled.div`
   ${mq.tabletAndBelow`
     display: none;
   `}
@@ -297,8 +297,8 @@ export default class Article extends PureComponent {
             />
             <BodyBackground>
               <BodyBlock>
-                <AsideBlock>
-                  <Aside
+                <DesktopAsideBlock>
+                  <DesktopAside
                     backToTopic={topicHref}
                     categories={post.categories}
                     date={post.published_date}
@@ -310,7 +310,7 @@ export default class Article extends PureComponent {
                     rawAutherText={post.extend_byline}
                     onFontLevelChange={this.changeFontLevel}
                   />
-                </AsideBlock>
+                </DesktopAsideBlock>
                 <MetadataAndToolsBlock>
                   <Metadata
                     categories={post.categories}
