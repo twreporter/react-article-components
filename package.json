@@ -71,7 +71,8 @@
   },
   "dependencies": {
     "react-ga": "^2.5.7",
-    "react-waypoint": "^9.0.2"
+    "react-waypoint": "^9.0.2",
+    "smoothscroll": "^0.4.0"
   },
   "files": [
     "/dist/"
