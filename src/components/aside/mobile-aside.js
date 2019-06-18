@@ -1,6 +1,5 @@
 import BackToTopicIcon from '../../assets/aside/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../assets/aside/article-back-to-top-mobile.svg'
-import BookmarkIcon from '../../assets/aside/add-bookmark-mobile.svg'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -110,9 +109,6 @@ class MobileAside extends React.PureComponent {
           />
         </WidgetWrapper>
         */}
-        <SubsequentIconContainer>
-          <BookmarkIcon />
-        </SubsequentIconContainer>
         <BackToTopBtn key="back_to_top" />
       </Container>
     )

@@ -1,5 +1,4 @@
 import BackToTopicIcon from '../../assets/aside/back-top-topic.svg'
-import BookmarkIcon from '../../assets/aside/tool-bookmark.svg'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import FBIcon from '../../assets/aside/share-fb.svg'
 import LineIcon from '../../assets/aside/share-line.svg'
@@ -190,8 +189,7 @@ export default class Tools extends React.PureComponent {
             window.print()
           }}
         />
-        {/* TODO move bookmark widget out of twreporter-react repo */}
-        <BookmarkIcon />
+        {/* TODO use @twreporter/react-components BookmarkWidget to render */}
         {backToTopic ? (
           <DynamicComponentsContext.Consumer>
             {components => {
