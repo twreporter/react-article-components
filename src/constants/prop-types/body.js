@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 
 const elementData = PropTypes.shape({
-  alignment: PropTypes.oneOf(['center', 'left', 'right']).isRequired,
+  alignment: PropTypes.oneOf(['center', 'center-small', 'left', 'right'])
+    .isRequired,
   styles: PropTypes.object.isRequired,
   content: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.object])
