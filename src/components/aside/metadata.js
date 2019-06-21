@@ -1,5 +1,6 @@
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import React, { PureComponent } from 'react'
+import get from 'lodash/get'
 import map from 'lodash/map'
 import mq from '../../utils/media-query'
 import predefinedProps from '../../constants/prop-types/aside'
@@ -7,6 +8,7 @@ import sortBy from 'lodash/sortBy'
 import styled, { css } from 'styled-components'
 
 const _ = {
+  get,
   map,
   sortBy,
 }
@@ -187,9 +189,14 @@ class Metadata extends PureComponent {
       <CategoryFlexBox>
         <DynamicComponentsContext.Consumer>
           {components => {
+            const numOfCats = _.get(categories, 'length', 0)
             const categoriesJSX = _.map(categories, (cat, index) => {
+              // if only one category,
+              // then `flexGrow = 1`,
+              // which makes flex item fill the flex box.
+              const flexGrow = numOfCats === 1 ? 1 : index
               return (
-                <CategoryFlex key={`category_${cat.id}`} flexGrow={index}>
+                <CategoryFlex key={`category_${cat.id}`} flexGrow={flexGrow}>
                   <components.Link to={`/categories/${cat.id}`}>
                     <CategoryText
                       style={{ fontWeight: index === 0 ? 'bold' : 'normal' }}
