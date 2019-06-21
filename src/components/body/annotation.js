@@ -34,9 +34,11 @@ const Container = styled.div`
 `
 
 const AnnotationContainer = styled.abbr`
-  margin: 0;
-  text-decoration: none;
-  border-bottom: 0;
+  &[title] {
+    margin: 0;
+    text-decoration: none;
+    border-bottom: 0;
+  }
 `
 
 const AnnotatedText = styled.span`
