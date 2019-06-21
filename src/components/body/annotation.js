@@ -51,8 +51,8 @@ const Indicator = styled.span`
   margin-left: 3px;
   display: inline-block;
   vertical-align: middle;
-  width: 1em;
-  height: 1em;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1px solid ${props => props.theme.colors.primary.text};
   position: relative;
