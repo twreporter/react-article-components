@@ -344,7 +344,10 @@ export default class Article extends PureComponent {
             />
             <BodyBackground>
               <BodyBlock>
-                <MobileAside ref={this.mobileAsideRef} />
+                <MobileAside
+                  backToTopic={topicHref}
+                  ref={this.mobileAsideRef}
+                />
                 <DesktopAsideBlock>
                   <DesktopAside
                     backToTopic={topicHref}
