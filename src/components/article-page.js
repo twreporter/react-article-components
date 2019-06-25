@@ -337,6 +337,7 @@ export default class Article extends PureComponent {
               topicHref={topicHref}
               topicName={_.get(relatedTopic, 'topic_name', '')}
               poster={{
+                tiny: _.get(post, 'hero_image.resized_targets.tiny', {}),
                 mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
                 tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
                 desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
