@@ -1,6 +1,7 @@
 import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
+import cssConsts from '../../constants/css'
 import styled, { css } from 'styled-components'
 import typography from '../../constants/typography'
 // lodash
@@ -40,6 +41,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   ${widthCSS}
+
   color: ${props => props.theme.colors.base.text};
   line-height: 1.75;
   letter-spacing: 0.5px;
@@ -49,6 +51,8 @@ const Content = styled.div`
 `
 
 const Container = styled.div`
+  ${cssConsts.linkChildren}
+
   background: ${props => props.theme.colors.base.background};
   position: relative;
   margin: 60px auto 0 auto;
