@@ -15,7 +15,11 @@ ReactDOM.render(
     <HeaderContainerWithTransparentTheme>
       <uh.StandaloneHeader theme="transparent" />
     </HeaderContainerWithTransparentTheme>
-    <Article post={mockPost} />
+    <Article
+      post={mockPost}
+      relatedPosts={mockPost.relateds}
+      relatedTopic={mockPost.topics}
+    />
   </React.Fragment>,
   document.getElementById('root')
 )
