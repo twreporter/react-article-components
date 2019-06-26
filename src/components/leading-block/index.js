@@ -2,9 +2,14 @@ import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import Img from '../img-with-placeholder'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
+import get from 'lodash/get'
 import mq from '../../utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types/img-with-placeholder'
 import styled from 'styled-components'
+
+const _ = {
+  get,
+}
 
 const mockup = {
   mobile: {
@@ -168,6 +173,7 @@ const FigureBlock = styled.figure`
 export default class LeadingBlock extends PureComponent {
   static propTypes = {
     poster: PropTypes.shape({
+      tiny: predefinedPropTypes.imagePropType.isRequired,
       mobile: predefinedPropTypes.imagePropType.isRequired,
       tablet: predefinedPropTypes.imagePropType.isRequired,
       desktop: predefinedPropTypes.imagePropType.isRequired,
@@ -223,6 +229,7 @@ export default class LeadingBlock extends PureComponent {
           <FigureBlock>
             <Img
               className="leading-image"
+              imgPlaceholderSrc={_.get(poster, 'tiny.url', '')}
               imageSet={[poster.mobile, poster.tablet, poster.desktop]}
               defaultImage={poster.mobile}
               objectFit="cover"

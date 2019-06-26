@@ -25,6 +25,16 @@ const ImgContainer = styled.div`
   ${props => props.heightString}
 `
 
+const ImgPlaceholder = styled.img`
+  display: ${props => (props.toShow ? 'block' : 'none')};
+  filter: blur(5px);
+  object-fit: cover;
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`
+
 const Placeholder = styled.div`
   width: 100%;
   height: 100%;
@@ -85,6 +95,7 @@ export default class Img extends React.PureComponent {
   static propTypes = {
     alt: PropTypes.string,
     className: PropTypes.string,
+    imgPlaceholderSrc: PropTypes.string,
     imgProps: PropTypes.object,
     // The properties of `imgProps` will all be passed to `<img />` element.
     imageSet: PropTypes.arrayOf(predefinedPropTypes.imagePropType),
@@ -105,6 +116,7 @@ export default class Img extends React.PureComponent {
     alt: '',
     className: '',
     imgProps: {},
+    imgPlaceholderSrc: '',
     imageSet: [],
     sizes: '',
   }
@@ -139,25 +151,36 @@ export default class Img extends React.PureComponent {
   }
 
   handleImageLoaded() {
-    if (!this.state.isLoaded) {
-      this.setState({
-        isLoaded: true,
-      })
-      setTimeout(() => {
-        if (this._isMounted) {
-          this.setState({
-            toShowPlaceholder: false,
-          })
-        }
-      }, 1000)
-    }
+    // Progressive image
+    // Let user see the blur image,
+    // and slowly make the blur image clearer
+
+    // in order to make sure users see the blur image,
+    // delay the clear image rendering
+    setTimeout(() => {
+      if (this._isMounted) {
+        this.setState({
+          isLoaded: true,
+        })
+      }
+    }, 500)
+
+    // after clear image rendered, not display placeholder anymore
+    setTimeout(() => {
+      if (this._isMounted) {
+        this.setState({
+          toShowPlaceholder: false,
+        })
+      }
+    }, 1500)
   }
 
   render() {
-    const { toShowPlaceholder } = this.state
+    const { isLoaded, toShowPlaceholder } = this.state
     const {
       alt,
       className,
+      imgPlaceholderSrc,
       imgProps,
       imageSet,
       defaultImage,
@@ -165,6 +188,7 @@ export default class Img extends React.PureComponent {
       objectPosition,
       sizes,
     } = this.props
+
     const srcset = getSrcsetString(imageSet)
     const heightWidthRatio =
       _.get(defaultImage, 'height') / _.get(defaultImage, 'width')
@@ -184,10 +208,14 @@ export default class Img extends React.PureComponent {
             : `padding-top: ${heightWidthRatio * 100}%;`
         }
       >
-        <Placeholder toShow={toShowPlaceholder}>
-          <PlaceholderIcon />
-        </Placeholder>
-        <ImgBox toShow={!toShowPlaceholder}>
+        {imgPlaceholderSrc ? (
+          <ImgPlaceholder src={imgPlaceholderSrc} toShow={toShowPlaceholder} />
+        ) : (
+          <Placeholder toShow={toShowPlaceholder}>
+            <PlaceholderIcon />
+          </Placeholder>
+        )}
+        <ImgBox toShow={isLoaded}>
           {isObjectFit ? (
             <React.Fragment>
               <ImgWithObjectFit
