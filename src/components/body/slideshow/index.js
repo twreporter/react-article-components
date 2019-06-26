@@ -279,6 +279,12 @@ const Desc = styled(Multimedia.Caption)`
   `}
 `
 
+const EmptyDesc = styled(Desc)`
+  &::after {
+    border-bottom: none;
+  }
+`
+
 const SlidesFlexBox = styled.div`
   position: absolute;
   top: 0;
@@ -615,6 +621,8 @@ export default class Slideshow extends PureComponent {
       )
     })
 
+    const desc = _.get(slides, [curSlideIndex, 'description'])
+
     return (
       <SlideshowFlexBox>
         <SlidesSection>
@@ -640,7 +648,7 @@ export default class Slideshow extends PureComponent {
           <ImageNumber>{curSlideIndex + 1}</ImageNumber>
           <ImageTotal>{this.total}</ImageTotal>
         </ImageNumberCircle>
-        <Desc>{_.get(slides, [curSlideIndex, 'description'])}</Desc>
+        {desc ? <Desc>{desc}</Desc> : <EmptyDesc />}
       </SlideshowFlexBox>
     )
   }

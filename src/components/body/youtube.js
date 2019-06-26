@@ -44,7 +44,7 @@ export default class Youtube extends React.PureComponent {
             src={`https://www.youtube.com/embed/${id}`}
           />
         </IframeBlock>
-        <Desc>{desc}</Desc>
+        {desc ? <Desc>{desc}</Desc> : null}
       </Block>
     )
   }
