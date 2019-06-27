@@ -337,6 +337,29 @@ export default class Article extends PureComponent {
 
     const topicHref = getTopicHref(relatedTopic)
 
+    // only for tablet and below
+    const metadataAndToolsJSX = (
+      <MetadataAndToolsBlock>
+        <Metadata
+          categories={post.categories}
+          date={post.published_date}
+          designers={post.designers}
+          photographers={post.photographers}
+          tags={post.tags}
+          writers={post.writters}
+          engineers={post.engineers}
+          rawAutherText={post.extend_byline}
+        />
+        <ToolsBlock>
+          <Tools
+            articleMetaForBookmark={articleMetaForBookmark}
+            backToTopic={topicHref}
+            onFontLevelChange={this.changeFontLevel}
+          />
+        </ToolsBlock>
+      </MetadataAndToolsBlock>
+    )
+
     return (
       <ThemeProvider
         theme={{
@@ -379,50 +402,14 @@ export default class Article extends PureComponent {
                     articleMetaForBookmark={articleMetaForBookmark}
                   />
                 </DesktopAsideBlock>
-                <MetadataAndToolsBlock>
-                  <Metadata
-                    categories={post.categories}
-                    date={post.published_date}
-                    designers={post.designers}
-                    photographers={post.photographers}
-                    tags={post.tags}
-                    writers={post.writters}
-                    engineers={post.engineers}
-                    rawAutherText={post.extend_byline}
-                  />
-                  <ToolsBlock>
-                    <Tools
-                      backToTopic={topicHref}
-                      onFontLevelChange={this.changeFontLevel}
-                      articleMetaForBookmark={articleMetaForBookmark}
-                    />
-                  </ToolsBlock>
-                </MetadataAndToolsBlock>
+                {metadataAndToolsJSX}
                 <ContentBlock>
                   <Body
                     brief={_.get(post, 'brief.api_data')}
                     content={_.get(post, 'content.api_data')}
                   />
                 </ContentBlock>
-                <MetadataAndToolsBlock>
-                  <Metadata
-                    categories={post.categories}
-                    date={post.published_date}
-                    designers={post.designers}
-                    photographers={post.photographers}
-                    tags={post.tags}
-                    writers={post.writters}
-                    engineers={post.engineers}
-                    rawAutherText={post.extend_byline}
-                  />
-                  <ToolsBlock>
-                    <Tools
-                      backToTopic={topicHref}
-                      onFontLevelChange={this.changeFontLevel}
-                      articleMetaForBookmark={articleMetaForBookmark}
-                    />
-                  </ToolsBlock>
-                </MetadataAndToolsBlock>
+                {metadataAndToolsJSX}
               </BodyBlock>
               <DonationBox />
               <License
