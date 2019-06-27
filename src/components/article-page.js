@@ -160,9 +160,9 @@ const RelatedBlock = styled(BodyBlock)`
 `
 
 const _fontLevel = {
-  base: 'base',
+  small: 'small',
+  medium: 'medium',
   large: 'large',
-  xLarge: 'xLarge',
 }
 
 const _articleStyles = {
@@ -184,9 +184,9 @@ export default class Article extends PureComponent {
     relatedTopic: PropTypes.object,
     relatedPosts: PropTypes.array,
     defaultFontLevel: PropTypes.oneOf([
-      _fontLevel.base,
+      _fontLevel.small,
+      _fontLevel.medium,
       _fontLevel.large,
-      _fontLevel.xLarge,
     ]),
     LinkComponent: PropTypes.func,
     onFontLevelChange: PropTypes.func,
@@ -195,7 +195,7 @@ export default class Article extends PureComponent {
   static defaultProps = {
     LinkComponent: Link,
     colors: {},
-    defaultFontLevel: _fontLevel.base,
+    defaultFontLevel: _fontLevel.small,
     relatedPosts: [],
     relatedTopic: {},
   }
@@ -232,17 +232,17 @@ export default class Article extends PureComponent {
     const { fontLevel } = this.state
     let nextFontLevel = ''
     switch (fontLevel) {
-      case _fontLevel.large: {
-        nextFontLevel = _fontLevel.xLarge
-        break
-      }
-      case _fontLevel.xLarge: {
-        nextFontLevel = _fontLevel.base
-        break
-      }
-      case _fontLevel.base:
-      default: {
+      case _fontLevel.medium: {
         nextFontLevel = _fontLevel.large
+        break
+      }
+      case _fontLevel.large: {
+        nextFontLevel = _fontLevel.small
+        break
+      }
+      case _fontLevel.small:
+      default: {
+        nextFontLevel = _fontLevel.medium
         break
       }
     }
@@ -262,13 +262,13 @@ export default class Article extends PureComponent {
 
   getFontSizeOffet(fontLevel) {
     switch (fontLevel) {
-      case _fontLevel.large: {
+      case _fontLevel.medium: {
         return 2
       }
-      case _fontLevel.xLarge: {
+      case _fontLevel.large: {
         return 4
       }
-      case _fontLevel.base:
+      case _fontLevel.small:
       default: {
         return 0
       }
