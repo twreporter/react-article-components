@@ -189,6 +189,7 @@ export default class Article extends PureComponent {
       _fontLevel.xLarge,
     ]),
     LinkComponent: PropTypes.func,
+    onFontLevelChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -246,9 +247,17 @@ export default class Article extends PureComponent {
       }
     }
 
-    this.setState({
-      fontLevel: nextFontLevel,
-    })
+    this.setState(
+      {
+        fontLevel: nextFontLevel,
+      },
+      () => {
+        const { onFontLevelChange } = this.props
+        if (typeof onFontLevelChange === 'function') {
+          this.props.onFontLevelChange(nextFontLevel)
+        }
+      }
+    )
   }
 
   getFontSizeOffet(fontLevel) {
