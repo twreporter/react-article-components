@@ -378,6 +378,25 @@ export default class Article extends PureComponent {
                     <Tools
                       backToTopic={topicHref}
                       onFontLevelChange={this.changeFontLevel}
+                      articleMetaForBookmark={{
+                        slug: _.get(post, 'slug', ''),
+                        title: _.get(post, 'title', ''),
+                        desc: _.get(post, 'og_description', ''),
+                        thumbnail:
+                          _.get(
+                            post,
+                            'hero_image.resized_targets.mobile.url'
+                          ) ||
+                          _.get(
+                            post,
+                            'og_image.resized_targets.mobile.url',
+                            ''
+                          ),
+                        is_external: _.get(post, 'is_external', false),
+                        published_date: _.get(post, 'published_date', ''),
+                        topicSlug: _.get(relatedTopic, 'slug', ''),
+                        topicTitle: _.get(relatedTopic, 'title', ''),
+                      }}
                     />
                   </ToolsBlock>
                 </MetadataAndToolsBlock>

@@ -1,15 +1,17 @@
-import BackToTopicIcon from '../../assets/aside/back-top-topic.svg'
+import BookmarkWidget from '@twreporter/react-components/lib/bookmark-widget'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
-import FBIcon from '../../assets/aside/share-fb.svg'
-import LineIcon from '../../assets/aside/share-line.svg'
-import TwitterIcon from '../../assets/aside/share-twitter.svg'
-import PrintIcon from '../../assets/aside/tool-print.svg'
-import PropTypes from 'prop-types'
-import React from 'react'
-import TextIcon from '../../assets/aside/tool-text.svg'
 import mq from '../../utils/media-query'
 import predefinedProps from '../../constants/prop-types/aside'
+import PropTypes from 'prop-types'
+import React from 'react'
 import styled, { css } from 'styled-components'
+// assets
+import BackToTopicIcon from '../../assets/aside/back-top-topic.svg'
+import FBIcon from '../../assets/aside/share-fb.svg'
+import LineIcon from '../../assets/aside/share-line.svg'
+import PrintIcon from '../../assets/aside/tool-print.svg'
+import TextIcon from '../../assets/aside/tool-text.svg'
+import TwitterIcon from '../../assets/aside/share-twitter.svg'
 
 const ToolsBlock = styled.div`
   display: flex;
@@ -174,7 +176,13 @@ export default class Tools extends React.PureComponent {
   static propTypes = predefinedProps.tools
 
   render() {
-    const { backToTopic, fbAppID, height, onFontLevelChange } = this.props
+    const {
+      backToTopic,
+      fbAppID,
+      height,
+      onFontLevelChange,
+      articleMetaForBookmark,
+    } = this.props
 
     return (
       <ToolsBlock height={height}>
@@ -189,7 +197,10 @@ export default class Tools extends React.PureComponent {
             window.print()
           }}
         />
-        {/* TODO use @twreporter/react-components BookmarkWidget to render */}
+        <BookmarkWidget
+          articleMeta={articleMetaForBookmark}
+          svgColor="#808080"
+        />
         {backToTopic ? (
           <DynamicComponentsContext.Consumer>
             {components => {
