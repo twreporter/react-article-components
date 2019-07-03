@@ -17,6 +17,9 @@ const config = {
     port: 8080,
   },
   devtool: 'eval-source-map',
+  resolve: {
+    modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
+  },
   module: {
     rules: [
       {

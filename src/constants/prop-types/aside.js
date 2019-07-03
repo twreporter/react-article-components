@@ -28,6 +28,7 @@ export default {
     date: PropTypes.string,
   },
   tools: {
+    articleMetaForBookmark: PropTypes.object,
     backToTopic: PropTypes.string,
     fbAppID: PropTypes.string,
     height: PropTypes.string,

@@ -109,17 +109,18 @@ export default class Aside extends React.PureComponent {
     const toolsHeight = 280 // px
 
     const {
+      articleMetaForBookmark,
       backToTopic,
       categories,
       date,
       designers,
       engineers,
+      onFontLevelChange,
       photographers,
       rawAutherText,
       tags,
       title,
       writers,
-      onFontLevelChange,
     } = this.props
 
     const metadataJSX = (
@@ -152,6 +153,7 @@ export default class Aside extends React.PureComponent {
               height={`${toolsHeight}px`}
               title={title}
               onFontLevelChange={onFontLevelChange}
+              articleMetaForBookmark={articleMetaForBookmark}
             />
           </ToolsPositioningBlock>
           <Waypoint
