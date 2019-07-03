@@ -1,24 +1,26 @@
-import DesktopAside from './aside/desktop-aside'
-import Metadata from './aside/metadata'
-import MobileAside from './aside/mobile-aside'
-import Tools from './aside/tools'
-import Body from './body'
-import DonationBox from './donation-box'
 import DynamicComponentsContext from '../contexts/dynamic-components-context'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import mq from '../utils/media-query'
+import predefinedPropTypes from '../constants/prop-types/article-page'
+import styled, { ThemeProvider } from 'styled-components'
+// components
+import Body from './body'
+import DesktopAside from './aside/desktop-aside'
+import DonationBox from './donation-box'
 import LeadingBlock from './leading-block'
 import License from './license'
 import Link from './link'
-import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import Metadata from './aside/metadata'
+import MobileAside from './aside/mobile-aside'
 import Related from './related'
 import SeparationCurve from './separation-curve'
+import Tools from './aside/tools'
+// lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
-import mq from '../utils/media-query'
-import predefinedPropTypes from '../constants/prop-types/article-page'
 import sortBy from 'lodash/sortBy'
-import styled, { ThemeProvider } from 'styled-components'
 import throttle from 'lodash/throttle'
 
 const _ = {
@@ -320,6 +322,19 @@ export default class Article extends PureComponent {
       }
     })
 
+    const articleMetaForBookmark = {
+      slug: _.get(post, 'slug', ''),
+      title: _.get(post, 'title', ''),
+      desc: _.get(post, 'og_description', ''),
+      thumbnail:
+        _.get(post, 'hero_image.resized_targets.mobile.url') ||
+        _.get(post, 'og_image.resized_targets.mobile.url', ''),
+      is_external: _.get(post, 'is_external', false),
+      published_date: _.get(post, 'published_date', ''),
+      topicSlug: _.get(relatedTopic, 'slug', ''),
+      topicTitle: _.get(relatedTopic, 'title', ''),
+    }
+
     const topicHref = getTopicHref(relatedTopic)
 
     return (
@@ -361,6 +376,7 @@ export default class Article extends PureComponent {
                     engineers={post.engineers}
                     rawAutherText={post.extend_byline}
                     onFontLevelChange={this.changeFontLevel}
+                    articleMetaForBookmark={articleMetaForBookmark}
                   />
                 </DesktopAsideBlock>
                 <MetadataAndToolsBlock>
@@ -378,25 +394,7 @@ export default class Article extends PureComponent {
                     <Tools
                       backToTopic={topicHref}
                       onFontLevelChange={this.changeFontLevel}
-                      articleMetaForBookmark={{
-                        slug: _.get(post, 'slug', ''),
-                        title: _.get(post, 'title', ''),
-                        desc: _.get(post, 'og_description', ''),
-                        thumbnail:
-                          _.get(
-                            post,
-                            'hero_image.resized_targets.mobile.url'
-                          ) ||
-                          _.get(
-                            post,
-                            'og_image.resized_targets.mobile.url',
-                            ''
-                          ),
-                        is_external: _.get(post, 'is_external', false),
-                        published_date: _.get(post, 'published_date', ''),
-                        topicSlug: _.get(relatedTopic, 'slug', ''),
-                        topicTitle: _.get(relatedTopic, 'title', ''),
-                      }}
+                      articleMetaForBookmark={articleMetaForBookmark}
                     />
                   </ToolsBlock>
                 </MetadataAndToolsBlock>
@@ -421,6 +419,7 @@ export default class Article extends PureComponent {
                     <Tools
                       backToTopic={topicHref}
                       onFontLevelChange={this.changeFontLevel}
+                      articleMetaForBookmark={articleMetaForBookmark}
                     />
                   </ToolsBlock>
                 </MetadataAndToolsBlock>
