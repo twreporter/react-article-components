@@ -4,7 +4,7 @@
 
 ## RELEASE
 
-## 1.0.1
+## 1.0.2
 
 - Fix missing props of BookmarkWidget
 - Update dependencies
