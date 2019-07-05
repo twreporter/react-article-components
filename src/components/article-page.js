@@ -183,7 +183,7 @@ export default class Article extends PureComponent {
     post: PropTypes.object.isRequired,
     relatedTopic: PropTypes.object,
     relatedPosts: PropTypes.array,
-    defaultFontLevel: PropTypes.oneOf([
+    fontLevel: PropTypes.oneOf([
       _fontLevel.small,
       _fontLevel.medium,
       _fontLevel.large,
@@ -195,7 +195,7 @@ export default class Article extends PureComponent {
   static defaultProps = {
     LinkComponent: Link,
     colors: {},
-    defaultFontLevel: _fontLevel.small,
+    fontLevel: _fontLevel.small,
     relatedPosts: [],
     relatedTopic: {},
   }
@@ -204,7 +204,7 @@ export default class Article extends PureComponent {
     super(props)
 
     this.state = {
-      fontLevel: props.defaultFontLevel,
+      fontLevel: props.fontLevel,
     }
 
     this.mobileAsideRef = React.createRef()
