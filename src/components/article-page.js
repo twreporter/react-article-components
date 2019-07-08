@@ -160,9 +160,9 @@ const RelatedBlock = styled(BodyBlock)`
 `
 
 const _fontLevel = {
-  base: 'base',
+  small: 'small',
+  medium: 'medium',
   large: 'large',
-  xLarge: 'xLarge',
 }
 
 const _articleStyles = {
@@ -183,18 +183,19 @@ export default class Article extends PureComponent {
     post: PropTypes.object.isRequired,
     relatedTopic: PropTypes.object,
     relatedPosts: PropTypes.array,
-    defaultFontLevel: PropTypes.oneOf([
-      _fontLevel.base,
+    fontLevel: PropTypes.oneOf([
+      _fontLevel.small,
+      _fontLevel.medium,
       _fontLevel.large,
-      _fontLevel.xLarge,
     ]),
     LinkComponent: PropTypes.func,
+    onFontLevelChange: PropTypes.func,
   }
 
   static defaultProps = {
     LinkComponent: Link,
     colors: {},
-    defaultFontLevel: _fontLevel.base,
+    fontLevel: _fontLevel.small,
     relatedPosts: [],
     relatedTopic: {},
   }
@@ -203,7 +204,7 @@ export default class Article extends PureComponent {
     super(props)
 
     this.state = {
-      fontLevel: props.defaultFontLevel,
+      fontLevel: props.fontLevel,
     }
 
     this.mobileAsideRef = React.createRef()
@@ -231,35 +232,43 @@ export default class Article extends PureComponent {
     const { fontLevel } = this.state
     let nextFontLevel = ''
     switch (fontLevel) {
-      case _fontLevel.large: {
-        nextFontLevel = _fontLevel.xLarge
-        break
-      }
-      case _fontLevel.xLarge: {
-        nextFontLevel = _fontLevel.base
-        break
-      }
-      case _fontLevel.base:
-      default: {
+      case _fontLevel.medium: {
         nextFontLevel = _fontLevel.large
+        break
+      }
+      case _fontLevel.large: {
+        nextFontLevel = _fontLevel.small
+        break
+      }
+      case _fontLevel.small:
+      default: {
+        nextFontLevel = _fontLevel.medium
         break
       }
     }
 
-    this.setState({
-      fontLevel: nextFontLevel,
-    })
+    this.setState(
+      {
+        fontLevel: nextFontLevel,
+      },
+      () => {
+        const { onFontLevelChange } = this.props
+        if (typeof onFontLevelChange === 'function') {
+          this.props.onFontLevelChange(nextFontLevel)
+        }
+      }
+    )
   }
 
   getFontSizeOffet(fontLevel) {
     switch (fontLevel) {
-      case _fontLevel.large: {
+      case _fontLevel.medium: {
         return 2
       }
-      case _fontLevel.xLarge: {
+      case _fontLevel.large: {
         return 4
       }
-      case _fontLevel.base:
+      case _fontLevel.small:
       default: {
         return 0
       }
@@ -337,6 +346,29 @@ export default class Article extends PureComponent {
 
     const topicHref = getTopicHref(relatedTopic)
 
+    // only for tablet and below
+    const metadataAndToolsJSX = (
+      <MetadataAndToolsBlock>
+        <Metadata
+          categories={post.categories}
+          date={post.published_date}
+          designers={post.designers}
+          photographers={post.photographers}
+          tags={post.tags}
+          writers={post.writters}
+          engineers={post.engineers}
+          rawAutherText={post.extend_byline}
+        />
+        <ToolsBlock>
+          <Tools
+            articleMetaForBookmark={articleMetaForBookmark}
+            backToTopic={topicHref}
+            onFontLevelChange={this.changeFontLevel}
+          />
+        </ToolsBlock>
+      </MetadataAndToolsBlock>
+    )
+
     return (
       <ThemeProvider
         theme={{
@@ -379,50 +411,14 @@ export default class Article extends PureComponent {
                     articleMetaForBookmark={articleMetaForBookmark}
                   />
                 </DesktopAsideBlock>
-                <MetadataAndToolsBlock>
-                  <Metadata
-                    categories={post.categories}
-                    date={post.published_date}
-                    designers={post.designers}
-                    photographers={post.photographers}
-                    tags={post.tags}
-                    writers={post.writters}
-                    engineers={post.engineers}
-                    rawAutherText={post.extend_byline}
-                  />
-                  <ToolsBlock>
-                    <Tools
-                      backToTopic={topicHref}
-                      onFontLevelChange={this.changeFontLevel}
-                      articleMetaForBookmark={articleMetaForBookmark}
-                    />
-                  </ToolsBlock>
-                </MetadataAndToolsBlock>
+                {metadataAndToolsJSX}
                 <ContentBlock>
                   <Body
                     brief={_.get(post, 'brief.api_data')}
                     content={_.get(post, 'content.api_data')}
                   />
                 </ContentBlock>
-                <MetadataAndToolsBlock>
-                  <Metadata
-                    categories={post.categories}
-                    date={post.published_date}
-                    designers={post.designers}
-                    photographers={post.photographers}
-                    tags={post.tags}
-                    writers={post.writters}
-                    engineers={post.engineers}
-                    rawAutherText={post.extend_byline}
-                  />
-                  <ToolsBlock>
-                    <Tools
-                      backToTopic={topicHref}
-                      onFontLevelChange={this.changeFontLevel}
-                      articleMetaForBookmark={articleMetaForBookmark}
-                    />
-                  </ToolsBlock>
-                </MetadataAndToolsBlock>
+                {metadataAndToolsJSX}
               </BodyBlock>
               <DonationBox />
               <License
