@@ -7,6 +7,9 @@ const paragraphText = css`
   line-height: 2.11;
   letter-spacing: 0.6px;
   color: ${props => props.theme.colors.base.text};
+
+  /* line break */
+  white-space: pre-wrap;
 `
 
 const linkChildren = css`
