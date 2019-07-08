@@ -4,6 +4,17 @@
 
 ## RELEASE
 
+## 1.0.3
+
+- Update src/components/article-page.js
+
+  - Prop naming change: defaultFontLevel -> fontLevel
+  - Add `onFontLevelChange` prop
+  - fontLevel update: base -> small, large -> medium, xLarge -> large
+
+- Handle line breaks
+  - Update blockquote, paragraph, list, and annotation
+
 ## 1.0.2
 
 - Fix missing props of BookmarkWidget
