@@ -14,6 +14,9 @@ const Quote = styled.blockquote`
   /* clear default margin */
   margin: 0;
 
+  /* line breaks */
+  white-space: pre-wrap;
+
   line-height: 2.11;
   letter-spacing: 0.6px;
   color: ${props => props.theme.colors.base.lightText};
