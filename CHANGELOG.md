@@ -4,6 +4,11 @@
 
 ## RELEASE
 
+## 1.0.4
+
+- Remove state.fontLevel of article-page.js
+- Remove fontSizeOffset from aside:metadata
+
 ## 1.0.3
 
 - Update src/components/article-page.js
