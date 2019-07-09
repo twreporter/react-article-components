@@ -203,10 +203,6 @@ export default class Article extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-      fontLevel: props.fontLevel,
-    }
-
     this.mobileAsideRef = React.createRef()
     this.scrollPosition = {
       y: 0,
@@ -229,7 +225,7 @@ export default class Article extends PureComponent {
   }
 
   changeFontLevel = () => {
-    const { fontLevel } = this.state
+    const { fontLevel, onFontLevelChange } = this.props
     let nextFontLevel = ''
     switch (fontLevel) {
       case _fontLevel.medium: {
@@ -247,20 +243,12 @@ export default class Article extends PureComponent {
       }
     }
 
-    this.setState(
-      {
-        fontLevel: nextFontLevel,
-      },
-      () => {
-        const { onFontLevelChange } = this.props
-        if (typeof onFontLevelChange === 'function') {
-          this.props.onFontLevelChange(nextFontLevel)
-        }
-      }
-    )
+    if (typeof onFontLevelChange === 'function') {
+      onFontLevelChange(nextFontLevel)
+    }
   }
 
-  getFontSizeOffet(fontLevel) {
+  getFontSizeOffset(fontLevel) {
     switch (fontLevel) {
       case _fontLevel.medium: {
         return 2
@@ -303,11 +291,11 @@ export default class Article extends PureComponent {
     const {
       LinkComponent,
       colors,
+      fontLevel,
       post,
       relatedPosts,
       relatedTopic,
     } = this.props
-    const { fontLevel } = this.state
     const relateds = _.map(relatedPosts, related => {
       const style = _.get(related, 'style')
       const prefixPath = style === _articleStyles.interactive ? '/i/' : '/a/'
@@ -373,7 +361,7 @@ export default class Article extends PureComponent {
       <ThemeProvider
         theme={{
           colors: _.merge({}, defaultColors, colors),
-          fontSizeOffset: this.getFontSizeOffet(fontLevel),
+          fontSizeOffset: this.getFontSizeOffset(fontLevel),
         }}
       >
         <DynamicComponentsContext.Provider value={{ Link: LinkComponent }}>
