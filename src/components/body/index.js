@@ -16,6 +16,7 @@ import React, { PureComponent } from 'react'
 import Slideshow from './slideshow'
 import styled, { css } from 'styled-components'
 import Youtube from './youtube'
+import Audio from './audio'
 
 const _ = {
   map,
@@ -178,7 +179,9 @@ function renderElement(data = {}) {
     case 'annotation':
       return <StyledAnnotation key={data.id} data={data} />
     case 'audio':
-      return null
+      blockSizingWidthCSS = largeWidthCSS
+      elementJSX = <Audio content={data.content[0]} />
+      break
     case 'centered-quote':
     case 'quoteby':
       return isCenterAligned ? (
