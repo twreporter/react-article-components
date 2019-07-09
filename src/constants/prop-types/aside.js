@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import predefinedProps from '@twreporter/core/lib/constants/prop-types'
 
 const authorPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
@@ -28,7 +29,7 @@ export default {
     date: PropTypes.string,
   },
   tools: {
-    articleMetaForBookmark: PropTypes.object,
+    articleMetaForBookmark: predefinedProps.articleMetaForBookmark,
     backToTopic: PropTypes.string,
     fbAppID: PropTypes.string,
     height: PropTypes.string,
