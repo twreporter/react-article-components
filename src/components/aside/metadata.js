@@ -67,7 +67,7 @@ const CategoryFlex = styled.div`
 const CategoryText = styled.div`
   display: inline-block;
   color: ${props => props.theme.colors.primary.text};
-  font-size: ${props => props.theme.fontSizeOffset + 16}px;
+  font-size: 16px;
   line-height: 1;
   padding-left: 5px;
 
@@ -106,7 +106,7 @@ const NoShrinkFlexItem = styled.div`
 `
 
 const AuthorJobTitle = styled.div`
-  font-size: ${props => props.theme.fontSizeOffset + 14}px;
+  font-size: 14px;
   color: #808080;
   margin-left: 5px;
   line-height: 1;
@@ -114,7 +114,7 @@ const AuthorJobTitle = styled.div`
 
 const AuthorName = styled(AuthorJobTitle)`
   color: ${props => props.theme.colors.primary.text};
-  font-size: ${props => props.theme.fontSizeOffset + 16}px;
+  font-size: 16px;
   margin-left: 5px;
   padding-bottom: 3px;
 
@@ -129,7 +129,7 @@ const AuthorName = styled(AuthorJobTitle)`
 `
 
 const RawAuthorText = styled.div`
-  font-size: ${props => props.theme.fontSizeOffset + 14}px;
+  font-size: 14px;
   color: #808080;
   padding-left: 5px;
 `
@@ -144,7 +144,7 @@ const TagButton = styled.div`
   border: solid 1px #808080;
   border-radius: 50px;
   padding: 5px 10px 5px 10px;
-  font-size: ${props => props.theme.fontSizeOffset + 14}px;
+  font-size: 14px;
   font-weight: normal;
   color: #808080;
   margin-bottom: 10px;
