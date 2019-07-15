@@ -62,6 +62,7 @@ export default class LayoutManager {
    *  @property {string} subtitle - Post subtitle
    *  @property {string} topicHref - href of topic
    *  @property {string} topicName - Topic name
+   *  @property {string} figureCaption - Description of leading image
    *  @property {module:Article:ResizedTargets} poster - A set of images
    */
 
@@ -80,6 +81,7 @@ export default class LayoutManager {
       subtitle: _.get(post, 'subtitle'),
       topicHref: this.getTopicHref(),
       topicName: _.get(relatedTopic, 'topic_name', ''),
+      figureCaption: _.get(post, 'leading_image_description', ''),
       poster: {
         tiny: _.get(post, 'hero_image.resized_targets.tiny', {}),
         mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),

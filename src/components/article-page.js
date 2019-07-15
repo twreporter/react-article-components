@@ -372,7 +372,7 @@ export default class Article extends PureComponent {
         <ToolsBlock>
           <Tools
             articleMetaForBookmark={articleMetaForBookmark}
-            backToTopic={topicHref}
+            backToTopic={backToTopic}
             onFontLevelChange={this.changeFontLevel}
           />
         </ToolsBlock>
