@@ -1,4 +1,4 @@
-import Leadings from '../components/leading-block'
+import Leadings from '../components/leading'
 import get from 'lodash/get'
 import themeConst from '../constants/theme'
 
