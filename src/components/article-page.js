@@ -46,7 +46,7 @@ const BackgroundBlock = styled(BorderBox)`
 
 const BodyBackground = styled.div`
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${props => props.theme.colors.base.background};
   ${mq.desktopOnly`
     padding-top: 60px;
   `}

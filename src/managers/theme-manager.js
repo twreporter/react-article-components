@@ -33,7 +33,7 @@ const baseColorSet = {
   lightText: '#808080',
   button: '#808080',
   line: '#afafaf',
-  background: '#fff',
+  background: '#f4f4f4',
 }
 
 /**
@@ -56,10 +56,13 @@ export default class ThemeManager {
         text: '#a67a44',
         accent: '#a67a44',
         support: '#d0a67d',
-        background: '#f4f4f4',
+        background: '#f1f1f1',
       },
       secondary: secondaryColorSet,
-      base: baseColorSet,
+      base: {
+        ...baseColorSet,
+        background: '#f1f1f1',
+      },
     },
   }
 
