@@ -4,6 +4,14 @@
 
 ## RELEASE
 
+### 1.0.6
+
+#### Default Theme(article:v2:default) Support
+
+- Provide `primary`, `secondary` and `base` colors for default theme
+- Support `extend`, `normal`, `fullscreen` and `small` leading block with default theme
+- Introduce `UIManager(src/managers/ui-manager.js)` to handle theme and layout
+
 ### 1.0.5
 
 - Update dependencies
