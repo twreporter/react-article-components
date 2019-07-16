@@ -105,10 +105,10 @@ const Figure = styled.figure`
 
 const FigCaption = styled.figcaption`
   color: ${props => props.theme.colors.base.lightText};
+  margin-top: 15px;
 
   ${mq.tabletAndBelow`
     font-size: 14px;
-    margin-top: 15px;
   `}
 
   ${mq.mobileOnly`
@@ -129,8 +129,9 @@ const FigCaption = styled.figcaption`
 
 export default class NormalLeading extends React.PureComponent {
   static propTypes = predefinedPropTypes.default
+
   static defaultProps = {
-    figureCaption: 'test',
+    figureCaption: '',
     subtitle: '',
     topicHref: '',
     topicName: '',
@@ -171,8 +172,8 @@ export default class NormalLeading extends React.PureComponent {
 
   render() {
     const {
-      figureCaption = 'test',
-      poster = {},
+      figureCaption,
+      poster,
       subtitle,
       title,
       topicHref,

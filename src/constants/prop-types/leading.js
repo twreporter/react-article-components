@@ -23,4 +23,11 @@ export default {
     ...leading,
     figureCaption: PropTypes.string,
   },
+  fullscreen: {
+    ...leading,
+    portraitPoster: PropTypes.shape({
+      tiny: predefinedPropTypes.imagePropType.isRequired,
+      mobile: predefinedPropTypes.imagePropType.isRequired,
+    }),
+  },
 }

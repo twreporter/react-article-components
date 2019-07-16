@@ -183,7 +183,7 @@ const _articleStyles = {
  *  @property {bool} is_external - Is post a external link
  *  @property {string} published_date - Published date of post
  *  @property {string} hero_image_size - Size of leading image, the value could be
- *  `normal`, `small`, `extend` and `full-screen`
+ *  `normal`, `small`, `extend` and `fullscreen`
  *  @property {ImageSet} hero_image - Leading image of post
  *  @property {ImageSet} og_image - og:image
  *  @property {string} og_description - og:description

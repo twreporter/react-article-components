@@ -46,8 +46,8 @@ export default class LayoutManager {
         return Leadings.Extend
       case 'small':
         return Leadings.Small
-      case 'full-screen':
-        return Leadings.FullScreen
+      case 'fullscreen':
+        return Leadings.Fullscreen
       case 'normal':
       default: {
         return Leadings.Normal
@@ -64,6 +64,7 @@ export default class LayoutManager {
    *  @property {string} topicName - Topic name
    *  @property {string} figureCaption - Description of leading image
    *  @property {module:Article:ResizedTargets} poster - A set of images
+   *  @property {module:Article:ResizedTargets} portraitPoster - A set of images
    */
 
   /**
@@ -87,6 +88,14 @@ export default class LayoutManager {
         mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
         tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
         desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
+      },
+      portraitPoster: {
+        tiny: _.get(post, 'leading_image_portrait.resized_targets.tiny', {}),
+        mobile: _.get(
+          post,
+          'leading_image_portrait.resized_targets.mobile',
+          {}
+        ),
       },
     }
   }

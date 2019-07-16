@@ -1,12 +1,12 @@
 import Extend from './extend'
-import FullScreen from './full-screen'
+import Fullscreen from './fullscreen'
 import Normal from './normal'
 import Pink from './pink'
 import Small from './small'
 
 export default {
   Extend,
-  FullScreen,
+  Fullscreen,
   Normal,
   Pink,
   Small,
