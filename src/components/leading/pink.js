@@ -1,10 +1,9 @@
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import Img from '../img-with-placeholder'
-import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import mq from '../../utils/media-query'
-import predefinedPropTypes from '../../constants/prop-types/img-with-placeholder'
+import predefinedPropTypes from '../../constants/prop-types/leading'
 import styled from 'styled-components'
 
 const _ = {
@@ -171,19 +170,7 @@ const FigureBlock = styled.figure`
 `
 
 export default class LeadingBlock extends PureComponent {
-  static propTypes = {
-    poster: PropTypes.shape({
-      tiny: predefinedPropTypes.imagePropType.isRequired,
-      mobile: predefinedPropTypes.imagePropType.isRequired,
-      tablet: predefinedPropTypes.imagePropType.isRequired,
-      desktop: predefinedPropTypes.imagePropType.isRequired,
-    }).isRequired,
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string,
-    topicName: PropTypes.string,
-    topicHref: PropTypes.string,
-    paddingTop: PropTypes.string,
-  }
+  static propTypes = predefinedPropTypes.pink
 
   static defaultProps = {
     subtitle: '',

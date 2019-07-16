@@ -86,7 +86,7 @@ const Indicator = styled.span`
 
 const AnnotationContent = styled.div`
   display: ${props => (props.isExpanded ? 'block' : 'none')};
-  background: ${props => props.theme.colors.base.background};
+  background: #fff;
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
   line-height: 1.43;
   letter-spacing: 0.5px;

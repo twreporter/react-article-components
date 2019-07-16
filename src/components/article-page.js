@@ -2,19 +2,18 @@ import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import mq from '../utils/media-query'
-import predefinedPropTypes from '../constants/prop-types/article-page'
 import styled, { ThemeProvider } from 'styled-components'
 // components
 import Body from './body'
 import DesktopAside from './aside/desktop-aside'
 import DonationBox from './donation-box'
-import LeadingBlock from './leading-block'
 import License from './license'
 import Link from './link'
 import Metadata from './aside/metadata'
 import MobileAside from './aside/mobile-aside'
 import Related from './related'
 import SeparationCurve from './separation-curve'
+import UIManager from '../managers/ui-manager'
 import Tools from './aside/tools'
 // lodash
 import get from 'lodash/get'
@@ -29,28 +28,6 @@ const _ = {
   merge,
   sortBy,
   throttle,
-}
-
-const defaultColors = {
-  primary: {
-    text: '#355ed3',
-    accent: '#ef7ede',
-    support: '#fbafef',
-    background: '#fadaf5',
-  },
-  secondary: {
-    text: '#a67a44',
-    accent: '#a67a44',
-    support: '#d0a67d',
-    background: '#c9af8e',
-  },
-  base: {
-    text: '#404040',
-    lightText: '#808080',
-    button: '#808080',
-    line: '#afafaf',
-    background: '#fff',
-  },
 }
 
 const BorderBox = styled.div`
@@ -69,7 +46,7 @@ const BackgroundBlock = styled(BorderBox)`
 
 const BodyBackground = styled.div`
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${props => props.theme.colors.base.background};
   ${mq.desktopOnly`
     padding-top: 60px;
   `}
@@ -169,17 +146,61 @@ const _articleStyles = {
   interactive: 'interactive',
 }
 
-function getTopicHref(topicObj = {}) {
-  const slug = _.get(topicObj, 'slug')
-  if (slug) {
-    return `/topics/${slug}`
-  }
-  return null
-}
+/**
+ *  @module Article
+ */
 
+/**
+ *  Image Object
+ *  @typedef {Object} ImageObj
+ *  @property {string} url - url of image
+ *  @property {number} width - width of image
+ *  @property {number} height - height of image
+ */
+
+/**
+ *  ResizedTargets Object
+ *  @typedef {Object} ResizedTargets
+ *  @property {ImageObj} desktop
+ *  @property {ImageObj} tablet
+ *  @property {ImageObj} mobile
+ *  @property {ImageObj} tiny
+ */
+
+/**
+ *  A set of images
+ *  @typedef {Object} ImageSet
+ *  @property {ResizedTargets} resized_targets - ResizedTargets of HeroImage
+ */
+
+/**
+ *  Post Object
+ *  @typedef {Object} PostObject
+ *  @property {string} slug - Slug of post
+ *  @property {string} title - Title of post
+ *  @property {string} subtitle - Subtitle of post
+ *  @property {string} style - Style of post
+ *  @property {bool} is_external - Is post a external link
+ *  @property {string} published_date - Published date of post
+ *  @property {string} hero_image_size - Size of leading image, the value could be
+ *  `normal`, `small`, `extend` and `fullscreen`
+ *  @property {ImageSet} hero_image - Leading image of post
+ *  @property {ImageSet} og_image - og:image
+ *  @property {string} og_description - og:description
+ */
+
+/**
+ *  Topic Object
+ *  @typedef {Object} TopicObject
+ *  @property {string} slug - Slug of topic
+ *  @property {string} topic_name - Name of topic
+ */
+
+/**
+ *  @exports
+ */
 export default class Article extends PureComponent {
   static propTypes = {
-    colors: predefinedPropTypes.elementColors,
     post: PropTypes.object.isRequired,
     relatedTopic: PropTypes.object,
     relatedPosts: PropTypes.array,
@@ -194,7 +215,6 @@ export default class Article extends PureComponent {
 
   static defaultProps = {
     LinkComponent: Link,
-    colors: {},
     fontLevel: _fontLevel.small,
     relatedPosts: [],
     relatedTopic: {},
@@ -290,7 +310,6 @@ export default class Article extends PureComponent {
   render() {
     const {
       LinkComponent,
-      colors,
       fontLevel,
       post,
       relatedPosts,
@@ -332,7 +351,10 @@ export default class Article extends PureComponent {
       topicTitle: _.get(relatedTopic, 'title', ''),
     }
 
-    const topicHref = getTopicHref(relatedTopic)
+    const uiManager = new UIManager(post, relatedTopic)
+    const LeadingComponent = uiManager.getLeadingComponent()
+    const leadingProps = uiManager.getLeadingComponentProps()
+    const backToTopic = leadingProps.topicHref
 
     // only for tablet and below
     const metadataAndToolsJSX = (
@@ -350,7 +372,7 @@ export default class Article extends PureComponent {
         <ToolsBlock>
           <Tools
             articleMetaForBookmark={articleMetaForBookmark}
-            backToTopic={topicHref}
+            backToTopic={backToTopic}
             onFontLevelChange={this.changeFontLevel}
           />
         </ToolsBlock>
@@ -360,33 +382,22 @@ export default class Article extends PureComponent {
     return (
       <ThemeProvider
         theme={{
-          colors: _.merge({}, defaultColors, colors),
+          colors: uiManager.getThemeColors(),
           fontSizeOffset: this.getFontSizeOffset(fontLevel),
         }}
       >
         <DynamicComponentsContext.Provider value={{ Link: LinkComponent }}>
           <BackgroundBlock>
-            <LeadingBlock
-              title={post.title}
-              subtitle={post.subtitle}
-              topicHref={topicHref}
-              topicName={_.get(relatedTopic, 'topic_name', '')}
-              poster={{
-                tiny: _.get(post, 'hero_image.resized_targets.tiny', {}),
-                mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
-                tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
-                desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
-              }}
-            />
+            <LeadingComponent {...leadingProps} />
             <BodyBackground>
               <BodyBlock>
                 <MobileAside
-                  backToTopic={topicHref}
+                  backToTopic={backToTopic}
                   ref={this.mobileAsideRef}
                 />
                 <DesktopAsideBlock>
                   <DesktopAside
-                    backToTopic={topicHref}
+                    backToTopic={backToTopic}
                     categories={post.categories}
                     date={post.published_date}
                     designers={post.designers}

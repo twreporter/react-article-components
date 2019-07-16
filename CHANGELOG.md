@@ -4,21 +4,29 @@
 
 ## RELEASE
 
+### 1.0.6
+
+#### Default Theme(article:v2:default) Support
+
+- Provide `primary`, `secondary` and `base` colors for default theme
+- Support `extend`, `normal`, `fullscreen` and `small` leading block with default theme
+- Introduce `UIManager(src/managers/ui-manager.js)` to handle theme and layout
+
 ### 1.0.5
 
 - Update dependencies
-- Take shared prop-types from @twreporter/core
+- Take shared `prop-types` from `@twreporter/core`
 
 ### 1.0.4
 
-- Remove state.fontLevel of article-page.js
-- Remove fontSizeOffset from aside:metadata
+- Remove `state.fontLevel` of `article-page.js`
+- Remove `fontSizeOffset` from aside:metadata
 
 ### 1.0.3
 
-- Update src/components/article-page.js
+- Update `src/components/article-page.js`
 
-  - Prop naming change: defaultFontLevel -> fontLevel
+  - Prop naming change: `defaultFontLevel` -> `fontLevel`
   - Add `onFontLevelChange` prop
   - fontLevel update: base -> small, large -> medium, xLarge -> large
 

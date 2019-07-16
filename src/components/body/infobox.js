@@ -53,7 +53,7 @@ const Content = styled.div`
 const Container = styled.div`
   ${cssConsts.linkChildren}
 
-  background: ${props => props.theme.colors.base.background};
+  background: #fff;
   position: relative;
   margin: 60px auto 0 auto;
   ${mq.tabletAndBelow`
