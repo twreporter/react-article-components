@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
-import mq from '../../../utils/media-query'
+import memoize from 'memoize-one'
+import mq from '@twreporter/core/lib/utils/media-query'
 import styled from 'styled-components'
 
 const _ = {
@@ -518,22 +519,6 @@ export default class Slideshow extends PureComponent {
 
   constructor(props) {
     super(props)
-    const images = _.get(props, 'data.content', [])
-    this.total = images.length
-
-    // For slicing images array easily later,
-    // add last `slidesOffset` elements into top of images array.
-    // add first `slidesOffset` elements into bottom of images array.
-    // EX:
-    // slidesOffset: 2
-    // input images: [ a, b, c, d ]
-    // output images: [c, d, a, b, c, d, a, b]
-    this.images = [].concat(
-      images.slice(-slidesOffset),
-      images,
-      images.slice(defaultCurIndex, slidesOffset)
-    )
-
     this.defaultTranslateXUnit = -slidesOffset
 
     this.state = {
@@ -549,6 +534,7 @@ export default class Slideshow extends PureComponent {
   }
 
   _slideToPrev() {
+    const total = _.get(this.props, 'data.content.length', 0)
     this.setState(
       {
         isSliding: true,
@@ -558,7 +544,7 @@ export default class Slideshow extends PureComponent {
         let curSlideIndex = this.state.curSlideIndex - 1
 
         if (curSlideIndex < defaultCurIndex) {
-          curSlideIndex = this.total + curSlideIndex
+          curSlideIndex = total + curSlideIndex
         }
 
         setTimeout(() => {
@@ -573,6 +559,7 @@ export default class Slideshow extends PureComponent {
   }
 
   _slideToNext() {
+    const total = _.get(this.props, 'data.content.length', 0)
     this.setState(
       {
         isSliding: true,
@@ -581,8 +568,8 @@ export default class Slideshow extends PureComponent {
       () => {
         let curSlideIndex = this.state.curSlideIndex + 1
 
-        if (curSlideIndex >= this.total) {
-          curSlideIndex = curSlideIndex % this.total
+        if (curSlideIndex >= total) {
+          curSlideIndex = curSlideIndex % total
         }
 
         setTimeout(() => {
@@ -596,10 +583,29 @@ export default class Slideshow extends PureComponent {
     )
   }
 
+  buildImagesForSlicing = memoize(images => {
+    // For slicing images array easily later,
+    // add last `slidesOffset` elements into top of images array.
+    // add first `slidesOffset` elements into bottom of images array.
+    // EX:
+    // slidesOffset: 2
+    // input images: [ a, b, c, d ]
+    // output images: [c, d, a, b, c, d, a, b]
+    return [].concat(
+      images.slice(-slidesOffset),
+      images,
+      images.slice(defaultCurIndex, slidesOffset)
+    )
+  })
+
   render() {
     const { curSlideIndex, isSliding, translateXUint } = this.state
+    const images = _.get(this.props, 'data.content', [])
+    const total = images.length
 
-    const slides = this.images.slice(
+    const imagesForSlicing = this.buildImagesForSlicing(images)
+
+    const slides = imagesForSlicing.slice(
       curSlideIndex,
       curSlideIndex + slidesOffset * 2 + 1
     )
@@ -621,7 +627,7 @@ export default class Slideshow extends PureComponent {
       )
     })
 
-    const desc = _.get(slides, [curSlideIndex, 'description'])
+    const desc = _.get(images, [curSlideIndex, 'description'])
 
     return (
       <SlideshowFlexBox>
@@ -646,7 +652,7 @@ export default class Slideshow extends PureComponent {
         </PrevNextSection>
         <ImageNumberCircle>
           <ImageNumber>{curSlideIndex + 1}</ImageNumber>
-          <ImageTotal>{this.total}</ImageTotal>
+          <ImageTotal>{total}</ImageTotal>
         </ImageNumberCircle>
         {desc ? <Desc>{desc}</Desc> : <EmptyDesc />}
       </SlideshowFlexBox>
