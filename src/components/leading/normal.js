@@ -11,7 +11,7 @@ const _ = {
 }
 
 const BackgroundBlock = styled.div`
-  background-color: #f1f1f1;
+  background-color: ${props => props.theme.colors.base.background};
   padding-top: 60px;
 `
 

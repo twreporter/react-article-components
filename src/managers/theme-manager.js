@@ -31,7 +31,28 @@ const secondaryColorSet = {
 const baseColorSet = {
   text: '#404040',
   lightText: '#808080',
-  button: '#808080',
+  button: {
+    text: {
+      color: '#808080',
+    },
+    border: {
+      color: '#808080',
+    },
+    background: {
+      color: 'initial',
+    },
+    hover: {
+      text: {
+        color: '#808080',
+      },
+      border: {
+        color: '#808080',
+      },
+      background: {
+        color: '#fff',
+      },
+    },
+  },
   line: '#afafaf',
   background: '#f4f4f4',
 }
@@ -64,6 +85,43 @@ export default class ThemeManager {
         background: '#f1f1f1',
       },
     },
+    photo: {
+      primary: {
+        text: '#a67a44',
+        accent: '#a67a44',
+        support: '#d0a67d',
+        background: '#08192d',
+      },
+      secondary: secondaryColorSet,
+      base: {
+        text: 'rgba(255, 255, 255, 0.8)',
+        lightText: 'rgba(255, 255, 255, 0.5)',
+        button: {
+          text: {
+            color: '#808080',
+          },
+          border: {
+            color: '#808080',
+          },
+          background: {
+            color: 'initial',
+          },
+          hover: {
+            text: {
+              color: '#fff',
+            },
+            border: {
+              color: '#fff',
+            },
+            background: {
+              color: 'initial',
+            },
+          },
+        },
+        line: 'rgba(216, 216, 216, 0.2)',
+        background: '#08192d',
+      },
+    },
   }
 
   /**
@@ -85,7 +143,9 @@ export default class ThemeManager {
       case themeConst.article.v2.pink: {
         return ThemeManager.colors.pink
       }
-      case themeConst.article.v2.photo:
+      case themeConst.article.v2.photo: {
+        return ThemeManager.colors.photo
+      }
       case themeConst.article.v2.default:
       default: {
         return ThemeManager.colors.default

@@ -31,7 +31,7 @@ const widthCSS = css`
 
 const Title = styled.div`
   ${widthCSS}
-  color: ${props => props.theme.colors.base.text};
+  color: #494949;
   line-height: 1.9;
   letter-spacing: 0.7px;
   font-weight: ${typography.font.weight.bold};
@@ -42,7 +42,7 @@ const Title = styled.div`
 const Content = styled.div`
   ${widthCSS}
 
-  color: ${props => props.theme.colors.base.text};
+  color: #494949;
   line-height: 1.75;
   letter-spacing: 0.5px;
   font-weight: ${typography.font.weight.normal};

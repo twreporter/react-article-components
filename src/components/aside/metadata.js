@@ -141,12 +141,14 @@ const AngledSeparationLine = styled.div`
 `
 
 const TagButton = styled.div`
-  border: solid 1px #808080;
+  border-style: solid;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.base.button.border.color};
   border-radius: 50px;
   padding: 5px 10px 5px 10px;
   font-size: 14px;
   font-weight: normal;
-  color: #808080;
+  color: ${props => props.theme.colors.base.button.text.color};
   margin-bottom: 10px;
   margin-right: 10px;
 
@@ -155,7 +157,10 @@ const TagButton = styled.div`
   }
 
   &:hover {
-    background-color: #fff;
+    color: ${props => props.theme.colors.base.button.hover.text.color};
+    border-color: ${props => props.theme.colors.base.button.hover.border.color};
+    background-color: ${props =>
+      props.theme.colors.base.button.hover.background.color};
   }
 `
 

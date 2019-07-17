@@ -88,11 +88,13 @@ const AnnotationContent = styled.div`
   display: ${props => (props.isExpanded ? 'block' : 'none')};
   background: #fff;
   font-size: ${props => props.theme.fontSizeOffset + 16}px;
-  line-height: 1.43;
+  line-height: 2.11;
   letter-spacing: 0.5px;
+  color: #494949;
   font-weight: ${typography.font.weight.normal};
   border-top: 2px solid ${props => props.theme.colors.primary.support};
   padding: 25px 11px;
+  margin-bottom: 10px;
   animation: ${slideDownAndFadeIn} 300ms ease;
 `
 
