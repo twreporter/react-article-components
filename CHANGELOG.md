@@ -20,6 +20,17 @@
 
 - Introduce `UIManager(src/managers/ui-manager.js)` to handle theme and layout
 
+#### Bug fix
+
+- Fix body:slideshow bug: description not rendered if current slide index is more than 6
+- Fix body:centered-quote bug: `by` -> `quoteBy`
+
+#### Miscellaneous
+
+- URL origin replacement: storage.googleapis.com -> www.twreporter.org
+- body:slideshow updated: img tag -> img-with-placeholder
+- src/utils/media-query -> @twreporter/core/lib/utils/media-query
+
 ### 1.0.5
 
 - Update dependencies
