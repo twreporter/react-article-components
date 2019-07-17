@@ -186,7 +186,7 @@ export default class NormalLeading extends React.PureComponent {
                 }}
               </DynamicComponentsContext.Consumer>
             ) : null}
-            <Subtitle>{subtitle}</Subtitle>
+            {subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
             <Title>{title}</Title>
           </TextBlock>
           <Figure css={this.getFigureCSS()}>
