@@ -10,6 +10,14 @@
 
 - Provide `primary`, `secondary` and `base` colors for default theme
 - Support `extend`, `normal`, `fullscreen` and `small` leading block with default theme
+
+#### Photo Theme(article:v2:photo) Support
+
+- Provide `primary`, `secondary` and `base` colors for photo theme
+- Support `extend`, `normal`, `fullscreen` and `small` leading block with photo theme
+
+#### UIManager
+
 - Introduce `UIManager(src/managers/ui-manager.js)` to handle theme and layout
 
 ### 1.0.5
