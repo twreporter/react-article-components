@@ -77,4 +77,11 @@ export default class UIManager {
   getLeadingComponentProps() {
     return this.getLayoutManager().getLeadingComponentProps()
   }
+
+  toRenderSeparationLineBetweenLeadingAndBody() {
+    if (this.getTheme() === themeConst.article.v2.default) {
+      return true
+    }
+    return false
+  }
 }

@@ -21,15 +21,6 @@ const ContentBlock = styled.div`
   ${mq.mobileOnly`
     line-height: 1.43;
   `}
-
-  ${mq.tabletAndAbove`
-    position: relative;
-    /* 20px is border-(right|left) width of body */
-    width: calc(100% + 20px);
-    left: -10px;
-    padding-bottom: 60px;
-    border-bottom: solid 1px #e2e2e2;
-  `}
 `
 
 const TextBlock = styled.div`
