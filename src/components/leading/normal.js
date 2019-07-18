@@ -40,20 +40,20 @@ const TextBlock = styled.div`
 `
 
 const Title = styled.h1`
+  /* clear h1 default style */
+  margin-top: 0px;
   color: ${props => props.theme.colors.base.text};
   letter-spacing: 0.4px;
   font-weight: bold;
 
   ${mq.mobileOnly`
     font-size: 34px;
-    margin-top: 30px;
     margin-bottom: 40px;
   `}
 
   ${mq.tabletAndAbove`
     font-size: 42px;
     line-height: 1.38;
-    margin-top: 30px;
     margin-bottom: 60px;
   `}
 `
@@ -61,11 +61,8 @@ const Title = styled.h1`
 const Subtitle = styled.h2`
   color: ${props => props.theme.colors.base.text};
   font-weight: bold;
-
-  ${mq.tabletAndBelow`
-    margin-top: 20px;
-    margin-bottom: 30px;
-  `}
+  margin-top: 20px;
+  margin-bottom: 30px;
 
   ${mq.mobileOnly`
     font-size: 16px;
@@ -75,7 +72,6 @@ const Subtitle = styled.h2`
     line-height: 2.1;
     font-size: 20px;
   `}
-
 `
 
 const Topic = styled.div`
