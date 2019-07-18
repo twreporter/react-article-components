@@ -1,3 +1,4 @@
+import Img from '../../img-with-placeholder'
 import Multimedia from '../multimedia'
 import NextArrowSvg from '../../../assets/body/slideshow/next-arrow.svg'
 import PreArrowSvg from '../../../assets/body/slideshow/pre-arrow.svg'
@@ -610,18 +611,18 @@ export default class Slideshow extends PureComponent {
       curSlideIndex + slidesOffset * 2 + 1
     )
 
-    const slidesJSX = _.map(slides, (slide, index) => {
+    const slidesJSX = _.map(slides, (slide = {}, index) => {
+      const objectFit =
+        _.get(slide, 'mobile.width', 0) > _.get(slide, 'mobile.height', 0)
+          ? 'cover'
+          : 'contain'
       return (
         <SlideFlexItem key={`slide_${slide.id}`}>
-          {/* TODO use ImgWrapper */}
-          <img
-            src={slide.tablet.url}
-            width="100%"
-            height="100%"
-            style={{
-              objectFit:
-                slide.tablet.width > slide.tablet.height ? 'cover' : 'contain',
-            }}
+          <Img
+            imageSet={[slide.mobile, slide.tablet, slide.desktop]}
+            defaultImage={slide.mobile}
+            objectFit={objectFit}
+            sizes="(max-width: 800px) 800px, (max-width: 1200px) 1200px, 2000px"
           />
         </SlideFlexItem>
       )
