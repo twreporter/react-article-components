@@ -1,7 +1,7 @@
 import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import mq from '../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import styled, { ThemeProvider, css } from 'styled-components'
 // components
 import Body from './body'

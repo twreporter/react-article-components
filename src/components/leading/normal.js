@@ -1,7 +1,7 @@
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import Img from '../img-with-placeholder'
 import React from 'react'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import get from 'lodash/get'
 import predefinedPropTypes from '../../constants/prop-types/leading'
 import styled, { css } from 'styled-components'

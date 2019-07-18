@@ -1,4 +1,4 @@
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
 import cssConsts from '../../constants/css'

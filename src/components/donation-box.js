@@ -1,4 +1,4 @@
-import mq from '../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import React, { PureComponent } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
