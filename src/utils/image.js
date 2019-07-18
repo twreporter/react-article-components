@@ -1,6 +1,7 @@
 // lodash
 import get from 'lodash/get'
 import map from 'lodash/map'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 
 const _ = {
   get,
@@ -19,7 +20,7 @@ const _ = {
  * @returns
  */
 function buildImageCandidateString(image) {
-  const url = _.get(image, 'url')
+  const url = replaceGCSUrlOrigin(_.get(image, 'url'))
   const elementRenderedMaxWidth = _.get(image, 'width')
   if (url && elementRenderedMaxWidth) {
     return `${url} ${elementRenderedMaxWidth}w`

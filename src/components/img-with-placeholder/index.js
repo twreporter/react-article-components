@@ -1,4 +1,5 @@
 import { getSrcsetString } from '../../utils/image'
+import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
 import PlaceholderIcon from '../../assets/img-with-placeholder/img-loading-placeholder.svg'
 import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/img-with-placeholder'
@@ -199,6 +200,8 @@ export default class Img extends React.PureComponent {
       )
     }
     const isObjectFit = Boolean(objectFit)
+    const defaultImageSrc = replaceGCSUrlOrigin(_.get(defaultImage, 'url'))
+
     return (
       <ImgContainer
         className={className}
@@ -209,7 +212,10 @@ export default class Img extends React.PureComponent {
         }
       >
         {imgPlaceholderSrc ? (
-          <ImgPlaceholder src={imgPlaceholderSrc} toShow={toShowPlaceholder} />
+          <ImgPlaceholder
+            src={replaceGCSUrlOrigin(imgPlaceholderSrc)}
+            toShow={toShowPlaceholder}
+          />
         ) : (
           <Placeholder toShow={toShowPlaceholder}>
             <PlaceholderIcon />
@@ -225,7 +231,7 @@ export default class Img extends React.PureComponent {
                 onLoad={this.handleImageLoaded}
                 ref={this._img}
                 sizes={this._supportObjectFit ? sizes : ''}
-                src={_.get(defaultImage, 'url')}
+                src={defaultImageSrc}
                 srcSet={this._supportObjectFit ? srcset : ''}
                 hide={!this._supportObjectFit}
                 {...imgProps}
@@ -244,7 +250,7 @@ export default class Img extends React.PureComponent {
               onLoad={this.handleImageLoaded}
               ref={this._img}
               sizes={sizes}
-              src={_.get(defaultImage, 'url')}
+              src={defaultImageSrc}
               srcSet={srcset}
               {...imgProps}
             />
