@@ -178,6 +178,7 @@ export default class Slider extends React.Component {
     onSeekEnd: PropTypes.func,
     // `onSeekStart` will be invoked when user start draggin the indicator
     onSeekStart: PropTypes.func,
+    onSeeking: PropTypes.func,
   }
 
   static defaultProps = {
@@ -186,6 +187,7 @@ export default class Slider extends React.Component {
     max: 100,
     onSeekEnd: noop,
     onSeekStart: noop,
+    onSeeking: noop,
   }
 
   constructor(props) {
@@ -312,9 +314,17 @@ export default class Slider extends React.Component {
 
   _handlePointerMove(nextIndicatorX) {
     if (this.state.indicatorX !== nextIndicatorX) {
-      this.setState({
-        indicatorX: nextIndicatorX,
-      })
+      this.setState(
+        {
+          indicatorX: nextIndicatorX,
+        },
+        () => {
+          const { onSeeking } = this.props
+          if (onSeeking !== noop) {
+            onSeeking({ value: this._calcValueByIndicatorX() })
+          }
+        }
+      )
     }
   }
 
@@ -375,7 +385,12 @@ export default class Slider extends React.Component {
         onDragStart={this.preventNativeDragging}
       >
         <Progress
-          w={indicatorX + getElementOutBoundWidth(this._indicator.current) / 2}
+          w={
+            this._indicator.current
+              ? indicatorX +
+                getElementOutBoundWidth(this._indicator.current) / 2
+              : 0
+          }
         />
         <Indicator
           ref={this._indicator}
