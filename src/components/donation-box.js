@@ -78,12 +78,25 @@ const Donate = styled.div`
 `
 
 export default class DonationBox extends PureComponent {
+  state = {
+    isMounted: false,
+  }
+
+  componentDidMount() {
+    this.setState({
+      isMounted: true,
+    })
+  }
+
   render() {
+    const { isMounted } = this.state
     let currentHref = null
     let donateURL = null
-    if (typeof window !== 'undefined') {
+    if (isMounted) {
       currentHref = window.location.href
-      const search = `utm_source=twreporter.org&utm_medium=article&utm_campaign=${encodeURIComponent(
+      const search = `utm_source=${
+        window.location.host
+      }&utm_medium=article&utm_campaign=${encodeURIComponent(
         window.location.pathname
       )}`
       try {
@@ -99,13 +112,15 @@ export default class DonationBox extends PureComponent {
         <Title>{_content.title}</Title>
         <Text>{_content.desc}</Text>
         <Donate>
-          <ReactGA.OutboundLink
-            eventLabel={`[article_donation_button_click]: ${currentHref}`}
-            to={donateURL || _donatePath}
-            target="_blank"
-          >
-            <p>{_content.bt}</p>
-          </ReactGA.OutboundLink>
+          {isMounted ? (
+            <ReactGA.OutboundLink
+              eventLabel={`[article_donation_button_click]: ${currentHref}`}
+              to={donateURL || _donatePath}
+              target="_blank"
+            >
+              <p>{_content.bt}</p>
+            </ReactGA.OutboundLink>
+          ) : null}
         </Donate>
       </Container>
     )
