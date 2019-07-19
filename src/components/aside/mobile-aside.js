@@ -1,9 +1,11 @@
 import BackToTopicIcon from '../../assets/aside/article-back-to-topic-mobile.svg'
 import BackToTopIcon from '../../assets/aside/article-back-to-top-mobile.svg'
+import BookmarkWidget from '@twreporter/react-components/lib/bookmark-widget'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React from 'react'
 import mq from '@twreporter/core/lib/utils/media-query'
+import predefinedPropTypes from '@twreporter/core/lib/constants/prop-types'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 
@@ -45,11 +47,9 @@ const SubsequentIconContainer = styled(IconContainer)`
   margin-bottom: 20px;
 `
 
-/*
 const WidgetWrapper = styled.div`
   margin-bottom: 20px;
 `
-*/
 
 const BackToTopBtn = () => (
   <IconContainer onClick={() => smoothScroll(0)}>
@@ -91,24 +91,15 @@ class MobileAside extends React.PureComponent {
   }
 
   render() {
-    const {
-      backToTopic,
-      // articleMetaForBookmark,
-    } = this.props
+    const { backToTopic, articleMetaForBookmark } = this.props
 
     const { toShow } = this.state
     return (
       <Container toShow={toShow}>
         {backToTopic ? <BackToTopicBtn href={backToTopic} /> : null}
-        {/*
-        TODO use bookmark widget
-        <WidgetWrapper key="bookmark_widget">
-          <BookmarkWidget
-            articleMeta={articleMetaForBookmark}
-            isMobile
-          />
+        <WidgetWrapper>
+          <BookmarkWidget articleMeta={articleMetaForBookmark} isMobile />
         </WidgetWrapper>
-        */}
         <BackToTopBtn key="back_to_top" />
       </Container>
     )
@@ -117,12 +108,12 @@ class MobileAside extends React.PureComponent {
 
 MobileAside.propTypes = {
   backToTopic: PropTypes.string,
-  // articleMetaForBookmark: predefinedPropTypes.articleMetaForBookmark,
+  articleMetaForBookmark: predefinedPropTypes.articleMetaForBookmark,
 }
 
 MobileAside.defaultProps = {
   backToTopic: '',
-  // articleMetaForBookmark: {},
+  articleMetaForBookmark: {},
 }
 
 export default MobileAside
