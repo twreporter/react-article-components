@@ -29,6 +29,7 @@ const TimeRow = styled.div`
   color: #808080;
   letter-spacing: 0.47px;
   font-size: 14px;
+  user-select: none;
 `
 
 const FlexPositioning = styled.div`
