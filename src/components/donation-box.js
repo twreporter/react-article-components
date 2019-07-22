@@ -1,9 +1,8 @@
 import mq from '@twreporter/core/lib/utils/media-query'
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import typography from '../constants/typography'
-
-const _donateURL = 'https://support.twreporter.org/'
 
 const _content = {
   title: '用行動支持報導者',
@@ -77,41 +76,15 @@ const Donate = styled.div`
 `
 
 export default class DonationBox extends PureComponent {
-  state = {
-    isMounted: false,
-  }
-
-  componentDidMount() {
-    this.setState({
-      isMounted: true,
-    })
-  }
-
   render() {
-    const { isMounted } = this.state
-    let donateURL = _donateURL
-    if (isMounted) {
-      try {
-        const utmSource = window.location.host
-        const utmCampaign = encodeURIComponent(window.location.pathname)
-        const search = `utm_source=${utmSource}&utm_medium=article&utm_campaign=${utmCampaign}`
-        const url = new URL(donateURL)
-        url.search = search
-        donateURL = url.toString()
-      } catch (e) {
-        console.warn('Can not get donation url with utm query params', e)
-      }
-    }
     return (
       <Container>
         <Title>{_content.title}</Title>
         <Text>{_content.desc}</Text>
         <Donate>
-          {isMounted ? (
-            <a href={donateURL} target="_blank" rel="noopener noreferrer">
-              <p>{_content.bt}</p>
-            </a>
-          ) : null}
+          <DonationLink utmMedium="article">
+            <p>{_content.bt}</p>
+          </DonationLink>
         </Donate>
       </Container>
     )

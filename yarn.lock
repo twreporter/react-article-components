@@ -751,10 +751,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@twreporter/core@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.0.tgz#50741d713b3f6d499f480e65e8b502207780fb3e"
-  integrity sha512-XaJlPVbXQQv70KLD+TZKxWP8ErUlXO2sopd7NWYdPiLDG9m8iBoLk7s0Ik6O7thN4WvwehHuZMLZEOA7h+S9nQ==
+"@twreporter/core@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@twreporter/core/-/core-1.0.2.tgz#840c760f3f6716a10f0c633ad72174d73feae571"
+  integrity sha512-0t+txxhJh0kug4qg2yVZjPICWFnUGrezHGvctqyo6HD+Anh/h/O3pm3ZVNzCB19JYPTJTlTE1NibPGroVrPd/w==
   dependencies:
     lodash "^4.0.0"
     styled-components "^4.0.0"
@@ -768,12 +768,12 @@
     styled-components "^4.0.0"
 
 "@twreporter/react-components@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.0.tgz#959dffd840f66af1c6e56e7baa030c8c0e918bee"
-  integrity sha512-8ZPPKrpZvR385lzLbDldutJebUu0jJkbqrCKU62dKkXjdx0NYiTjpa8/Pq56FekE+FJi87S+uQkJ+Ljoh83LBg==
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@twreporter/react-components/-/react-components-7.0.4.tgz#8a609521af84b9a71dfef6183e6a96fdb29559e0"
+  integrity sha512-Apod7tyN7C57MBHlk72yR3YhottCL8brZ4nFs7YGS3/n7qxN4Z6CSg0PRgBNKe4GLhmKE8I+3mdXHxO04Nz3lg==
   dependencies:
-    "@twreporter/core" "1.0.0"
-    "@twreporter/redux" "5.0.1"
+    "@twreporter/core" "^1.0.1"
+    "@twreporter/redux" "^5.0.3"
     hoist-non-react-statics "^2.3.1"
     lodash "^4.0.0"
     prop-types "^15.0.0"
@@ -785,22 +785,6 @@
     react-waypoint "^9.0.2"
     smoothscroll "^0.3.0"
     styled-components "^4.0.0"
-
-"@twreporter/redux@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@twreporter/redux/-/redux-5.0.1.tgz#6deb3221538691b2f31f58eb585817909dc77b22"
-  integrity sha512-JrhklJHAo2nWV8N6SwOo6L5T1/vZMffaFLAnxa9GkDUAFO+USEu3o6He6qfJJjZieDBMOjsQyQTeUeWoX7z1Cg==
-  dependencies:
-    axios "^0.19.0"
-    es6-error "^4.0.2"
-    humps "^0.6.0"
-    isomorphic-fetch "2.2.1"
-    localforage "^1.7.3"
-    lodash "^4.17.4"
-    normalizr "^3.2.4"
-    qs "^6.5.1"
-    redux "^4.0.1"
-    redux-thunk "^2.3.0"
 
 "@twreporter/redux@^5.0.3":
   version "5.0.3"
