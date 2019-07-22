@@ -42,16 +42,21 @@ function funcWarn(funcName, err) {
 /**
  * Get the x coordinate (in pixel) of the left edge of browser viewport relative to the left edge of document.
  *
- * @returns {number|undefined}
+ * @returns {number}
  */
 function getViewportPositionX() {
   try {
+    // `window.pageXOffset` works at most modern browsers.
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/Window/pageXOffset#Browser_compatibility
+    // And different old browser has different fallback.
+    // Ref: https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollX#Notes
     return window.pageXOffset !== undefined
       ? window.pageXOffset
       : (document.documentElement || document.body.parentNode || document.body)
           .scrollLeft
   } catch (err) {
     funcWarn('getViewportPositionX', err)
+    return 0
   }
 }
 
@@ -59,26 +64,29 @@ function getViewportPositionX() {
  * Get the x coordinate (in pixel) of the mouse position relative to the left edge of document
  *
  * @param {MouseEvent} mouseEvent
- * @returns {number|undefined}
+ * @returns {number}
  */
 function getMousePositionX(mouseEvent) {
   try {
     return mouseEvent.pageX || mouseEvent.clientX + getViewportPositionX()
   } catch (err) {
     funcWarn('getMousePositionX', err)
+    return 0
   }
 }
 
 /**
- *
+ * Get the x coordinate (in pixel) of the touch position relative to the left edge of document
  *
  * @param {TouchEvent} touchEvent
+ * @returns {number}
  */
 function getTouchPositionX(touchEvent) {
   try {
     return touchEvent.touches[0].pageX
   } catch (err) {
     funcWarn('getTouchPositionX', err)
+    return 0
   }
 }
 
