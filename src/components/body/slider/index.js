@@ -22,7 +22,7 @@ export const Progress = styled.div.attrs(({ w }) => ({
   left: 0;
 `
 
-export const Indicator = styled.span.attrs(({ x }) => ({
+export const Indicator = styled.div.attrs(({ x }) => ({
   style: {
     left: x ? `${x}px` : 0,
   },
@@ -249,16 +249,18 @@ export default class Slider extends React.Component {
     document.removeEventListener('touchmove', this.handleTouchMove)
   }
 
-  _calcIndicatorXByValue() {
-    const { value, min, max } = this.props
+  _calcIndicatorXByValue(value) {
+    const _value = value || this.props.value
+    const { min, max } = this.props
     const { indicatorXMax } = this.state
-    return project(value, min, max, 0, indicatorXMax)
+    return project(_value, min, max, 0, indicatorXMax)
   }
 
-  _calcValueByIndicatorX() {
-    const { indicatorX, indicatorXMax } = this.state
+  _calcValueByIndicatorX(indicatorX) {
+    const _indicatorX = indicatorX || this.state.indicatorX
+    const { indicatorXMax } = this.state
     const { min, max } = this.props
-    return project(indicatorX, 0, indicatorXMax, min, max)
+    return project(_indicatorX, 0, indicatorXMax, min, max)
   }
 
   _calcIndicatorXByPointerX(pointerX, forcedOffset) {
@@ -276,13 +278,21 @@ export default class Slider extends React.Component {
 
   _setIndicatorXMaxToStateIfChanged() {
     const railRect = this._rail.current.getBoundingClientRect()
-    const currentMax =
+    const nextIndicatorMax =
       railRect.right -
       railRect.left -
       getElementOutBoundWidth(this._indicator.current)
-    if (currentMax !== this.state.indicatorXMax) {
+    const { value, defaultValue, min, max } = this.props
+    if (nextIndicatorMax !== this.state.indicatorXMax) {
       this.setState({
-        indicatorXMax: currentMax,
+        indicatorX: project(
+          value || defaultValue,
+          min,
+          max,
+          0,
+          nextIndicatorMax
+        ),
+        indicatorXMax: nextIndicatorMax,
       })
     }
   }
