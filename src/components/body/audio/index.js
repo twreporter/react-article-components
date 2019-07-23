@@ -1,13 +1,13 @@
-import { SoundProvider } from './sound-context'
 import * as Time from './time'
+import AudioProvider from './audio-provider'
 import ControlButton from './control-button'
 import mq from '../../../utils/media-query'
+import predefinedCss from '../../../constants/css'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import SeekBar from './seek-bar'
 import styled from 'styled-components'
 import typography from '../../../constants/typography'
-import predefinedCss from '../../../constants/css'
 
 const Container = styled.div`
   border: solid 1px #d8d8d8;
@@ -117,7 +117,7 @@ export default class AudioPlayer extends PureComponent {
     const { content } = this.props
     return (
       <Container>
-        <SoundProvider src={content.url}>
+        <AudioProvider src={content.url}>
           <SeekBar />
           <TimeRow>
             <Time.Current />
@@ -134,7 +134,7 @@ export default class AudioPlayer extends PureComponent {
               />
             </Info>
           </FlexPositioning>
-        </SoundProvider>
+        </AudioProvider>
       </Container>
     )
   }

@@ -1,4 +1,4 @@
-import { StatusContext, ControlsContext } from './sound-context'
+import { StatusContext, ControlsContext } from './audio-contexts'
 import mq from '../../../utils/media-query'
 import PauseIcon from '../../../assets/body/audio/pause.svg'
 import PlayIcon from '../../../assets/body/audio/play.svg'

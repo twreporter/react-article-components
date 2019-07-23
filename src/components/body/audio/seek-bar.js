@@ -1,4 +1,4 @@
-import { TimeContext, ControlsContext, StatusContext } from './sound-context'
+import { TimeContext, ControlsContext, StatusContext } from './audio-contexts'
 import React from 'react'
 import styled from 'styled-components'
 import Slider, { Indicator, Rail, Progress } from '../slider'

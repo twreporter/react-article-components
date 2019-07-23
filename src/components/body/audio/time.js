@@ -1,5 +1,6 @@
-import { TimeContext } from './sound-context'
+import { TimeContext } from './audio-contexts'
 import React from 'react'
+
 function getMinSecStr(secs) {
   const minutes = Math.floor(secs / 60)
   const seconds = Math.floor(secs - minutes * 60)

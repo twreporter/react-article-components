@@ -1,36 +1,12 @@
+import { ControlsContext, StatusContext, TimeContext } from './audio-contexts'
 import { Howl } from 'howler'
+import memoizeOne from 'memoize-one'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import memoizeOne from 'memoize-one'
 
 const updateInterval = 200 // ms
 
-const createEmptyFunction = funcName => () => {
-  console.warn(
-    'An empty method that should be overwritten in `ControlContext.Provider` is invoked. The mehtod name is',
-    funcName
-  )
-}
-
-export const TimeContext = React.createContext({
-  current: 0,
-  duration: 10, // any number > 0 is okay
-})
-
-export const ControlsContext = React.createContext({
-  play: createEmptyFunction('play'),
-  stop: createEmptyFunction('stop'),
-  pause: createEmptyFunction('pause'),
-  toggleMute: createEmptyFunction('toggleMute'),
-  setCurrent: createEmptyFunction('setCurrent'),
-})
-
-export const StatusContext = React.createContext({
-  isPlaying: false,
-  isMute: false,
-})
-
-export class SoundProvider extends PureComponent {
+export default class AudioProvider extends PureComponent {
   static propTypes = {
     src: PropTypes.string.isRequired,
     children: PropTypes.node,
