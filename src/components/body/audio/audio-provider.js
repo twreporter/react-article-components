@@ -27,13 +27,15 @@ export default class AudioProvider extends PureComponent {
     this.pause = this.pause.bind(this)
     this.setCurrent = this.setCurrent.bind(this)
     this.toggleMute = this.toggleMute.bind(this)
+    /* 
+      `memoize-one` here is used to prevent creating new object in every render.
+      It will shallow compare the input parameters.
+      If all parameters are equal to its previous cached ones, it will return the same result.
+      `memoize-one` only remembers the latest arguments and result.
+    */
     this._createStatusProps = memoizeOne((isMute, isPlaying) => ({
       isMute,
       isPlaying,
-    }))
-    this._createTimeProps = memoizeOne((current, duration) => ({
-      current,
-      duration,
     }))
     this._createControlProps = memoizeOne(
       (play, pause, stop, setCurrent, setDuration, toggleMute) => ({
@@ -148,7 +150,7 @@ export default class AudioProvider extends PureComponent {
       <StatusContext.Provider
         value={this._createStatusProps(isMute, isPlaying)}
       >
-        <TimeContext.Provider value={this._createTimeProps(current, duration)}>
+        <TimeContext.Provider value={{ current, duration }}>
           <ControlsContext.Provider
             value={this._createControlProps(
               this.play,
