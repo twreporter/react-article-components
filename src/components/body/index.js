@@ -1,10 +1,12 @@
 import Annotation from './annotation'
+import Audio from './audio'
 import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Embedded from './embedded-code'
 import Headings from './headings'
 import Image from './image'
+import ImageDiff from './image-diff'
 import Infobox from './infobox'
 import list from './list'
 import map from 'lodash/map'
@@ -16,7 +18,6 @@ import React, { PureComponent } from 'react'
 import Slideshow from './slideshow'
 import styled, { css } from 'styled-components'
 import Youtube from './youtube'
-import Audio from './audio'
 
 const _ = {
   map,
@@ -229,7 +230,12 @@ function renderElement(data = {}) {
       )
     case 'imageDiff':
     case 'imagediff':
-      return null
+      blockSizingWidthCSS = extendWidthCSS
+      style = {
+        margin: mockup.margin.extend,
+      }
+      elementJSX = <ImageDiff data={data} />
+      break
     case 'infobox':
       return isCenterAligned ? (
         <StyledInfobox key={data.id} data={data} />
