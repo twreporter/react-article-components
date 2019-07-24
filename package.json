@@ -17,7 +17,6 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
-    "@twreporter/react-components": "^7.0.0",
     "@twreporter/redux": "^5.0.3",
     "@twreporter/universal-header": "^2.0.5",
     "babel-eslint": "^10.0.1",
@@ -67,21 +66,16 @@
     ]
   },
   "peerDependencies": {
-    "@twreporter/core": "^1.0.2",
-    "@twreporter/react-components": "^7.0.0",
-    "@twreporter/redux": "5.0.1",
-    "@twreporter/universal-header": "2.0.5",
     "lodash": "^4.17.11",
     "prop-types": "^15.0.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-redux": "^6.0.0",
     "styled-components": "^4.0.0"
   },
   "dependencies": {
     "@twreporter/core": "^1.0.3",
+    "@twreporter/react-components": "^7.0.0",
     "memoize-one": "^5.0.5",
-    "react-ga": "^2.5.7",
     "react-waypoint": "^9.0.2",
     "smoothscroll": "^0.3.0"
   },

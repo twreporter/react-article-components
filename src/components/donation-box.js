@@ -1,10 +1,8 @@
 import mq from '@twreporter/core/lib/utils/media-query'
+import DonationLink from '@twreporter/react-components/lib/donation-link-with-utm'
 import React, { PureComponent } from 'react'
-import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import typography from '../constants/typography'
-
-const _donatePath = 'https://support.twreporter.org/'
 
 const _content = {
   title: '用行動支持報導者',
@@ -79,33 +77,14 @@ const Donate = styled.div`
 
 export default class DonationBox extends PureComponent {
   render() {
-    let currentHref = null
-    let donateURL = null
-    if (typeof window !== 'undefined') {
-      currentHref = window.location.href
-      const search = `utm_source=twreporter.org&utm_medium=article&utm_campaign=${encodeURIComponent(
-        window.location.pathname
-      )}`
-      try {
-        const url = new URL(_donatePath)
-        url.search = search
-        donateURL = url.toString()
-      } catch (e) {
-        donateURL = _donatePath + '?' + search
-      }
-    }
     return (
       <Container>
         <Title>{_content.title}</Title>
         <Text>{_content.desc}</Text>
         <Donate>
-          <ReactGA.OutboundLink
-            eventLabel={`[article_donation_button_click]: ${currentHref}`}
-            to={donateURL || _donatePath}
-            target="_blank"
-          >
+          <DonationLink utmMedium="article">
             <p>{_content.bt}</p>
-          </ReactGA.OutboundLink>
+          </DonationLink>
         </Donate>
       </Container>
     )

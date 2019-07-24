@@ -6,6 +6,7 @@ import mq from '@twreporter/core/lib/utils/media-query'
 import predefinedProps from '../../constants/prop-types/aside'
 import sortBy from 'lodash/sortBy'
 import styled, { css } from 'styled-components'
+import { idToPathSegment } from '../../constants/category'
 
 const _ = {
   get,
@@ -202,7 +203,9 @@ class Metadata extends PureComponent {
               const flexGrow = numOfCats === 1 ? 1 : index
               return (
                 <CategoryFlex key={`category_${cat.id}`} flexGrow={flexGrow}>
-                  <components.Link to={`/categories/${cat.id}`}>
+                  <components.Link
+                    to={`/categories/${idToPathSegment[cat.id]}`}
+                  >
                     <CategoryText
                       style={{ fontWeight: index === 0 ? 'bold' : 'normal' }}
                     >

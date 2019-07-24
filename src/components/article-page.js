@@ -414,6 +414,7 @@ export default class Article extends PureComponent {
               <BodyBlock>
                 <MobileAside
                   backToTopic={backToTopic}
+                  articleMetaForBookmark={articleMetaForBookmark}
                   ref={this.mobileAsideRef}
                 />
                 <DesktopAsideBlock>
