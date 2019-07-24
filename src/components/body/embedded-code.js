@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import styled from 'styled-components'
 // lodash
@@ -13,7 +14,7 @@ const _ = {
 }
 
 const Container = styled.div`
-  overflow: visible;
+  overflow: scroll;
 `
 
 const Embedded = styled.div`
@@ -65,7 +66,12 @@ function _pickDatasetFromAttribs(attributes) {
 
 export default class EmbeddedCode extends React.PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData,
+  }
+
+  static defaultProps = {
+    className: '',
   }
 
   constructor(props) {
@@ -97,13 +103,14 @@ export default class EmbeddedCode extends React.PureComponent {
   }
 
   render() {
+    const { className } = this.props
     const { caption, embeddedCodeWithoutScript } = _.get(
       this.props,
       ['data', 'content', 0],
       {}
     )
     return (
-      <Container>
+      <Container className={className}>
         <Embedded
           ref={this._embbed}
           dangerouslySetInnerHTML={{ __html: embeddedCodeWithoutScript }}

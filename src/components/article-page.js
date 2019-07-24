@@ -40,8 +40,18 @@ const BackgroundBlock = styled(BorderBox)`
   /* pass from ThemeProvider */
   background-color: ${props => props.theme.colors.primary.background};
 
+  /* boreder-(right|left) of articlePage */
   padding-left: 10px;
   padding-right: 10px;
+`
+
+const LeadingBlock = styled.div`
+  ${mq.tabletAndBelow`
+    position: relative;
+    /* 20px is border-(right|left) width of articlePage */
+    width: calc(100% + 20px);
+    left: -10px;
+  `}
 `
 
 const SeprationLine = styled.div`
@@ -49,10 +59,7 @@ const SeprationLine = styled.div`
     ${props =>
       props.visible
         ? css`
-            position: relative;
-            /* 20px is border-(right|left) width of body */
-            width: calc(100% + 20px);
-            left: -10px;
+            width: 100%;
             border-bottom: solid 1px #e2e2e2;
             padding-bottom: 60px;
           `
@@ -140,8 +147,12 @@ const ContentBlock = styled.div`
   margin: 0 auto;
 
   ${mq.tabletAndBelow`
-    width: 100%;
+    position: relative;
+    /* 20px is border-(right|left) width of articlePage */
+    width: calc(100% + 20px);
+    left: -10px;
   `}
+
   ${mq.desktopOnly`
     width: 550px;
   `}
@@ -406,10 +417,12 @@ export default class Article extends PureComponent {
       >
         <DynamicComponentsContext.Provider value={{ Link: LinkComponent }}>
           <BackgroundBlock>
-            <LeadingComponent {...leadingProps} />
-            <SeprationLine
-              visible={uiManager.toRenderSeparationLineBetweenLeadingAndBody()}
-            />
+            <LeadingBlock>
+              <LeadingComponent {...leadingProps} />
+              <SeprationLine
+                visible={uiManager.toRenderSeparationLineBetweenLeadingAndBody()}
+              />
+            </LeadingBlock>
             <BodyBackground>
               <BodyBlock>
                 <MobileAside

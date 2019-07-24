@@ -151,9 +151,7 @@ const FigureBlock = styled.figure`
 
   ${mq.tabletAndBelow`
     position: relative;
-    left: -10px;
-    /* 20px is border-(right|left) width of body */
-    width: calc(100% + 20px);
+    width: 100%;
     padding-bottom: 75%;
     margin-top: 40px;
 

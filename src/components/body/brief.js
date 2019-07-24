@@ -32,10 +32,12 @@ const Content = styled.div`
 
 export default class Brief extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: PropTypes.arrayOf(predefinedPropTypes.elementData),
   }
 
   static defaultProps = {
+    className: '',
     data: [],
   }
 
@@ -56,10 +58,10 @@ export default class Brief extends PureComponent {
   }
 
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     const elements = _.map(data, this._buildContentElement).filter(Boolean)
     return elements.length > 0 ? (
-      <div>
+      <div className={className}>
         <Content>{elements}</Content>
         <SeparationCurve />
       </div>

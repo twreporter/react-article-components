@@ -11,9 +11,7 @@ const _ = {
 }
 
 const FullScreenBlock = styled.div`
-  /* 20px is border-(right|left) width of body */
-  width: calc(100% + 20px);
-  left: -10px;
+  width: 100%;
   height: 100vh;
   position: relative;
 `

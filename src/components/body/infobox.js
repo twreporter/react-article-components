@@ -1,4 +1,5 @@
 import mq from '@twreporter/core/lib/utils/media-query'
+import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
 import cssConsts from '../../constants/css'
@@ -97,15 +98,20 @@ const Container = styled.div`
 
 export default class Infobox extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData.isRequired,
   }
 
+  static defaultProps = {
+    className: '',
+  }
+
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     const contentHtmlString = _.get(data, ['content', 0, 'body'], '')
     const title = _.get(data, ['content', 0, 'title'], '')
     return contentHtmlString ? (
-      <Container>
+      <Container className={className}>
         {title ? <Title>{title}</Title> : null}
         <Content dangerouslySetInnerHTML={{ __html: contentHtmlString }} />
       </Container>

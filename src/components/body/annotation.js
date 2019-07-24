@@ -146,10 +146,16 @@ class Annotation extends PureComponent {
 
 class AnnotationParagraph extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData,
   }
+
+  static defaultProps = {
+    className: '',
+  }
+
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     let html = _.get(data, ['content', 0])
     if (!html) return null
     // annotation data will be in the comment with prefix __ANNOTATION__=
@@ -193,7 +199,7 @@ class AnnotationParagraph extends PureComponent {
       )
     }
 
-    return <Container>{sections}</Container>
+    return <Container className={className}>{sections}</Container>
   }
 }
 

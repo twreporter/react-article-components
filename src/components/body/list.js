@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import predefinedPropTypes from '../../constants/prop-types/body'
@@ -50,12 +51,13 @@ const buildList = ordered => {
       return null
     }
     return (
-      <div>
+      <div className={_.get(props, 'className', '')}>
         <L>{_.map(listItems, buildLi)}</L>
       </div>
     )
   }
   List.propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData,
   }
   return List

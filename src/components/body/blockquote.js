@@ -1,4 +1,5 @@
 import mq from '@twreporter/core/lib/utils/media-query'
+import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -39,12 +40,22 @@ const Quote = styled.blockquote`
 
 export default class Blockquote extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData.isRequired,
   }
 
+  static defaultProps = {
+    className: '',
+  }
+
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     const quote = _.get(data, ['content', 0])
-    return quote ? <Quote dangerouslySetInnerHTML={{ __html: quote }} /> : null
+    return quote ? (
+      <Quote
+        className={className}
+        dangerouslySetInnerHTML={{ __html: quote }}
+      />
+    ) : null
   }
 }
