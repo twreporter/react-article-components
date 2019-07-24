@@ -1,7 +1,7 @@
 import * as Time from './time'
 import AudioProvider from './audio-provider'
 import ControlButton from './control-button'
-import mq from '../../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import predefinedCss from '../../../constants/css'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'

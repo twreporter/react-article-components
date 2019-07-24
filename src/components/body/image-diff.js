@@ -1,10 +1,10 @@
 import { replaceGCSUrlOrigin } from '@twreporter/core/lib/utils/storage-url-processor'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
+import Multimedia from './multimedia'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Slider, { Rail, Progress, Indicator } from './slider'
 import styled, { css } from 'styled-components'
-import Multimedia from './multimedia'
 // lodash
 import get from 'lodash/get'
 
