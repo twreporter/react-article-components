@@ -28,7 +28,6 @@ const mockup = {
     normal: '40px auto',
     headerOne: '60px auto 40px auto',
     headerTwo: '60px auto 40px auto',
-    aligned: '0',
   },
 }
 
@@ -79,18 +78,12 @@ const normalWidthCSS = css`
   `}
 `
 
-const BlockSizing = styled.div`
-  ${props => props.widthCSS};
-`
-
-const BriefBlock = styled(BlockSizing)`
+const StyledBrief = styled(Brief)`
+  ${normalWidthCSS};
   margin: 0 auto;
 `
 
-const AlignRight = styled.div`
-  /* props.widthCSS is for mobile and tablet width */
-  ${props => props.widthCSS};
-
+const alignRightCSS = css`
   ${mq.tabletAndBelow`
     margin: 0 auto;
   `}
@@ -109,76 +102,118 @@ const AlignRight = styled.div`
   `}
 `
 
+const StyledAnnotation = styled(Annotation)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.normal};
+`
+
+const StyledCenteredQuote = styled(CenteredQuote)`
+  ${largeWidthCSS};
+  margin: ${mockup.margin.large};
+`
+
+const StyledBlockquote = styled(Blockquote)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.normal};
+`
+
+const StyledHeaderOne = styled(Headings.H1)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.headerOne};
+`
+
+const StyledHeaderTwo = styled(Headings.H2)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.headerTwo};
+`
+
+const StyledEmbedded = styled(Embedded)`
+  ${largeWidthCSS};
+  margin: ${mockup.margin.large};
+`
+
+const StyledImageBlock = styled.div`
+  ${extendWidthCSS};
+`
+
+const StyledSlideshow = styled(Slideshow)`
+  ${extendWidthCSS};
+  margin: ${mockup.margin.extend};
+`
+
+const StyledYoutube = styled(Youtube)`
+  ${extendWidthCSS};
+  margin: ${mockup.margin.extend};
+`
+
+const StyledInfobox = styled(Infobox)`
+  ${largeWidthCSS};
+  margin: ${mockup.margin.large};
+`
+
+const StyledOrderedList = styled(list.OrderedList)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.normal};
+`
+
+const StyledUnorderedList = styled(list.UnorderedList)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.normal};
+`
+
+const StyledParagraph = styled(Paragraph)`
+  ${normalWidthCSS};
+  margin: ${mockup.margin.normal};
+`
+
+const AlignRight = styled.div`
+  ${extendWidthCSS};
+  ${StyledCenteredQuote}, ${StyledBlockquote}, ${StyledEmbedded}, ${StyledInfobox} {
+    ${alignRightCSS};
+  }
+`
+
 function renderElement(data = {}) {
   const isCenterAligned = data.alignment === 'center'
-  let blockSizingWidthCSS = normalWidthCSS
-  let style = {
-    margin: mockup.margin.normal,
-  }
-  let elementJSX = null
 
   switch (data.type) {
     case 'annotation':
-      elementJSX = <Annotation data={data} />
-      break
+      return <StyledAnnotation key={data.id} data={data} />
     case 'audio':
       return null
     case 'centered-quote':
     case 'quoteby':
-      blockSizingWidthCSS = isCenterAligned ? largeWidthCSS : extendWidthCSS
-      style = {
-        margin: isCenterAligned ? mockup.margin.large : mockup.margin.aligned,
-      }
-      elementJSX = isCenterAligned ? (
-        <CenteredQuote data={data} />
+      return isCenterAligned ? (
+        <StyledCenteredQuote key={data.id} data={data} />
       ) : (
-        <AlignRight widthCSS={largeWidthCSS}>
-          <CenteredQuote data={data} />
+        <AlignRight key={data.id}>
+          <StyledCenteredQuote data={data} />
         </AlignRight>
       )
-      break
     case 'blockquote':
-      blockSizingWidthCSS = isCenterAligned ? normalWidthCSS : extendWidthCSS
-      style = {
-        margin: isCenterAligned ? mockup.margin.normal : mockup.margin.aligned,
-      }
-      elementJSX = isCenterAligned ? (
-        <Blockquote data={data} />
+      return isCenterAligned ? (
+        <StyledBlockquote key={data.id} data={data} />
       ) : (
-        <AlignRight widthCSS={normalWidthCSS}>
-          <Blockquote data={data} />
+        <AlignRight key={data.id}>
+          <StyledBlockquote data={data} />
         </AlignRight>
       )
-      break
     case 'header-one':
-      style = {
-        margin: mockup.margin.headerOne,
-      }
-      elementJSX = <Headings.H1 data={data} />
-      break
+      return <StyledHeaderOne key={data.id} data={data} />
     case 'header-two':
-      style = {
-        margin: mockup.margin.headerTwo,
-      }
-      elementJSX = <Headings.H2 data={data} />
-      break
+      return <StyledHeaderTwo key={data.id} data={data} />
     case 'code':
       return null
     case 'embedded-code':
     case 'embeddedCode':
     case 'embeddedcode':
-      blockSizingWidthCSS = isCenterAligned ? largeWidthCSS : extendWidthCSS
-      style = {
-        margin: isCenterAligned ? mockup.margin.large : mockup.margin.aligned,
-      }
-      elementJSX = isCenterAligned ? (
-        <Embedded data={data} />
+      return isCenterAligned ? (
+        <StyledEmbedded key={data.id} data={data} />
       ) : (
-        <AlignRight widthCSS={largeWidthCSS}>
-          <Embedded data={data} />
+        <AlignRight key={data.id}>
+          <StyledEmbedded data={data} />
         </AlignRight>
       )
-      break
     case 'small-image':
     case 'image':
     case 'image-link':
@@ -186,59 +221,35 @@ function renderElement(data = {}) {
         The `image-link` in keystone editor is using `embedded-code` component actually currently.
         If we add a `image-link` type in the future, we just have to make the data format of `image-link` and `image` the same.
       */
-      blockSizingWidthCSS = extendWidthCSS
-      style = {
-        margin: mockup.margin.extend,
-      }
-      // image alignment is handled by body/multimedia.js
-      // we just pass `small` prop into `Image` component
-      elementJSX = <Image data={data} small={!isCenterAligned} />
-      break
+      return (
+        <StyledImageBlock key={data.id}>
+          <Image data={data} small={!isCenterAligned} />
+        </StyledImageBlock>
+      )
     case 'imageDiff':
     case 'imagediff':
       return null
     case 'infobox':
-      blockSizingWidthCSS = isCenterAligned ? largeWidthCSS : extendWidthCSS
-      style = {
-        margin: isCenterAligned ? mockup.margin.large : mockup.margin.aligned,
-      }
-      elementJSX = isCenterAligned ? (
-        <Infobox data={data} />
+      return isCenterAligned ? (
+        <StyledInfobox key={data.id} data={data} />
       ) : (
-        <AlignRight widthCSS={largeWidthCSS}>
-          <Infobox data={data} />
+        <AlignRight key={data.id}>
+          <StyledInfobox data={data} />
         </AlignRight>
       )
-      break
     case 'ordered-list-item':
-      elementJSX = <list.OrderedList data={data} />
-      break
+      return <StyledOrderedList key={data.id} data={data} />
     case 'unordered-list-item':
-      elementJSX = <list.UnorderedList data={data} />
-      break
+      return <StyledUnorderedList key={data.id} data={data} />
     case 'unstyled':
-      elementJSX = <Paragraph data={data} />
-      break
+      return <StyledParagraph key={data.id} data={data} />
     case 'slideshow':
-      blockSizingWidthCSS = extendWidthCSS
-      // Not support slideshow alignment so far
-      elementJSX = <Slideshow data={data} />
-      break
+      return <StyledSlideshow key={data.id} data={data} />
     case 'youtube':
-      blockSizingWidthCSS = extendWidthCSS
-      // Not support youtube alignment so far
-      elementJSX = <Youtube data={data} />
-      break
+      return <StyledYoutube key={data.id} data={data} />
     default:
-      elementJSX = <Paragraph data={data} />
-      break
+      return <StyledParagraph key={data.id} data={data} />
   }
-
-  return (
-    <BlockSizing key={data.id} widthCSS={blockSizingWidthCSS} style={style}>
-      {elementJSX}
-    </BlockSizing>
-  )
 }
 
 export default class Body extends PureComponent {
@@ -266,9 +277,7 @@ export default class Body extends PureComponent {
       : null
     return (
       <div>
-        <BriefBlock widthCSS={normalWidthCSS}>
-          <Brief data={brief} />
-        </BriefBlock>
+        <StyledBrief data={brief} />
         {contentJsx}
       </div>
     )
