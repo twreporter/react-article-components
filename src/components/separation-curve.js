@@ -1,5 +1,5 @@
 import React from 'react'
-import mq from '../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import styled from 'styled-components'
 
 const Separation = styled.div`

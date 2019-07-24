@@ -1,6 +1,6 @@
 import Img from '../img-with-placeholder'
 import React from 'react'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import predefinedProps from '../../constants/prop-types/related'
 import styled from 'styled-components'
 import typography from '../../constants/typography'
@@ -147,7 +147,7 @@ const DescBlock = styled.div`
       z-index: 1;
       font-size: 14px;
       line-height: 1.43;
-      color: ${props => props.theme.colors.base.lightText};
+      color: #808080;
       background-color: #fff;
       padding: 15px;
       border-radius: 4px;
@@ -164,13 +164,11 @@ const DescBT = styled.div`
   display: inline-block;
   font-size: 14px;
   font-weight: ${typography.font.weight.bold};
-  color: ${props => props.theme.colors.base.lightText};
-  background-color: #f1f1f1;
-  border-radius: 12.5px;
+  color: #808080;
   line-height: 1;
   padding: 5px 10px;
   &::before {
-    content: '簡介';
+    content: '更多內容';
   }
 `
 

@@ -1,6 +1,6 @@
 import BookmarkWidget from '@twreporter/react-components/lib/bookmark-widget'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import predefinedProps from '../../constants/prop-types/aside'
 import PropTypes from 'prop-types'
 import React from 'react'

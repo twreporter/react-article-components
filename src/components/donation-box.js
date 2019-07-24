@@ -1,4 +1,4 @@
-import mq from '../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import React, { PureComponent } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
@@ -34,7 +34,7 @@ const Title = styled.p`
   box-shadow: 5px 15px 0 #fff inset;
   font-size: 22px;
   font-weight: ${typography.font.weight.bold};
-  color: ${props => props.theme.colors.base.text};
+  color: #262626;
   margin-bottom: 15px;
   ${mq.mobileOnly`
     margin-bottom: 18px;
@@ -44,7 +44,7 @@ const Title = styled.p`
 const Text = styled.p`
   font-size: 16px;
   line-height: 1.75;
-  color: ${props => props.theme.colors.base.text};
+  color: #262626;
 `
 
 const Donate = styled.div`

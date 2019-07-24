@@ -50,7 +50,7 @@ export default class CenteredQuote extends PureComponent {
   render() {
     const { data } = this.props
     const content = _.get(data, ['content', 0, 'quote'])
-    const by = _.get(data, ['content', 0, 'by'])
+    const by = _.get(data, ['content', 0, 'quoteBy'])
     return content ? (
       <div>
         <VerticalLine />

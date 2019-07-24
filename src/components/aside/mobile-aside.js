@@ -3,7 +3,7 @@ import BackToTopIcon from '../../assets/aside/article-back-to-top-mobile.svg'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React from 'react'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import smoothScroll from 'smoothscroll'
 import styled from 'styled-components'
 

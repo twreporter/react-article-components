@@ -1,8 +1,8 @@
 import DynamicComponentsContext from '../contexts/dynamic-components-context'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import mq from '../utils/media-query'
-import styled, { ThemeProvider } from 'styled-components'
+import mq from '@twreporter/core/lib/utils/media-query'
+import styled, { ThemeProvider, css } from 'styled-components'
 // components
 import Body from './body'
 import DesktopAside from './aside/desktop-aside'
@@ -42,6 +42,24 @@ const BackgroundBlock = styled(BorderBox)`
 
   padding-left: 10px;
   padding-right: 10px;
+`
+
+const SeprationLine = styled.div`
+  ${mq.tabletAndAbove`
+    ${props =>
+      props.visible
+        ? css`
+            position: relative;
+            /* 20px is border-(right|left) width of body */
+            width: calc(100% + 20px);
+            left: -10px;
+            border-bottom: solid 1px #e2e2e2;
+            padding-bottom: 60px;
+          `
+        : css`
+            padding-bottom: 30px;
+          `}
+  `}
 `
 
 const BodyBackground = styled.div`
@@ -389,6 +407,9 @@ export default class Article extends PureComponent {
         <DynamicComponentsContext.Provider value={{ Link: LinkComponent }}>
           <BackgroundBlock>
             <LeadingComponent {...leadingProps} />
+            <SeprationLine
+              visible={uiManager.toRenderSeparationLineBetweenLeadingAndBody()}
+            />
             <BodyBackground>
               <BodyBlock>
                 <MobileAside

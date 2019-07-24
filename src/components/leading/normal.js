@@ -1,7 +1,7 @@
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
 import Img from '../img-with-placeholder'
 import React from 'react'
-import mq from '../../utils/media-query'
+import mq from '@twreporter/core/lib/utils/media-query'
 import get from 'lodash/get'
 import predefinedPropTypes from '../../constants/prop-types/leading'
 import styled, { css } from 'styled-components'
@@ -11,7 +11,7 @@ const _ = {
 }
 
 const BackgroundBlock = styled.div`
-  background-color: #f1f1f1;
+  background-color: ${props => props.theme.colors.base.background};
   padding-top: 60px;
 `
 
@@ -20,15 +20,6 @@ const ContentBlock = styled.div`
 
   ${mq.mobileOnly`
     line-height: 1.43;
-  `}
-
-  ${mq.tabletAndAbove`
-    position: relative;
-    /* 20px is border-(right|left) width of body */
-    width: calc(100% + 20px);
-    left: -10px;
-    padding-bottom: 60px;
-    border-bottom: solid 1px #e2e2e2;
   `}
 `
 
@@ -49,20 +40,20 @@ const TextBlock = styled.div`
 `
 
 const Title = styled.h1`
+  /* clear h1 default style */
+  margin-top: 0px;
   color: ${props => props.theme.colors.base.text};
   letter-spacing: 0.4px;
   font-weight: bold;
 
   ${mq.mobileOnly`
     font-size: 34px;
-    margin-top: 30px;
     margin-bottom: 40px;
   `}
 
   ${mq.tabletAndAbove`
     font-size: 42px;
     line-height: 1.38;
-    margin-top: 30px;
     margin-bottom: 60px;
   `}
 `
@@ -70,11 +61,8 @@ const Title = styled.h1`
 const Subtitle = styled.h2`
   color: ${props => props.theme.colors.base.text};
   font-weight: bold;
-
-  ${mq.tabletAndBelow`
-    margin-top: 20px;
-    margin-bottom: 30px;
-  `}
+  margin-top: 20px;
+  margin-bottom: 30px;
 
   ${mq.mobileOnly`
     font-size: 16px;
@@ -84,7 +72,6 @@ const Subtitle = styled.h2`
     line-height: 2.1;
     font-size: 20px;
   `}
-
 `
 
 const Topic = styled.div`
@@ -195,7 +182,7 @@ export default class NormalLeading extends React.PureComponent {
                 }}
               </DynamicComponentsContext.Consumer>
             ) : null}
-            <Subtitle>{subtitle}</Subtitle>
+            {subtitle ? <Subtitle>{subtitle}</Subtitle> : null}
             <Title>{title}</Title>
           </TextBlock>
           <Figure css={this.getFigureCSS()}>
