@@ -5,10 +5,8 @@ import typography from '../../constants/typography'
 const mockup = {
   mobile: {
     width: {
-      // 20px is border-right and border-left width of body
-      normal: 'calc(100% + 20px)',
-      // 355 = 375 - 20 (border width of body)
-      small: 'calc(250/355*100%)', // %
+      normal: '100%',
+      small: 'calc(250/375*100%)', // %
     },
     caption: {
       width: 250, // px
@@ -16,10 +14,8 @@ const mockup = {
   },
   tablet: {
     width: {
-      // 20px is border-right and border-left width of body
-      normal: 'calc(100% + 20px)',
-      // 748 = 768 - 20 (border width of body)
-      small: 'calc(512/748*100%)', // %
+      normal: '100%',
+      small: 'calc(512/768*100%)', // %
     },
     caption: {
       width: 512, // px
@@ -56,12 +52,8 @@ export default {
     }
 
     ${mq.tabletAndBelow`
-      /* 10px is the left border width of body */
-      margin-left: ${props => (props.small ? 'auto' : '-10px')};
-
-      /* 10px is the right border width of body */
-      margin-right: ${props => (props.small ? '-10px' : 'auto')};
-
+      margin-left: ${props => (props.small ? 'auto' : '0px')};
+      margin-right: ${props => (props.small ? '0px' : 'auto')};
       float: none;
     `}
 

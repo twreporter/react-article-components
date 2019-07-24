@@ -137,10 +137,7 @@ export default class NormalLeading extends React.PureComponent {
   getFigureCSS() {
     return css`
       ${mq.mobileOnly`
-        position: relative;
-        left: -10px;
-        /* 20px is border-(right|left) width of body */
-        width: calc(100% + 20px);
+        width: 100%;
       `}
       ${mq.tabletAndAbove`
         margin: 0 auto;

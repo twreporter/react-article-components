@@ -96,10 +96,7 @@ const SlideshowFlexBox = styled.div`
   flex-wrap: wrap;
 
   ${mq.tabletAndBelow`
-    /* 10px is the border-left of body */
-    margin-left: -10px;
-    /* 20px is the border-(right|left) of body */
-    width: calc(100% + 20px);
+    width: 100%;
   `}
 
   ${mq.desktopOnly`

@@ -48,8 +48,7 @@ const extendWidthCSS = css`
 
 const largeWidthCSS = css`
   ${mq.mobileOnly`
-    // 355 = 375 - 20(body border width)
-    width: calc(300/355*100%);
+    width: calc(300/375*100%);
   `}
   ${mq.tabletOnly`
     width: 513px;
@@ -64,8 +63,7 @@ const largeWidthCSS = css`
 
 const normalWidthCSS = css`
   ${mq.mobileOnly`
-    // 355 = 375 - 20(body border width)
-    width: calc(300/355*100%);
+    width: calc(300/375*100%);
   `}
   ${mq.tabletOnly`
     width: 453px;
