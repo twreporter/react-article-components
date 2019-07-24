@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
@@ -44,15 +45,16 @@ const VerticalLine = styled.div`
 
 export default class CenteredQuote extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData.isRequired,
   }
 
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     const content = _.get(data, ['content', 0, 'quote'])
     const by = _.get(data, ['content', 0, 'quoteBy'])
     return content ? (
-      <div>
+      <div className={className}>
         <VerticalLine />
         <QuoteContent dangerouslySetInnerHTML={{ __html: content }} />
         {by ? <QuoteBy dangerouslySetInnerHTML={{ __html: by }} /> : null}

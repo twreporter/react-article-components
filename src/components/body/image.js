@@ -18,21 +18,23 @@ const Caption = Multimedia.Caption
 
 export default class Image extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData.isRequired,
     small: PropTypes.bool,
   }
 
   static defaultProps = {
+    className: '',
     small: false,
   }
 
   render() {
-    const { data, small } = this.props
+    const { className, data, small } = this.props
     const image = _.get(data, ['content', 0])
     const caption = _.get(image, 'description')
     const alt = _.get(image, 'keywords', caption)
     return (
-      <Container small={small}>
+      <Container className={className} small={small}>
         <figure itemScope itemType="http://schema.org/ImageObject">
           <Img
             alt={alt}

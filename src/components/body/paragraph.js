@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import React from 'react'
 import styled from 'styled-components'
@@ -14,13 +15,21 @@ const P = styled.p`
   ${styles.linkChildren}
 `
 
-export default function Paragraph({ data }) {
+export default function Paragraph({ className, data }) {
   const innerHtmlString = _.get(data, ['content', 0])
   return innerHtmlString ? (
-    <P dangerouslySetInnerHTML={{ __html: innerHtmlString }} />
+    <P
+      className={className}
+      dangerouslySetInnerHTML={{ __html: innerHtmlString }}
+    />
   ) : null
 }
 
 Paragraph.propTypes = {
+  className: PropTypes.string,
   data: predefinedPropTypes.elementData,
+}
+
+Paragraph.defaultProps = {
+  className: '',
 }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import predefinedPropTypes from '../../constants/prop-types/body'
 import Multimedia from './multimedia'
@@ -27,15 +28,20 @@ const Desc = Multimedia.Caption
 
 export default class Youtube extends React.PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: predefinedPropTypes.elementData.isRequired,
   }
 
+  static defaultProps = {
+    className: '',
+  }
+
   render() {
-    const { data } = this.props
+    const { className, data } = this.props
     const id = _.get(data, 'content.0.youtubeId')
     const desc = _.get(data, 'content.0.description')
     return (
-      <Block>
+      <Block className={className}>
         <IframeBlock>
           <iframe
             frameBorder="0"

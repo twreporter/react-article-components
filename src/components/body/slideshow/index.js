@@ -507,12 +507,14 @@ const contentProp = PropTypes.arrayOf(
 
 export default class Slideshow extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     data: PropTypes.shape({
       content: contentProp.isRequired,
     }),
   }
 
   static defaultProps = {
+    className: '',
     data: {
       content: [],
     },
@@ -600,6 +602,7 @@ export default class Slideshow extends PureComponent {
   })
 
   render() {
+    const { className } = this.props
     const { curSlideIndex, isSliding, translateXUint } = this.state
     const images = _.get(this.props, 'data.content', [])
     const total = images.length
@@ -631,7 +634,7 @@ export default class Slideshow extends PureComponent {
     const desc = _.get(images, [curSlideIndex, 'description'])
 
     return (
-      <SlideshowFlexBox>
+      <SlideshowFlexBox className={className}>
         <SlidesSection>
           <SlidesFlexBox
             translateXUint={translateXUint}
