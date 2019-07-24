@@ -14,7 +14,7 @@ const _ = {
 }
 
 const Container = styled.div`
-  overflow: visible;
+  overflow: scroll;
 `
 
 const Embedded = styled.div`
