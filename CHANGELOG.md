@@ -4,6 +4,10 @@
 
 ## RELEASE
 
+### 1.0.7
+
+- Add `Slider`, `ImageDiff`, and `Audio` components for `Body`
+
 ### 1.0.6
 
 #### Default Theme(article:v2:default) Support
