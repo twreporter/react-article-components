@@ -107,6 +107,11 @@ const StyledAnnotation = styled(Annotation)`
   margin: ${mockup.margin.normal};
 `
 
+const StyledAudio = styled(Audio)`
+  ${largeWidthCSS};
+  margin: ${mockup.margin.large};
+`
+
 const StyledCenteredQuote = styled(CenteredQuote)`
   ${largeWidthCSS};
   margin: ${mockup.margin.large};
@@ -175,14 +180,11 @@ const AlignRight = styled.div`
 
 function renderElement(data = {}) {
   const isCenterAligned = data.alignment === 'center'
-
   switch (data.type) {
     case 'annotation':
       return <StyledAnnotation key={data.id} data={data} />
     case 'audio':
-      blockSizingWidthCSS = largeWidthCSS
-      elementJSX = <Audio content={data.content[0]} />
-      break
+      return <StyledAudio key={data.id} content={data.content[0]} />
     case 'centered-quote':
     case 'quoteby':
       return isCenterAligned ? (
@@ -230,12 +232,11 @@ function renderElement(data = {}) {
       )
     case 'imageDiff':
     case 'imagediff':
-      blockSizingWidthCSS = extendWidthCSS
-      style = {
-        margin: mockup.margin.extend,
-      }
-      elementJSX = <ImageDiff data={data} />
-      break
+      return (
+        <StyledImageBlock key={data.id}>
+          <ImageDiff key={data.id} data={data} />
+        </StyledImageBlock>
+      )
     case 'infobox':
       return isCenterAligned ? (
         <StyledInfobox key={data.id} data={data} />

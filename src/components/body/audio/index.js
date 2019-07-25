@@ -103,6 +103,7 @@ const Desc = styled.div`
 
 export default class AudioPlayer extends PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     content: PropTypes.shape({
       coverPhoto: PropTypes.object,
       description: PropTypes.string,
@@ -114,9 +115,9 @@ export default class AudioPlayer extends PureComponent {
   }
 
   render() {
-    const { content } = this.props
+    const { content, className } = this.props
     return (
-      <Container>
+      <Container className={className}>
         <AudioProvider src={content.url}>
           <SeekBar />
           <TimeRow>
