@@ -118,6 +118,7 @@ export default class Img extends React.PureComponent {
   static defaultProps = {
     alt: '',
     className: '',
+    defaultImage: {},
     imgProps: {},
     imgPlaceholderSrc: '',
     imageSet: [],
