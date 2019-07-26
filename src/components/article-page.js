@@ -46,12 +46,10 @@ const BackgroundBlock = styled(BorderBox)`
 `
 
 const LeadingBlock = styled.div`
-  ${mq.tabletAndBelow`
-    position: relative;
-    /* 20px is border-(right|left) width of articlePage */
-    width: calc(100% + 20px);
-    left: -10px;
-  `}
+  position: relative;
+  /* 20px is border-(right|left) width of articlePage */
+  width: calc(100% + 20px);
+  left: -10px;
 `
 
 const SeprationLine = styled.div`
@@ -72,6 +70,8 @@ const SeprationLine = styled.div`
 const BodyBackground = styled.div`
   width: 100%;
   background-color: ${props => props.theme.colors.base.background};
+  padding-bottom: 80px;
+
   ${mq.desktopOnly`
     padding-top: 60px;
   `}
