@@ -7,6 +7,12 @@ const _ = {
   get,
 }
 
+const _heroImageSize = {
+  normal: 'normal',
+  fullscreen: 'fullscreen',
+  extend: 'extend',
+}
+
 /**
  *  @module UIManager
  *  @exports
@@ -33,7 +39,7 @@ export default class UIManager {
    *  @returns {string} - Size of leading image
    */
   getLeadingImageSize() {
-    return _.get(this.post, 'hero_image_size', 'normal')
+    return _.get(this.post, 'hero_image_size', _heroImageSize.normal)
   }
 
   /**
@@ -79,7 +85,11 @@ export default class UIManager {
   }
 
   toRenderSeparationLineBetweenLeadingAndBody() {
-    if (this.getTheme() === themeConst.article.v2.default) {
+    if (
+      this.getTheme() === themeConst.article.v2.default &&
+      this.getLeadingImageSize() !== _heroImageSize.fullscreen &&
+      this.getLeadingImageSize() !== _heroImageSize.extend
+    ) {
       return true
     }
     return false
