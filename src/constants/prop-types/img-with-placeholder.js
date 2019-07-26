@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
 const imagePropType = PropTypes.shape({
-  url: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  url: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 })
 
 export default {

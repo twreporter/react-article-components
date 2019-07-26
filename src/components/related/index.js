@@ -1,6 +1,5 @@
 import Card from './card'
 import DynamicComponentsContext from '../../contexts/dynamic-components-context'
-import PropTypes from 'prop-types'
 import React from 'react'
 import get from 'lodash/get'
 import map from 'lodash/map'
@@ -118,7 +117,7 @@ const Item = styled.div`
 
 export default class Related extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.arrayOf(predefinedProps.card),
+    data: predefinedProps.data,
   }
 
   static defaultProps = {

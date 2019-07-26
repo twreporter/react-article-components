@@ -3,11 +3,11 @@ import predefinedPropTypes from './img-with-placeholder'
 
 const leading = {
   poster: PropTypes.shape({
-    tiny: predefinedPropTypes.imagePropType.isRequired,
-    mobile: predefinedPropTypes.imagePropType.isRequired,
-    tablet: predefinedPropTypes.imagePropType.isRequired,
-    desktop: predefinedPropTypes.imagePropType.isRequired,
-  }).isRequired,
+    tiny: predefinedPropTypes.imagePropType,
+    mobile: predefinedPropTypes.imagePropType,
+    tablet: predefinedPropTypes.imagePropType,
+    desktop: predefinedPropTypes.imagePropType,
+  }),
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   topicName: PropTypes.string,
@@ -26,8 +26,8 @@ export default {
   fullscreen: {
     ...leading,
     portraitPoster: PropTypes.shape({
-      tiny: predefinedPropTypes.imagePropType.isRequired,
-      mobile: predefinedPropTypes.imagePropType.isRequired,
+      tiny: predefinedPropTypes.imagePropType,
+      mobile: predefinedPropTypes.imagePropType,
     }),
   },
 }
