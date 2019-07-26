@@ -1,10 +1,12 @@
 import Annotation from './annotation'
+import Audio from './audio'
 import Blockquote from './blockquote'
 import Brief from './brief'
 import CenteredQuote from './centered-quote'
 import Embedded from './embedded-code'
 import Headings from './headings'
 import Image from './image'
+import ImageDiff from './image-diff'
 import Infobox from './infobox'
 import list from './list'
 import map from 'lodash/map'
@@ -105,6 +107,11 @@ const StyledAnnotation = styled(Annotation)`
   margin: ${mockup.margin.normal};
 `
 
+const StyledAudio = styled(Audio)`
+  ${largeWidthCSS};
+  margin: ${mockup.margin.large};
+`
+
 const StyledCenteredQuote = styled(CenteredQuote)`
   ${largeWidthCSS};
   margin: ${mockup.margin.large};
@@ -173,12 +180,11 @@ const AlignRight = styled.div`
 
 function renderElement(data = {}) {
   const isCenterAligned = data.alignment === 'center'
-
   switch (data.type) {
     case 'annotation':
       return <StyledAnnotation key={data.id} data={data} />
     case 'audio':
-      return null
+      return <StyledAudio key={data.id} content={data.content[0]} />
     case 'centered-quote':
     case 'quoteby':
       return isCenterAligned ? (
@@ -226,7 +232,11 @@ function renderElement(data = {}) {
       )
     case 'imageDiff':
     case 'imagediff':
-      return null
+      return (
+        <StyledImageBlock key={data.id}>
+          <ImageDiff key={data.id} data={data} />
+        </StyledImageBlock>
+      )
     case 'infobox':
       return isCenterAligned ? (
         <StyledInfobox key={data.id} data={data} />

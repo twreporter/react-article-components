@@ -461,22 +461,6 @@
       },
       {
         "alignment": "center",
-        "content": [
-          {
-            "coverPhoto": {},
-            "description": "<p>（此錄音文本編輯自「威尼斯雙年展台灣館——做時間」策展人Adrian Heathfield撰寫之作品介紹，感謝台北市立美術館提供）</p>",
-            "filetype": "audio/mp3",
-            "id": "592a3288507c6a0d00ab052a",
-            "title": "《一年行為表演1980-1981》「打卡」。(錄音／展場導覽員 宋郁玫)",
-            "url": "https://storage.googleapis.com/twreporter-multimedia/audios/20170528101432-72eb7696288463924207aacd324d3fea.mp3"
-          }
-        ],
-        "id": "8n5se",
-        "styles": {},
-        "type": "audio"
-      },
-      {
-        "alignment": "center",
         "content": [""],
         "id": "btv07",
         "styles": {},
@@ -499,6 +483,22 @@
         "id": "8cp55",
         "styles": {},
         "type": "unstyled"
+      },
+      {
+        "alignment": "center",
+        "content": [
+          {
+            "coverPhoto": {},
+            "description": "<p>（此錄音文本編輯自「威尼斯雙年展台灣館——做時間」策展人Adrian Heathfield撰寫之作品介紹，感謝台北市立美術館提供）</p>",
+            "filetype": "audio/mp3",
+            "id": "592a3288507c6a0d00ab052a",
+            "title": "《一年行為表演1980-1981》「打卡」。(錄音／展場導覽員 宋郁玫)",
+            "url": "https://storage.googleapis.com/twreporter-multimedia/audios/20170528101432-72eb7696288463924207aacd324d3fea.mp3"
+          }
+        ],
+        "id": "8n5se",
+        "styles": {},
+        "type": "audio"
       },
       {
         "alignment": "center",
