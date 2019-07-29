@@ -8,17 +8,21 @@
 
 #### Styles Revised
 
-- update `article-page:LeadingBlock` styles
-- update `article-page:BodyBackground` styles
+- Update `article-page:LeadingBlock` styles
+- Update `article-page:BodyBackground` styles
 
 #### Self-defined PropTypes Modified
 
-- remove `isRequired` if prop could not be provided
-- add default props since `isRequired` is removed
+- Remove `isRequired` if prop could not be provided
+- Add default props since `isRequired` is removed
 
 #### UI Manager Updated
 
-- take `hero_image_size` into account when rendering separation line after leading
+- Take `hero_image_size` into account when rendering separation line after leading
+
+#### Miscellaneous
+
+- Use `hero_image` as fallback for related:thumbnail
 
 ### 1.0.7
 

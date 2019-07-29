@@ -351,7 +351,13 @@ export default class Article extends PureComponent {
       // sort categories in ascending order
       _.sortBy(categories, ['sort_order'])
 
+      // use og_image first
       const imageSet = _.get(related, 'og_image.resized_targets', {})
+      // use `w400` image set first
+      // if `w400` is not provided, then use `mobile` image set
+      const thumbnail = _.get(imageSet, 'w400.url')
+        ? imageSet.w400
+        : imageSet.mobile
 
       return {
         category: _.get(categories, '0.name', ''),
@@ -360,9 +366,11 @@ export default class Article extends PureComponent {
         href: prefixPath + related.slug,
         id: related.id,
         isTargetBlank: style === _articleStyles.interactive,
-        thumbnail: _.get(imageSet, 'w400.url')
-          ? imageSet.w400
-          : imageSet.mobile,
+        // if `og_image` is not provided,
+        // use `hero_image` as fallback
+        thumbnail: _.get(thumbnail, 'url')
+          ? thumbnail
+          : _.get(related, 'hero_image.resized_targets.mobile'),
         title: related.title,
       }
     })
