@@ -4,6 +4,26 @@
 
 ## RELEASE
 
+### 1.0.8
+
+#### Styles Revised
+
+- Update `article-page:LeadingBlock` styles
+- Update `article-page:BodyBackground` styles
+
+#### Self-defined PropTypes Modified
+
+- Remove `isRequired` if prop could not be provided
+- Add default props since `isRequired` is removed
+
+#### UI Manager Updated
+
+- Take `hero_image_size` into account when rendering separation line after leading
+
+#### Miscellaneous
+
+- Use `hero_image` as fallback for related:thumbnail
+
 ### 1.0.7
 
 - Add `Slider`, `ImageDiff`, and `Audio` components for `Body`

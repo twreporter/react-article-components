@@ -171,6 +171,7 @@ export default class LeadingBlock extends PureComponent {
   static propTypes = predefinedPropTypes.pink
 
   static defaultProps = {
+    poster: {},
     subtitle: '',
     topicHref: '',
     topicName: '',
@@ -180,7 +181,7 @@ export default class LeadingBlock extends PureComponent {
   render() {
     const {
       paddingTop,
-      poster = {},
+      poster,
       subtitle,
       title,
       topicHref,

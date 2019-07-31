@@ -119,6 +119,7 @@ export default class NormalLeading extends React.PureComponent {
 
   static defaultProps = {
     figureCaption: '',
+    poster: {},
     subtitle: '',
     topicHref: '',
     topicName: '',

@@ -84,18 +84,14 @@ export default class LayoutManager {
       topicName: _.get(relatedTopic, 'topic_name', ''),
       figureCaption: _.get(post, 'leading_image_description', ''),
       poster: {
-        tiny: _.get(post, 'hero_image.resized_targets.tiny', {}),
-        mobile: _.get(post, 'hero_image.resized_targets.mobile', {}),
-        tablet: _.get(post, 'hero_image.resized_targets.tablet', {}),
-        desktop: _.get(post, 'hero_image.resized_targets.desktop', {}),
+        tiny: _.get(post, 'hero_image.resized_targets.tiny'),
+        mobile: _.get(post, 'hero_image.resized_targets.mobile'),
+        tablet: _.get(post, 'hero_image.resized_targets.tablet'),
+        desktop: _.get(post, 'hero_image.resized_targets.desktop'),
       },
       portraitPoster: {
-        tiny: _.get(post, 'leading_image_portrait.resized_targets.tiny', {}),
-        mobile: _.get(
-          post,
-          'leading_image_portrait.resized_targets.mobile',
-          {}
-        ),
+        tiny: _.get(post, 'leading_image_portrait.resized_targets.tiny'),
+        mobile: _.get(post, 'leading_image_portrait.resized_targets.mobile'),
       },
     }
   }

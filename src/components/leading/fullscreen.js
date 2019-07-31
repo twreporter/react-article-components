@@ -130,6 +130,7 @@ export default class FullScreenLeading extends React.PureComponent {
   static propTypes = predefinedPropTypes.fullscreen
 
   static defaultProps = {
+    poster: {},
     portraitPoster: {},
     subtitle: '',
     topicHref: '',
